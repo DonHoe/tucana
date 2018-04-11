@@ -1,12 +1,14 @@
 package com.hepic.tucana.web;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
+@MapperScan("com.hepic.dao")
 public class TucanaWebApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(TucanaWebApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(TucanaWebApplication.class, args);
+    }
 }

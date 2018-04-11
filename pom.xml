@@ -40,6 +40,7 @@
 	</build>
 	<modules>
 		<module>tucana-web</module>
+		<module>tucana-dal</module>
 	</modules>
 
 </project>
