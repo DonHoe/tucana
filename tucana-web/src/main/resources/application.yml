@@ -8,5 +8,4 @@ spring:
 
 
 mybatis:
-  typeAliasesPackage: com.hepic.entity
-  mapperLocations: classpath:mappings/mysql/*.xml
+  mapperLocations: classpath:mappings/*/*.xml

@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.hepic</groupId>
-    <artifactId>tucana-web</artifactId>
+    <artifactId>tucana-util</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>tucana-web</name>
+    <name>tucana-util</name>
     <description></description>
 
     <parent>
@@ -26,22 +26,7 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.hepic</groupId>
-            <artifactId>tucana-service</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.hepic</groupId>
-            <artifactId>tucana-dal</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.hepic</groupId>
-            <artifactId>tucana-util</artifactId>
-            <version>1.0.0</version>
+            <artifactId>spring-boot-starter</artifactId>
         </dependency>
     </dependencies>
 
