@@ -1,4 +1,4 @@
-package com.hepic.entity.mysql;
+package com.hepic.tucana.dal.entity.mysql;
 
 /**
  * @author hd23973

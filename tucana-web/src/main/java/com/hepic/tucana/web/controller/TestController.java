@@ -1,6 +1,6 @@
 package com.hepic.tucana.web.controller;
 
-import com.hepic.dao.mysql.UserDao;
+import com.hepic.tucana.dal.dao.mysql.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

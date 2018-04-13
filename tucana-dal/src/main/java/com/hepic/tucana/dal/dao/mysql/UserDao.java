@@ -1,6 +1,6 @@
-package com.hepic.dao.mysql;
+package com.hepic.tucana.dal.dao.mysql;
 
-import com.hepic.entity.mysql.User;
+import com.hepic.tucana.dal.entity.mysql.User;
 
 /**
  * @author hd23973
