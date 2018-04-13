@@ -60,6 +60,7 @@
     <modules>
         <module>tucana-web</module>
         <module>tucana-dal</module>
+        <module>tucana-service</module>
     </modules>
 
 </project>
