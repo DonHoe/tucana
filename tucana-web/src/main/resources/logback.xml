@@ -25,9 +25,16 @@
         <queueSize>256</queueSize>
         <appender-ref ref="FILE"/>
     </appender>
-
-    <root>
-        <level value="INFO"/>
-        <appender-ref ref="ASYNC"/>
+    <appender name="DB" class="ch.qos.logback.classic.db.DBAppender">
+        <connectionSource
+                class="ch.qos.logback.core.db.DriverManagerConnectionSource">
+            <driverClass>com.mysql.jdbc.Driver</driverClass>
+            <url>jdbc:mysql://127.0.0.1:3306/data?serverTimezone=UTC</url>
+            <user>root</user>
+            <password>1q2w3e</password>
+        </connectionSource>
+    </appender>
+    <root level="INFO">
+        <appender-ref ref="DB" />
     </root>
 </configuration>

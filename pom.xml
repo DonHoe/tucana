@@ -6,7 +6,7 @@
     <groupId>com.hepic</groupId>
     <artifactId>tucana</artifactId>
     <version>1.0.0</version>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
 
     <name>tucana</name>
     <description></description>
