@@ -16,15 +16,15 @@ public class LoggerUtil {
 
 
     public static void debug(String msg) {
-        logger.debug("<{}><{}><{}>{}", logHead().get("packageName"), logHead().get("className"), logHead().get("methodName"), msg);
+        logger.debug(msg, logHead().get("packageName"), logHead().get("className"), logHead().get("methodName"), msg);
     }
 
     public static void info(String msg) {
-        logger.info("<{}><{}><{}>{}", logHead().get("packageName"), logHead().get("className"), logHead().get("methodName"), msg);
+        logger.info(msg, logHead().get("packageName"), logHead().get("className"), logHead().get("methodName"), msg);
     }
 
     public static void warn(String msg) {
-        logger.warn("<{}><{}><{}>{}", logHead().get("packageName"), logHead().get("className"), logHead().get("methodName"), msg);
+        logger.warn(msg, logHead().get("packageName"), logHead().get("className"), logHead().get("methodName"), msg);
     }
 
 
