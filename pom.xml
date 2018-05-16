@@ -58,6 +58,7 @@
         <module>tucana-dal</module>
         <module>tucana-service</module>
         <module>tucana-util</module>
+        <module>tucana-crawler</module>
     </modules>
 
 </project>
