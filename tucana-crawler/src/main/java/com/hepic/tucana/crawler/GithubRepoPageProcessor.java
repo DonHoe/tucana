@@ -43,6 +43,7 @@ public class GithubRepoPageProcessor implements PageProcessor {
                 .addUrl("https://github.com/code4craft")
                 //开启5个线程抓取
                 .thread(5)
+                .setScheduler(new MySqlScheduler())
                 //启动爬虫
                 .run();
     }
