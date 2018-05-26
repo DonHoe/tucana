@@ -2,11 +2,18 @@ server:
   port: 8080
 spring:
     datasource:
-      driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://127.0.0.1:3306/data?serverTimezone=UTC
-      username: root
-      password: 1q2w3e
-      type: com.alibaba.druid.pool.DruidDataSource
+      mysql:
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/data?serverTimezone=UTC
+        username: root
+        password: 1q2w3e
+        type: com.alibaba.druid.pool.DruidDataSource
+      sqlite:
+        driver-class-name: org.sqlite.JDBC
+        url: jdbc:sqlite:E:/Source/Node/BeaconT/web/db/vendor.db
+        username:
+        password:
+        type: com.alibaba.druid.pool.DruidDataSource
 
 
 mybatis:
