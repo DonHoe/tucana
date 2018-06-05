@@ -27,7 +27,7 @@ public class MysqlDbConfig {
 
     @Bean(name = "mysqlDataSource")
     @Primary //必须加此注解，不然报错，下一个类则不需要添加
-    @ConfigurationProperties(prefix = "datasource.mysql") // prefix值必须是application.properteis中对应属性的前缀
+    @ConfigurationProperties(prefix = "spring.datasource.mysql") // prefix值必须是application.properteis中对应属性的前缀
     public DataSource mysqlDataSource() {
         return DataSourceBuilder.create().build();
     }

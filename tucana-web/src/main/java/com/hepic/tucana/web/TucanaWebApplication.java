@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@MapperScan("com.hepic.tucana.dal.dao")
 @ComponentScan(basePackages = {"com.hepic.tucana"})
 public class TucanaWebApplication {
 

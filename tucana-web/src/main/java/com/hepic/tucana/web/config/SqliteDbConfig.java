@@ -25,7 +25,7 @@ import javax.sql.DataSource;
 public class SqliteDbConfig {
 
     @Bean(name = "sqliteDataSource")
-    @ConfigurationProperties(prefix = "datasource.sqlite")
+    @ConfigurationProperties(prefix = "spring.datasource.sqlite")
     public DataSource sqliteDataSource() {
         return DataSourceBuilder.create().build();
     }
@@ -36,7 +36,7 @@ public class SqliteDbConfig {
         bean.setDataSource(dataSource);
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         try {
-            bean.setMapperLocations(resolver.getResources("classpath*:mappings/sqlite/*xml"));
+            bean.setMapperLocations(resolver.getResources("classpath*:mappings/sqlite/*.xml"));
             return bean.getObject();
         } catch (Exception ex) {
             ex.printStackTrace();

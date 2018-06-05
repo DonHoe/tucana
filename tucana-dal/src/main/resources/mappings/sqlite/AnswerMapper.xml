@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hepic.tucana.dal.dao.sqlite.AnswerDao">
+    <resultMap id="BaseResultMap" type="com.hepic.tucana.dal.entity.sqlite.Answer">
+        <id column="Id" property="id" jdbcType="BIGINT"/>
+        <result column="SubjectId" property="subjectId" jdbcType="VARCHAR"/>
+        <result column="Name" property="name" jdbcType="VARCHAR"/>
+        <result column="Img" property="img" jdbcType="VARCHAR"/>
+        <result column="Link" property="link" jdbcType="VARCHAR"/>
+        <result column="Rate" property="rate" jdbcType="DECIMAL"/>
+        <result column="CommentNum" property="commentNum" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        Id, SubjectId, Name,Img,Link,Rate,CommentNum
+    </sql>
+    <select id="getListByName" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from DouBan
+        where Name = #{name}
+    </select>
+</mapper>

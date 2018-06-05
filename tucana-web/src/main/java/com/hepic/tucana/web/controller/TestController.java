@@ -1,5 +1,6 @@
 package com.hepic.tucana.web.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.hepic.tucana.service.TestService;
 import com.hepic.tucana.util.LoggerUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,5 +18,11 @@ public class TestController {
         LoggerUtil.warn("debug");
         LoggerUtil.info("info");
         return testService.findUserById(1).getUserName();
+    }
+
+    @RequestMapping("/getAnswer")
+    public String getAnswer(String name) {
+        String result = JSON.toJSONString(testService.findAnswerByName(name));
+        return result;
     }
 }
