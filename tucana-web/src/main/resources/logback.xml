@@ -34,9 +34,15 @@
             <password>1q2w3e</password>
         </connectionSource>
     </appender>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
     <logger name="com.hepic.tucana" level="INFO" additivity="false">
         <appender-ref ref="DB"/>
     </logger>
-    <root level="ERROR">
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
     </root>
 </configuration>
