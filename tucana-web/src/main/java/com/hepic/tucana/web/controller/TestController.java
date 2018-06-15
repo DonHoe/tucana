@@ -16,8 +16,8 @@ public class TestController {
 
     @RequestMapping("/get")
     public String get() {
-        log.warn("debug");
-        log.info("info");
+        log.warn("debug", "filter1", "filter2");
+        log.info("info", "filter1");
         return testService.findUserById(1).getUserName();
     }
 
@@ -26,5 +26,15 @@ public class TestController {
         log.info("info", name);
         String result = JSON.toJSONString(testService.findAnswerByName(name));
         return result;
+    }
+
+    @RequestMapping("/getError")
+    public String getError() throws Exception {
+        try{
+            Integer x= 1/0;
+        }catch (Exception e){
+            throw new Exception("asdasdad");
+        }
+        return null;
     }
 }
