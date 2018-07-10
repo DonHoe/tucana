@@ -75,6 +75,7 @@
         <module>tucana-dal</module>
         <module>tucana-service</module>
         <module>tucana-util</module>
+        <module>tucana-model</module>
     </modules>
 
 </project>
