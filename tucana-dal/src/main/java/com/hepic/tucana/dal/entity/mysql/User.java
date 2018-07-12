@@ -1,7 +1,7 @@
 package com.hepic.tucana.dal.entity.mysql;
 
 /**
- * @author hd23973
+ * @author tucana
  * @Title:
  * @Description:
  * @date 2018/4/11.

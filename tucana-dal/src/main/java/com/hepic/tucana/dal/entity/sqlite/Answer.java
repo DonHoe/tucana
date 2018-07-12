@@ -3,7 +3,7 @@ package com.hepic.tucana.dal.entity.sqlite;
 import java.math.BigDecimal;
 
 /**
- * @author hd23973
+ * @author tucana
  * @Title:
  * @Description:
  * @date 2018/6/5.

@@ -6,7 +6,7 @@ import com.hepic.tucana.dal.entity.sqlite.Answer;
 import java.util.List;
 
 /**
- * @author hd23973
+ * @author tucana
  * @Title:
  * @Description:
  * @date 2018/4/13.

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * 全局异常处理
  *
- * @author hd23973
+ * @author tucana
  * @Title:
  * @Description:
  * @date 2018/6/14.

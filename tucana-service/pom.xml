@@ -29,5 +29,10 @@
             <artifactId>tucana-dal</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.hepic</groupId>
+            <artifactId>tucana-util</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 </project>

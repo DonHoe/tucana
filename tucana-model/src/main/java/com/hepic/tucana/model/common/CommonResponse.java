@@ -3,7 +3,7 @@ package com.hepic.tucana.model.common;
 import com.hepic.tucana.model.enums.ResponseEnum;
 
 /**
- * @author hd23973
+ * @author tucana
  * @Title:
  * @Description:
  * @date 2018/7/10.

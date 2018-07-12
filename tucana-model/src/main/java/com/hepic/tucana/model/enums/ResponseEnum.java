@@ -1,7 +1,7 @@
 package com.hepic.tucana.model.enums;
 
 /**
- * @author hd23973
+ * @author tucana
  * @Title:
  * @Description:
  * @date 2018/7/10.
