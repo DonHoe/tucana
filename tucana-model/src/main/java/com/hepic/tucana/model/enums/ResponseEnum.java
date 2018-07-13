@@ -8,6 +8,7 @@ package com.hepic.tucana.model.enums;
  */
 public enum ResponseEnum {
     Code_1000(1000, "Success"),
+    Code_1401(1401, "Verification Code Error"),
     Code_999(999, "Error");
 
     /**
