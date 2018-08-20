@@ -76,6 +76,7 @@
         <module>tucana-service</module>
         <module>tucana-util</module>
         <module>tucana-model</module>
+        <module>tucana-job</module>
     </modules>
 
 </project>
