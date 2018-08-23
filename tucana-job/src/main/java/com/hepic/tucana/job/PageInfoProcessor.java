@@ -21,14 +21,11 @@ public class PageInfoProcessor implements PageProcessor {
 
     @Override
     public void process(Page page) {
-        String code = page.getHtml().regex("").get();
-        if (StringUtils.isBlank(code)) {
-            page.setSkip(true);
-            return;
-        }
-        page.putField("code", code);
-        List<String> urls = page.getUrl().regex("www").all();
-        page.addTargetRequests(urls);
+        System.out.println("开始处理");
+        page.addTargetRequests(page.getHtml().links().regex("(https://www.cnblogs\\.com/\\w+/p/\\w+)").all());
+        System.out.println(page.getHtml());
+        String title = page.getHtml().xpath("//head/title/tidyText()").get();
+        page.putField("title", title);
     }
 
     @Override

@@ -1,6 +1,9 @@
 package com.hepic.tucana.web.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.hepic.tucana.job.PageInfoSpider;
+import com.hepic.tucana.model.common.CommonResponse;
+import com.hepic.tucana.model.enums.ResponseEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,13 +27,22 @@ public class JobController {
 
     @GetMapping("/start")
     public String start() {
-        Spider spider = pageInfoSpider.getSpider();
-        if (spider.getStatus() == Spider.Status.Running) {
-
-        } else {
-            spider.start();
+        CommonResponse<String> responseDto = new CommonResponse<>();
+        try{
+            responseDto.setResponseEnum(ResponseEnum.Code_1000);
+            Spider spider = pageInfoSpider.getSpider();
+            if (spider.getStatus() == Spider.Status.Running) {
+                responseDto.setMessage("已经启动");
+            } else {
+                spider.runAsync();
+                responseDto.setMessage("启动成功");
+            }
+        }catch (Exception e){
+            responseDto.setResponseEnum(ResponseEnum.Code_999);
+            System.out.println(JSON.toJSONString(e));
+            log.error("JOB启动异常",e);
         }
-        return "as";
+        return JSON.toJSONString(responseDto);
     }
 
 }

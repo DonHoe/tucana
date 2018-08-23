@@ -3,6 +3,7 @@ package com.hepic.tucana.job;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import us.codecraft.webmagic.Spider;
+import us.codecraft.webmagic.pipeline.ConsolePipeline;
 
 /**
  * @author tucana
@@ -26,7 +27,7 @@ public class PageInfoSpider {
 
     public Spider getSpider() {
         if (spider == null) {
-            spider = Spider.create(pageInfoProcessor).setScheduler(mySqlScheduler).addPipeline(pageInfoPipeline);
+            spider = Spider.create(pageInfoProcessor).addPipeline(new ConsolePipeline()).addPipeline(pageInfoPipeline).addUrl("https://www.cnblogs.com/");
         }
         return spider;
     }

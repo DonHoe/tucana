@@ -59,7 +59,7 @@ public class MySqlScheduler extends DuplicateRemovedScheduler implements Monitor
     public Request poll(Task task) {
         CursorUrl cursorUrl = cursorUrlDao.selectTop();
         if (cursorUrl != null) {
-            cursorUrl.setCrawl((byte) 1);
+            cursorUrl.setStatus(1);
             cursorUrlDao.updateByPrimaryKeySelective(cursorUrl);
             return new Request(cursorUrl.getUrl());
         }
@@ -69,7 +69,7 @@ public class MySqlScheduler extends DuplicateRemovedScheduler implements Monitor
     @Override
     public void pushWhenNoDuplicate(Request request, Task task) {
         CursorUrl cursorUrl = new CursorUrl();
-        cursorUrl.setCrawl((byte) 0);
+        cursorUrl.setStatus(0);
         cursorUrl.setUrl(request.getUrl());
         cursorUrlDao.insertSelective(cursorUrl);
     }

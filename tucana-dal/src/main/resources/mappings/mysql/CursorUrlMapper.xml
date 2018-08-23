@@ -79,11 +79,18 @@
     where status =  #{status,jdbcType=INTEGER}
     limit 1
   </select>
-  <select id="selectTop">
+  <select id="selectTop"  resultType="com.hepic.tucana.dal.entity.mysql.CursorUrl">
     select
     <include refid="Base_Column_List" />
     from cursor_url
     where status = 1
+    limit 1
+  </select>
+  <select id="selectByUrl" resultType="com.hepic.tucana.dal.entity.mysql.CursorUrl">
+    select
+    <include refid="Base_Column_List" />
+    from cursor_url
+    where url = #{url}
     limit 1
   </select>
 </mapper>
