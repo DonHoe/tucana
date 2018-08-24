@@ -22,12 +22,12 @@ import javax.servlet.http.HttpSession;
  */
 @Slf4j
 @RestController
-@RequestMapping("/login")
-public class LoginController {
+@RequestMapping("/home")
+public class HomeController {
 
 
-    @PostMapping("checkLogin")
-    public String checkLogin(String user, String password, String code,
+    @PostMapping("login")
+    public String login(String user, String password, String code,
                              HttpServletRequest request,
                              HttpServletResponse response) {
         CommonResponse<String> responseDto = new CommonResponse<>();
@@ -44,6 +44,7 @@ public class LoginController {
         }
         return JSON.toJSONString(response);
     }
+
 
     /**
      * 获取随机验证码
