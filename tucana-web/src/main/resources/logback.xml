@@ -41,6 +41,7 @@
     </appender>
     <logger name="com.hepic.tucana" level="INFO" additivity="false">
         <appender-ref ref="DB"/>
+        <appender-ref ref="STDOUT" />
     </logger>
     <root level="INFO">
         <appender-ref ref="STDOUT" />

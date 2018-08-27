@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hepic.tucana.dal.dao.mysql.LoggingEventDao">
+    <resultMap id="BaseResultMap" type="com.hepic.tucana.dal.entity.mysql.LoggingEvent">
+        <id column="event_id" jdbcType="INTEGER" property="eventId"/>
+        <result column="logger_name" jdbcType="VARCHAR" property="loggerName"/>
+        <result column="level_string" jdbcType="VARCHAR" property="levelString"/>
+        <result column="thread_name" jdbcType="VARCHAR" property="threadName"/>
+        <result column="reference_flag" jdbcType="SMALLINT" property="referenceFlag"/>
+        <result column="caller_filename" jdbcType="VARCHAR" property="callerFilename"/>
+        <result column="arg0" jdbcType="VARCHAR" property="arg0"/>
+        <result column="arg1" jdbcType="VARCHAR" property="arg1"/>
+        <result column="arg2" jdbcType="VARCHAR" property="arg2"/>
+        <result column="arg3" jdbcType="VARCHAR" property="arg3"/>
+        <result column="caller_class" jdbcType="VARCHAR" property="callerClass"/>
+        <result column="caller_method" jdbcType="VARCHAR" property="callerMethod"/>
+        <result column="caller_line" jdbcType="VARCHAR" property="callerLine"/>
+        <result column="timestmp" jdbcType="VARCHAR" property="timestmp"/>
+        <result column="formatted_message" jdbcType="VARCHAR" property="formattedMessage"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    event_id, logger_name, level_string, thread_name, reference_flag, caller_filename, formatted_message,
+    arg0, arg1, arg2, arg3, caller_class, caller_method, caller_line,timestmp
+  </sql>
+
+    <select id="selectByPage" parameterType="com.hepic.tucana.model.log.LogListRequest" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM logging_event
+        WHERE 1 = 1
+        AND timestmp &gt; #{startTime} AND timestmp &lt; #{endTime}
+        <if test="levelString !=null and levelString !='' ">
+            AND level_string = #{levelString}
+        </if>
+        <if test="callerClass !=null and callerClass !='' ">
+            AND caller_class = #{callerClass}
+        </if>
+        <if test="callerMethod !=null and callerMethod !='' ">
+            AND caller_method = #{callerMethod}
+        </if>
+        <if test="arg0 !=null and arg0 !='' ">
+            AND arg0 = #{arg0}
+        </if>
+        <if test="arg1 !=null and arg1 !='' ">
+            AND arg1 = #{arg1}
+        </if>
+        <if test="arg2 !=null and arg2 !='' ">
+            AND arg2 = #{arg2}
+        </if>
+        <if test="arg3 !=null and arg3 !='' ">
+            AND arg3 = #{arg3}
+        </if>
+        limit #{skip},#{row} ;
+    </select>
+
+    <select id="selectCount" parameterType="com.hepic.tucana.model.log.LogListRequest" resultType="long">
+        SELECT COUNT(1)
+        FROM logging_event
+        WHERE 1 = 1
+        AND timestmp &gt; #{startTime} AND timestmp &lt; #{endTime}
+        <if test="levelString !=null and levelString !='' ">
+            AND level_string = #{levelString}
+        </if>
+        <if test="callerClass !=null and callerClass !='' ">
+            AND caller_class = #{callerClass}
+        </if>
+        <if test="callerMethod !=null and callerMethod !='' ">
+            AND caller_method = #{callerMethod}
+        </if>
+        <if test="arg0 !=null and arg0 !='' ">
+            AND arg0 = #{arg0}
+        </if>
+        <if test="arg1 !=null and arg1 !='' ">
+            AND arg1 = #{arg1}
+        </if>
+        <if test="arg2 !=null and arg2 !='' ">
+            AND arg2 = #{arg2}
+        </if>
+        <if test="arg3 !=null and arg3 !='' ">
+            AND arg3 = #{arg3}
+        </if>
+    </select>
+</mapper>

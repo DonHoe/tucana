@@ -24,5 +24,10 @@
 	</properties>
 
 	<dependencies>
-	</dependencies>
+        <dependency>
+            <groupId>com.hepic</groupId>
+            <artifactId>tucana-model</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+    </dependencies>
 </project>
