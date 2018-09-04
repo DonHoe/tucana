@@ -51,7 +51,8 @@
         <if test="arg3 !=null and arg3 !='' ">
             AND arg3 = #{arg3}
         </if>
-        limit #{skip},#{row} ;
+        ORDER BY timestmp DESC
+        LIMIT #{skip},#{row} ;
     </select>
 
     <select id="selectCount" parameterType="com.hepic.tucana.model.log.LogListRequest" resultType="long">

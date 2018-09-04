@@ -32,11 +32,11 @@ public class LogServiceImpl implements LogService {
     public PageListModel<LoggingEvent> getLogList(LogListRequest request) {
         PageListModel<LoggingEvent> response = new PageListModel<>();
         try {
-            request.setSkip(request.getPage() - 1);
+            request.setSkip((request.getPage() - 1) * request.getRow());
             List<LoggingEvent> list = loggingEventDao.selectByPage(request);
             Long total = loggingEventDao.selectCount(request);
-            if (!CollectionUtils.isEmpty(list)){
-                list.forEach(p->p.setTimestmp(DateUtil.date2String(new Date(Long.valueOf(p.getTimestmp())))));
+            if (!CollectionUtils.isEmpty(list)) {
+                list.forEach(p -> p.setTimestmp(DateUtil.date2String(new Date(Long.valueOf(p.getTimestmp())))));
             }
             response.setList(list);
             response.setTotal(total);

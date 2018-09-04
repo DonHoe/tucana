@@ -56,7 +56,7 @@ public class LogController {
             response.setResponseEnum(ResponseEnum.Code_999);
         }
         String strResponse = JSON.toJSONString(response);
-        log.info("响应内容:" + strResponse);
+        //log.info("响应内容:" + strResponse);
         return strResponse;
     }
 
