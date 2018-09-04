@@ -1,8 +1,9 @@
 package com.hepic.tucana.service.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.hepic.tucana.dal.dao.mysql.LoggingEventDao;
+import com.hepic.tucana.dal.dao.mysql.LoggingEventExceptionDao;
 import com.hepic.tucana.dal.entity.mysql.LoggingEvent;
+import com.hepic.tucana.dal.entity.mysql.LoggingEventException;
 import com.hepic.tucana.model.common.PageListModel;
 import com.hepic.tucana.model.log.LogListRequest;
 import com.hepic.tucana.service.LogService;
@@ -28,6 +29,9 @@ public class LogServiceImpl implements LogService {
     @Autowired
     LoggingEventDao loggingEventDao;
 
+    @Autowired
+    LoggingEventExceptionDao loggingEventExceptionDao;
+
     @Override
     public PageListModel<LoggingEvent> getLogList(LogListRequest request) {
         PageListModel<LoggingEvent> response = new PageListModel<>();
@@ -44,5 +48,10 @@ public class LogServiceImpl implements LogService {
             log.error("查询日志列表异常", e);
         }
         return response;
+    }
+
+    @Override
+    public List<LoggingEventException> getExceptionList(Integer eventId) {
+        return loggingEventExceptionDao.getEventException(eventId);
     }
 }

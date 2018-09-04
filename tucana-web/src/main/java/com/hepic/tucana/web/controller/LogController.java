@@ -2,6 +2,7 @@ package com.hepic.tucana.web.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.hepic.tucana.dal.entity.mysql.LoggingEvent;
+import com.hepic.tucana.dal.entity.mysql.LoggingEventException;
 import com.hepic.tucana.model.common.CommonResponse;
 import com.hepic.tucana.model.common.PageListModel;
 import com.hepic.tucana.model.enums.ResponseEnum;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author tucana
@@ -60,4 +62,17 @@ public class LogController {
         return strResponse;
     }
 
+    @GetMapping("/getExceptionList")
+    public String getExceptionList(Integer i) {
+        CommonResponse<List<LoggingEventException>> response = new CommonResponse<>();
+        try {
+            List<LoggingEventException> result = logService.getExceptionList(i);
+            response.setResponseEnum(ResponseEnum.Code_1000);
+            response.setResult(result);
+        } catch (Exception e) {
+            log.error("查询异常", e);
+            response.setResponseEnum(ResponseEnum.Code_999);
+        }
+        return JSON.toJSONString(response);
+    }
 }
