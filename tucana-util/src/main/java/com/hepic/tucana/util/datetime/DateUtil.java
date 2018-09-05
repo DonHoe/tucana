@@ -24,6 +24,7 @@ public class DateUtil {
     public static final String DATE_PATTERN_YYYY_MM_DD = "yyyy-MM-dd";
     public static final String DATE_PATTERN_YYYY_MM_DD_HH_MM_SS = "yyyy-MM-dd HH:mm:ss";
     public static final String DATE_PATTERN_YYYY_MM_DD_HH_MM_SS_1 = "yyyy/MM/dd HH:mm:ss";
+    public static final String DATE_PATTERN_YYYY_MM_DD_HH_MM_SS_S = "yyyy-MM-dd HH:mm:ss.S";
     public static final String DATE_PATTERN_YYYY_MM_DD_HH_MM = "yyyy-MM-dd HH:mm";
     public static final String DATE_PATTERN_MM_DD_HH_MM_CN = "MM月dd日 HH:mm";
     public static final String DATE_PATTERN_YYYY_MM_DD_HH_MM_CN = "yyyy年MM月dd日 HH:mm";

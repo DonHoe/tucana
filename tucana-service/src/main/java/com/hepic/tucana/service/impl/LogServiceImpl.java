@@ -40,7 +40,7 @@ public class LogServiceImpl implements LogService {
             List<LoggingEvent> list = loggingEventDao.selectByPage(request);
             Long total = loggingEventDao.selectCount(request);
             if (!CollectionUtils.isEmpty(list)) {
-                list.forEach(p -> p.setTimestmp(DateUtil.date2String(new Date(Long.valueOf(p.getTimestmp())))));
+                list.forEach(p -> p.setTimestmp(DateUtil.date2String(new Date(Long.valueOf(p.getTimestmp())),DateUtil.DATE_PATTERN_YYYY_MM_DD_HH_MM_SS_S)));
             }
             response.setList(list);
             response.setTotal(total);
