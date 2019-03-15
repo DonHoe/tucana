@@ -1,0 +1,54 @@
+package com.hepic.tucana.factory;
+
+import com.alibaba.fastjson.JSON;
+import com.hepic.tucana.model.JobConfig;
+import org.springframework.stereotype.Service;
+import us.codecraft.webmagic.Page;
+import us.codecraft.webmagic.Site;
+import us.codecraft.webmagic.pipeline.Pipeline;
+import us.codecraft.webmagic.processor.PageProcessor;
+
+import java.util.Map;
+
+@Service
+public class PageProcessorFactory {
+
+    /**
+     * 生成页面处理程序
+     *
+     * @param config
+     * @return
+     */
+    PageProcessor createPageProcessor(JobConfig config) {
+        PageProcessor pageProcessor = new PageProcessor() {
+            @Override
+            public void process(Page page) {
+                for (String p : config.getRegexTargetUrl()) {
+                    page.addTargetRequests(page.getHtml().links().regex(p).all());
+                }
+                for (Map.Entry<String, String> p : config.getExtractField().entrySet()) {
+                    page.putField(p.getKey(), page.getHtml().xpath(p.getValue()).get());
+                }
+                page.putField("config-id", config.getId());
+            }
+
+            @Override
+            public Site getSite() {
+                return Site.me().setUserAgent(config.getUserAgent())
+                        .setSleepTime(config.getSleepTime())
+                        .setRetryTimes(config.getRetryTimes());
+            }
+        };
+        return pageProcessor;
+    }
+
+    /**
+     * 创建持久化处理
+     *
+     * @return
+     */
+    Pipeline createPipeline() {
+        Pipeline pipeline = (resultItems, task) -> System.out.println(JSON.toJSONString(resultItems));
+        return pipeline;
+    }
+}
