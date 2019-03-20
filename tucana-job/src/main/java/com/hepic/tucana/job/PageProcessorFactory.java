@@ -1,7 +1,7 @@
 package com.hepic.tucana.job;
 
 import com.alibaba.fastjson.JSON;
-import com.hepic.tucana.model.job.JobConfig;
+import com.hepic.tucana.model.JobConfig;
 import org.springframework.stereotype.Service;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
