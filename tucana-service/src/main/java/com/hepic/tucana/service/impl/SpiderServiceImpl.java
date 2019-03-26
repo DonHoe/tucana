@@ -6,6 +6,7 @@ import com.hepic.tucana.dal.entity.mysql.JobExtractField;
 import com.hepic.tucana.dal.entity.mysql.JobTargetUrl;
 import com.hepic.tucana.job.IPageProcessorFactory;
 import com.hepic.tucana.model.SpiderConfig;
+import com.hepic.tucana.util.exception.BaseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import us.codecraft.webmagic.Spider;
@@ -13,6 +14,7 @@ import us.codecraft.webmagic.Spider;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -57,4 +59,52 @@ public class SpiderServiceImpl {
             spiderList.add(pageProcessorFactory.getSpider(spiderConfig));
         }
     }
+
+    /**
+     * 根据key获取
+     *
+     * @param key
+     * @return
+     */
+    public Spider getSpiderByKey(String key) {
+        Optional<Spider> optionalSpider = spiderList.stream().filter(p -> p.getUUID().equals(spiderKey)).findFirst();
+        if (!optionalSpider.isPresent()) {
+            return null;
+        }
+        return optionalSpider.get();
+    }
+
+    /**
+     * 启动
+     *
+     * @param spiderKey
+     */
+    public void startSpider(String spiderKey) {
+        Spider spider = getSpiderByKey(spiderKey);
+        if (spider == null) {
+            throw new BaseException(2001, "找不到");
+        }
+        if (spider.getStatus() == Spider.Status.Running) {
+            throw new BaseException(2002, "正在执行");
+        }
+        spider.start();
+    }
+
+    /**
+     * 停止
+     *
+     * @param spiderKey
+     */
+    public void stopSpider(String spiderKey) {
+        Spider spider = getSpiderByKey(spiderKey);
+        if (spider == null) {
+            throw new BaseException(2001, "找不到");
+        }
+        if (spider.getStatus() == Spider.Status.Stopped) {
+            throw new BaseException(2002, "已经停止");
+        }
+        spider.stop();
+    }
+
+
 }

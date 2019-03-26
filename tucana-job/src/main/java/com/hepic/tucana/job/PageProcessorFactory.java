@@ -59,6 +59,6 @@ public class PageProcessorFactory implements IPageProcessorFactory {
      * @return
      */
     public Spider getSpider(SpiderConfig config) {
-        return Spider.create(createPageProcessor(config)).addPipeline(createPipeline(config)).addUrl(config.getStartUrl());
+        return Spider.create(createPageProcessor(config)).addPipeline(createPipeline(config)).addUrl(config.getStartUrl()).setUUID(config.getKey());
     }
 }
