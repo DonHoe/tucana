@@ -67,7 +67,7 @@ public class SpiderServiceImpl {
      * @return
      */
     public Spider getSpiderByKey(String key) {
-        Optional<Spider> optionalSpider = spiderList.stream().filter(p -> p.getUUID().equals(spiderKey)).findFirst();
+        Optional<Spider> optionalSpider = spiderList.stream().filter(p -> p.getUUID().equals(key)).findFirst();
         if (!optionalSpider.isPresent()) {
             return null;
         }
