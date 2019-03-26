@@ -37,6 +37,8 @@ CREATE TABLE `double_one_eight_godeye_record` (
 CREATE TABLE `job_config` (
 	`id` BIGINT NOT NULL AUTO_INCREMENT,
 	`key` VARCHAR(50) NOT NULL DEFAULT UUID(),
+	`name` VARCHAR(100) NOT NULL DEFAULT '',
+	`desc` VARCHAR(300) NOT NULL DEFAULT '',
 	`start_url` VARCHAR(500) NOT NULL DEFAULT '',
 	`user_agent` VARCHAR(500) NOT NULL DEFAULT '',
 	`sleep_time` INT NOT NULL DEFAULT '0',

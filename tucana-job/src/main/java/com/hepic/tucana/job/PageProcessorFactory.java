@@ -1,7 +1,7 @@
 package com.hepic.tucana.job;
 
 import com.alibaba.fastjson.JSON;
-import com.hepic.tucana.model.JobConfig;
+import com.hepic.tucana.model.SpiderConfig;
 import org.springframework.stereotype.Service;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
@@ -9,13 +9,10 @@ import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.pipeline.Pipeline;
 import us.codecraft.webmagic.processor.PageProcessor;
 
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 @Service
-public class PageProcessorFactory {
+public class PageProcessorFactory implements IPageProcessorFactory {
 
     /**
      * 生成页面处理程序
@@ -23,7 +20,7 @@ public class PageProcessorFactory {
      * @param config
      * @return
      */
-    PageProcessor createPageProcessor(JobConfig config) {
+    public PageProcessor createPageProcessor(SpiderConfig config) {
         PageProcessor pageProcessor = new PageProcessor() {
             @Override
             public void process(Page page) {
@@ -51,7 +48,7 @@ public class PageProcessorFactory {
      *
      * @return
      */
-    Pipeline createPipeline(JobConfig config) {
+    public Pipeline createPipeline(SpiderConfig config) {
         Pipeline pipeline = (resultItems, task) -> System.out.println(JSON.toJSONString(resultItems));
         return pipeline;
     }
@@ -61,18 +58,7 @@ public class PageProcessorFactory {
      *
      * @return
      */
-    public Spider getSpider() {
-        JobConfig config = new JobConfig();
-        config.setId(1L);
-        config.setKey(UUID.randomUUID().toString());
-        config.setSleepTime(500);
-        config.setRetryTimes(2);
-        config.setUserAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_2) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.65 Safari/537.31");
-        config.setStartUrl("https://www.cnblogs.com/");
-        config.setRegexTargetUrl(Arrays.asList("(https://www.cnblogs\\.com/\\w+/p/.+)"));
-        config.setExtractField(new HashMap<String, String>() {{
-            put("title", "//head/title/tidyText()");
-        }});
+    public Spider getSpider(SpiderConfig config) {
         return Spider.create(createPageProcessor(config)).addPipeline(createPipeline(config)).addUrl(config.getStartUrl());
     }
 }

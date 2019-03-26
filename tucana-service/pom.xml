@@ -39,5 +39,11 @@
             <artifactId>tucana-model</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.hepic</groupId>
+            <artifactId>tucana-job</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 </project>
