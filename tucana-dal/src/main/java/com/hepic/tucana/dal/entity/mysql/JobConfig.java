@@ -12,6 +12,8 @@ public class JobConfig {
 
     private String desc;
 
+    private Integer status;
+
     private String startUrl;
 
     private String userAgent;
@@ -58,6 +60,14 @@ public class JobConfig {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public String getStartUrl() {

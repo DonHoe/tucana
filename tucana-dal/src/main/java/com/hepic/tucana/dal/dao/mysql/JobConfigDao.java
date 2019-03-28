@@ -4,7 +4,9 @@ import com.hepic.tucana.dal.entity.mysql.JobConfig;
 import com.hepic.tucana.dal.entity.mysql.JobExtractField;
 import com.hepic.tucana.dal.entity.mysql.JobTargetUrl;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -19,6 +21,7 @@ public interface JobConfigDao {
             " ,`key` " +
             " ,`name` " +
             " ,`desc` " +
+            " ,`status` " +
             " ,`start_url` AS startUrl " +
             " ,`user_agent` AS userAgent " +
             " , sleep_time AS sleepTime " +
@@ -29,6 +32,22 @@ public interface JobConfigDao {
             " ,update_time AS updateTime " +
             " FROM job_config")
     List<JobConfig> getJobConfigList();
+
+    @Select("SELECT `id` " +
+            " ,`key` " +
+            " ,`name` " +
+            " ,`desc` " +
+            " ,`status` " +
+            " ,`start_url` AS startUrl " +
+            " ,`user_agent` AS userAgent " +
+            " , sleep_time AS sleepTime " +
+            " ,retry_times AS retryTimes " +
+            " ,creator " +
+            " ,create_time AS createTime " +
+            " ,modifier " +
+            " ,update_time AS updateTime " +
+            " FROM job_config WHERE `key` = #{key} LIMIT 1 ")
+    JobConfig getJobConfigByKey(String key);
 
     /**
      * 根据主配置id查询提取配置
@@ -71,9 +90,10 @@ public interface JobConfigDao {
      * @return
      */
     @Insert("INSERT INTO `job_config` " +
-            " (`name`, `desc`, `start_url`, `user_agent`, `sleep_time`, `retry_times`, `creator`) " +
+            " (`name`, `desc`,`status`, `start_url`, `user_agent`, `sleep_time`, `retry_times`, `creator`) " +
             " VALUES " +
-            " (#{name}, #{desc}, #{startUrl}, #{userAgent}, #{sleepTime}, #{retryTimes}, #{creator});")
+            " (#{name}, #{desc},#{status}, #{startUrl}, #{userAgent}, #{sleepTime}, #{retryTimes}, #{creator});")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
     Integer insertJobConfig(JobConfig jobConfig);
 
     /**
@@ -86,6 +106,7 @@ public interface JobConfigDao {
             " (`job_id`, `key`, `value`, `creator`) " +
             " VALUES " +
             " (#{jobId}, #{key}, #{value}, #{creator});")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
     Integer insertJobExtractField(JobExtractField jobExtractField);
 
     /**
@@ -98,5 +119,16 @@ public interface JobConfigDao {
             " (`job_id`, `expression`, `creator`) " +
             " VALUES " +
             " (#{jobId}, #{expression}, #{creator});")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
     Integer insertJobTargetUrl(JobTargetUrl jobTargetUrl);
+
+    /**
+     * 按key更新状态
+     *
+     * @param key
+     * @param status
+     * @return
+     */
+    @Update("UPDATE job_config SET `status` = #{status} WHERE `key` = #{key} ")
+    Integer updateJobStatus(String key, Integer status);
 }
