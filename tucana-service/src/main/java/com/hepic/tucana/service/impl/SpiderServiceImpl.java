@@ -117,39 +117,43 @@ public class SpiderServiceImpl {
      * @param spiderConfig
      * @return
      */
-    public Integer addSpiderConfig(SpiderConfig spiderConfig) {
+    public Integer saveSpiderConfig(SpiderConfig spiderConfig) {
         if (spiderConfig == null) {
             return 0;
         }
-        JobConfig jobConfig = new JobConfig();
-        jobConfig.setKey(UUID.randomUUID().toString());
-        jobConfig.setName(spiderConfig.getName());
-        jobConfig.setDesc(spiderConfig.getDesc());
-        jobConfig.setStatus(spiderConfig.getStatus());
-        jobConfig.setStartUrl(spiderConfig.getStartUrl());
-        jobConfig.setUserAgent(spiderConfig.getUserAgent());
-        jobConfig.setSleepTime(spiderConfig.getSleepTime());
-        jobConfig.setRetryTimes(spiderConfig.getRetryTimes());
-        jobConfigDao.insertJobConfig(jobConfig);
-        if (CollectionUtils.isNotEmpty(spiderConfig.getRegexTargetUrl())) {
-            spiderConfig.getRegexTargetUrl().stream().forEach(p -> {
-                JobTargetUrl jobTargetUrl = new JobTargetUrl();
-                jobTargetUrl.setJobId(jobConfig.getId());
-                jobTargetUrl.setExpression(p);
-                jobConfigDao.insertJobTargetUrl(jobTargetUrl);
-            });
+        if (spiderConfig.getId() < 1) {
+            JobConfig jobConfig = new JobConfig();
+            jobConfig.setKey(UUID.randomUUID().toString());
+            jobConfig.setName(spiderConfig.getName());
+            jobConfig.setDesc(spiderConfig.getDesc());
+            jobConfig.setStatus(spiderConfig.getStatus());
+            jobConfig.setStartUrl(spiderConfig.getStartUrl());
+            jobConfig.setUserAgent(spiderConfig.getUserAgent());
+            jobConfig.setSleepTime(spiderConfig.getSleepTime());
+            jobConfig.setRetryTimes(spiderConfig.getRetryTimes());
+            jobConfigDao.insertJobConfig(jobConfig);
+            if (CollectionUtils.isNotEmpty(spiderConfig.getRegexTargetUrl())) {
+                spiderConfig.getRegexTargetUrl().stream().forEach(p -> {
+                    JobTargetUrl jobTargetUrl = new JobTargetUrl();
+                    jobTargetUrl.setJobId(jobConfig.getId());
+                    jobTargetUrl.setExpression(p);
+                    jobConfigDao.insertJobTargetUrl(jobTargetUrl);
+                });
+            }
+            if (CollectionUtils.isNotEmpty(spiderConfig.getExtractField().entrySet())) {
+                spiderConfig.getExtractField().entrySet().stream().forEach(p -> {
+                    JobExtractField jobExtractField = new JobExtractField();
+                    jobExtractField.setJobId(jobConfig.getId());
+                    jobExtractField.setKey(p.getKey());
+                    jobExtractField.setValue(p.getValue());
+                    jobConfigDao.insertJobExtractField(jobExtractField);
+                });
+            }
+            spiderConfigList.add(spiderConfig);
+            spiderList.add(pageProcessorFactory.getSpider(spiderConfig));
+        } else {
+
         }
-        if (CollectionUtils.isNotEmpty(spiderConfig.getExtractField().entrySet())) {
-            spiderConfig.getExtractField().entrySet().stream().forEach(p -> {
-                JobExtractField jobExtractField = new JobExtractField();
-                jobExtractField.setJobId(jobConfig.getId());
-                jobExtractField.setKey(p.getKey());
-                jobExtractField.setValue(p.getValue());
-                jobConfigDao.insertJobExtractField(jobExtractField);
-            });
-        }
-        spiderConfigList.add(spiderConfig);
-        spiderList.add(pageProcessorFactory.getSpider(spiderConfig));
         return 1;
     }
 
@@ -168,7 +172,7 @@ public class SpiderServiceImpl {
         }
         spider.start();
         spiderConfigList.stream().filter(p -> p.getKey().equals(key)).forEach(p -> p.setStatus(Spider.Status.Running.ordinal()));
-        jobConfigDao.updateJobStatus(key, Spider.Status.Running.ordinal());
+        //jobConfigDao.updateJobStatus(key, Spider.Status.Running.ordinal());
     }
 
     /**
@@ -186,7 +190,7 @@ public class SpiderServiceImpl {
         }
         spider.stop();
         spiderConfigList.stream().filter(p -> p.getKey().equals(key)).forEach(p -> p.setStatus(Spider.Status.Stopped.ordinal()));
-        jobConfigDao.updateJobStatus(key, Spider.Status.Stopped.ordinal());
+        //jobConfigDao.updateJobStatus(key, Spider.Status.Stopped.ordinal());
     }
 
 
