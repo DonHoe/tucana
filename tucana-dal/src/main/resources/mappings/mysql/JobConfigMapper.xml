@@ -6,7 +6,7 @@
         <result column="key" jdbcType="VARCHAR" property="key"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="desc" jdbcType="VARCHAR" property="desc"/>
-        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="delete" jdbcType="INTEGER" property="delete"/>
         <result column="start_url" jdbcType="VARCHAR" property="startUrl"/>
         <result column="user_agent" jdbcType="VARCHAR" property="userAgent"/>
         <result column="sleep_time" jdbcType="INTEGER" property="sleepTime"/>
@@ -34,8 +34,8 @@
             <if test="desc != null">
                 `desc`,
             </if>
-            <if test="status != null">
-                status ,
+            <if test="delete != null">
+                `delete` ,
             </if>
             <if test="startUrl != null">
                 start_url ,
@@ -60,8 +60,8 @@
             <if test="desc != null">
                 #{desc},
             </if>
-            <if test="status != null">
-                #{status},
+            <if test="delete != null">
+                #{delete},
             </if>
             <if test="startUrl != null">
                 #{startUrl},
@@ -89,8 +89,8 @@
             <if test="desc != null">
                 `desc` = #{desc},
             </if>
-            <if test="status != null">
-                status = #{status},
+            <if test="delete != null">
+                `delete` = #{delete},
             </if>
             <if test="startUrl != null">
                 start_url = #{startUrl},

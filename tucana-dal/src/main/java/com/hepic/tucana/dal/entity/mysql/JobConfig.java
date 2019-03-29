@@ -12,8 +12,6 @@ public class JobConfig {
 
     private String desc;
 
-    private Integer status;
-
     private String startUrl;
 
     private String userAgent;
@@ -21,6 +19,8 @@ public class JobConfig {
     private Integer sleepTime;
 
     private Integer retryTimes;
+
+    private Integer delete;
 
     private String creator;
 
@@ -62,14 +62,6 @@ public class JobConfig {
         this.desc = desc;
     }
 
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
     public String getStartUrl() {
         return startUrl;
     }
@@ -100,6 +92,14 @@ public class JobConfig {
 
     public void setRetryTimes(Integer retryTimes) {
         this.retryTimes = retryTimes;
+    }
+
+    public Integer getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Integer delete) {
+        this.delete = delete;
     }
 
     public String getCreator() {

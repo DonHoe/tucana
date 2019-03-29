@@ -8,6 +8,7 @@ import com.hepic.tucana.job.IPageProcessorFactory;
 import com.hepic.tucana.model.SpiderConfig;
 import com.hepic.tucana.util.exception.BaseException;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import us.codecraft.webmagic.Spider;
@@ -122,39 +123,64 @@ public class SpiderServiceImpl {
         if (spiderConfig == null) {
             return 0;
         }
-        if (spiderConfig.getId() < 1) {
-            JobConfig jobConfig = new JobConfig();
-            jobConfig.setKey(UUID.randomUUID().toString());
-            jobConfig.setName(spiderConfig.getName());
-            jobConfig.setDesc(spiderConfig.getDesc());
-            jobConfig.setStatus(spiderConfig.getStatus());
-            jobConfig.setStartUrl(spiderConfig.getStartUrl());
-            jobConfig.setUserAgent(spiderConfig.getUserAgent());
-            jobConfig.setSleepTime(spiderConfig.getSleepTime());
-            jobConfig.setRetryTimes(spiderConfig.getRetryTimes());
-            jobConfigDao.insertJobConfig(jobConfig);
-            if (CollectionUtils.isNotEmpty(spiderConfig.getRegexTargetUrl())) {
-                spiderConfig.getRegexTargetUrl().stream().forEach(p -> {
-                    JobTargetUrl jobTargetUrl = new JobTargetUrl();
-                    jobTargetUrl.setJobId(jobConfig.getId());
-                    jobTargetUrl.setExpression(p);
-                    jobConfigDao.insertJobTargetUrl(jobTargetUrl);
-                });
-            }
-            if (CollectionUtils.isNotEmpty(spiderConfig.getExtractField().entrySet())) {
-                spiderConfig.getExtractField().entrySet().stream().forEach(p -> {
-                    JobExtractField jobExtractField = new JobExtractField();
-                    jobExtractField.setJobId(jobConfig.getId());
-                    jobExtractField.setKey(p.getKey());
-                    jobExtractField.setValue(p.getValue());
-                    jobConfigDao.insertJobExtractField(jobExtractField);
-                });
-            }
-            spiderConfigList.add(spiderConfig);
-            spiderList.add(pageProcessorFactory.getSpider(spiderConfig));
-        } else {
-
+        JobConfig jobConfig = new JobConfig();
+        jobConfig.setKey(UUID.randomUUID().toString());
+        jobConfig.setName(spiderConfig.getName());
+        jobConfig.setDesc(spiderConfig.getDesc());
+        jobConfig.setDelete(0);
+        jobConfig.setStartUrl(spiderConfig.getStartUrl());
+        jobConfig.setUserAgent(spiderConfig.getUserAgent());
+        jobConfig.setSleepTime(spiderConfig.getSleepTime());
+        jobConfig.setRetryTimes(spiderConfig.getRetryTimes());
+        jobConfigDao.insertJobConfig(jobConfig);
+        if (CollectionUtils.isNotEmpty(spiderConfig.getRegexTargetUrl())) {
+            spiderConfig.getRegexTargetUrl().stream().forEach(p -> {
+                JobTargetUrl jobTargetUrl = new JobTargetUrl();
+                jobTargetUrl.setJobId(jobConfig.getId());
+                jobTargetUrl.setExpression(p);
+                jobConfigDao.insertJobTargetUrl(jobTargetUrl);
+            });
         }
+        if (CollectionUtils.isNotEmpty(spiderConfig.getExtractField().entrySet())) {
+            spiderConfig.getExtractField().entrySet().stream().forEach(p -> {
+                JobExtractField jobExtractField = new JobExtractField();
+                jobExtractField.setJobId(jobConfig.getId());
+                jobExtractField.setKey(p.getKey());
+                jobExtractField.setValue(p.getValue());
+                jobConfigDao.insertJobExtractField(jobExtractField);
+            });
+        }
+        spiderConfigList.add(spiderConfig);
+        spiderList.add(pageProcessorFactory.getSpider(spiderConfig));
+        return 1;
+    }
+
+    /**
+     * 更新配置
+     *
+     * @param spiderConfig
+     * @return
+     */
+    public Integer modifySpiderConfig(SpiderConfig spiderConfig) {
+        if (spiderConfig == null || spiderConfig.getId() < 1 || StringUtils.isEmpty(spiderConfig.getKey())) {
+            throw new BaseException(2001, "配置为空");
+        }
+        Spider spider = getSpiderByKey(spiderConfig.getKey());
+        if (spider == null) {
+            throw new BaseException(2002, "找不到");
+        }
+        if (spider.getStatus() == Spider.Status.Running) {
+            throw new BaseException(2003, "仍在执行中");
+        }
+
+        JobConfig jobConfig = new JobConfig();
+        jobConfig.setName(spiderConfig.getName());
+        jobConfig.setDesc(spiderConfig.getDesc());
+        jobConfig.setStartUrl(spiderConfig.getStartUrl());
+        jobConfig.setUserAgent(spiderConfig.getUserAgent());
+        jobConfig.setSleepTime(spiderConfig.getSleepTime());
+        jobConfig.setRetryTimes(spiderConfig.getRetryTimes());
+        jobConfigDao.updateModel(jobConfig);
         return 1;
     }
 
@@ -173,7 +199,6 @@ public class SpiderServiceImpl {
         }
         spider.start();
         spiderConfigList.stream().filter(p -> p.getKey().equals(key)).forEach(p -> p.setStatus(Spider.Status.Running.ordinal()));
-        //jobConfigDao.updateJobStatus(key, Spider.Status.Running.ordinal());
     }
 
     /**
@@ -191,7 +216,28 @@ public class SpiderServiceImpl {
         }
         spider.stop();
         spiderConfigList.stream().filter(p -> p.getKey().equals(key)).forEach(p -> p.setStatus(Spider.Status.Stopped.ordinal()));
-        //jobConfigDao.updateJobStatus(key, Spider.Status.Stopped.ordinal());
+    }
+
+    /**
+     * 移除配置
+     *
+     * @param key
+     */
+    public void removeSpider(String key) {
+        Spider spider = getSpiderByKey(key);
+        if (spider == null) {
+            throw new BaseException(2001, "找不到");
+        }
+        if (spider.getStatus() == Spider.Status.Running) {
+            spider.stop();
+        }
+        spiderList.remove(spider);
+        SpiderConfig spiderConfig = getSpiderConfig(key);
+        if (spiderConfig == null) {
+            return;
+        }
+        spiderConfigList.remove(spiderConfig);
+        jobConfigDao.deleteJob(key);
     }
 
 

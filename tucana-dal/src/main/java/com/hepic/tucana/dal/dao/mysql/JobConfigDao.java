@@ -21,27 +21,27 @@ public interface JobConfigDao {
             " ,`key` " +
             " ,`name` " +
             " ,`desc` " +
-            " ,`status` " +
             " ,`start_url` AS startUrl " +
             " ,`user_agent` AS userAgent " +
             " , sleep_time AS sleepTime " +
             " ,retry_times AS retryTimes " +
+            " ,`delete` " +
             " ,creator " +
             " ,create_time AS createTime " +
             " ,modifier " +
             " ,update_time AS updateTime " +
-            " FROM job_config")
+            " FROM job_config WHERE delete = 0 ")
     List<JobConfig> getJobConfigList();
 
     @Select("SELECT `id` " +
             " ,`key` " +
             " ,`name` " +
             " ,`desc` " +
-            " ,`status` " +
             " ,`start_url` AS startUrl " +
             " ,`user_agent` AS userAgent " +
             " , sleep_time AS sleepTime " +
             " ,retry_times AS retryTimes " +
+            " ,`delete` " +
             " ,creator " +
             " ,create_time AS createTime " +
             " ,modifier " +
@@ -90,9 +90,9 @@ public interface JobConfigDao {
      * @return
      */
     @Insert("INSERT INTO `job_config` " +
-            " (`name`, `desc`,`status`, `start_url`, `user_agent`, `sleep_time`, `retry_times`, `creator`) " +
+            " (`name`, `desc`,`delete`, `start_url`, `user_agent`, `sleep_time`, `retry_times`, `creator`) " +
             " VALUES " +
-            " (#{name}, #{desc},#{status}, #{startUrl}, #{userAgent}, #{sleepTime}, #{retryTimes}, #{creator});")
+            " (#{name}, #{desc},#{delete}, #{startUrl}, #{userAgent}, #{sleepTime}, #{retryTimes}, #{creator});")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     Integer insertJobConfig(JobConfig jobConfig);
 
@@ -126,9 +126,16 @@ public interface JobConfigDao {
      * 按key更新状态
      *
      * @param key
-     * @param status
      * @return
      */
-    @Update("UPDATE job_config SET `status` = #{status} WHERE `key` = #{key} ")
-    Integer updateJobStatus(String key, Integer status);
+    @Update("UPDATE job_config SET `delete` = 1 WHERE `key` = #{key} ")
+    Integer deleteJob(String key);
+
+    /**
+     * 更新数据
+     *
+     * @param jobConfig
+     * @return
+     */
+    Integer updateModel(JobConfig jobConfig);
 }
