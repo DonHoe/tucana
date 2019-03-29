@@ -18,10 +18,8 @@ import java.util.stream.Collectors;
 @Service
 public class SpiderServiceImpl {
 
-    @Autowired
     private JobConfigDao jobConfigDao;
 
-    @Autowired
     private IPageProcessorFactory pageProcessorFactory;
 
     private static List<Spider> spiderList;
@@ -31,7 +29,10 @@ public class SpiderServiceImpl {
     /**
      * 初始化
      */
-    public SpiderServiceImpl() {
+    @Autowired
+    public SpiderServiceImpl(JobConfigDao jobConfigDao, IPageProcessorFactory pageProcessorFactory) {
+        this.jobConfigDao = jobConfigDao;
+        this.pageProcessorFactory = pageProcessorFactory;
         spiderList = new ArrayList<>();
         spiderConfigList = new ArrayList<>();
         initSpider();
