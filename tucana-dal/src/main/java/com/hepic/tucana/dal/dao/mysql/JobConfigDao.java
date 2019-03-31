@@ -30,7 +30,7 @@ public interface JobConfigDao {
             " ,create_time AS createTime " +
             " ,modifier " +
             " ,update_time AS updateTime " +
-            " FROM job_config WHERE delete = 0 ")
+            " FROM job_config WHERE `delete` = 0 ")
     List<JobConfig> getJobConfigList();
 
     @Select("SELECT `id` " +
