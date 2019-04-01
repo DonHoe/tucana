@@ -8,9 +8,9 @@ public class JobExtractField {
 
     private Long jobId;
 
-    private String key;
+    private String field;
 
-    private String value;
+    private String rule;
 
     private Integer delete;
 
@@ -38,20 +38,20 @@ public class JobExtractField {
         this.jobId = jobId;
     }
 
-    public String getKey() {
-        return key;
+    public String getField() {
+        return field;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setField(String field) {
+        this.field = field;
     }
 
-    public String getValue() {
-        return value;
+    public String getRule() {
+        return rule;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setRule(String rule) {
+        this.rule = rule;
     }
 
     public Integer getDelete() {

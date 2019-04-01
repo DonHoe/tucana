@@ -6,6 +6,7 @@ import com.hepic.tucana.dal.entity.mysql.JobExtractField;
 import com.hepic.tucana.dal.entity.mysql.JobTargetUrl;
 import com.hepic.tucana.job.IPageProcessorFactory;
 import com.hepic.tucana.model.SpiderConfig;
+import com.hepic.tucana.model.spider.ExtractField;
 import com.hepic.tucana.util.exception.BaseException;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -69,10 +70,15 @@ public class SpiderServiceImpl {
         spiderConfig.setStartUrl(jobConfig.getStartUrl());
         spiderConfig.setUserAgent(jobConfig.getUserAgent());
         List<JobExtractField> jobExtractFields = jobConfigDao.getJobExtractFieldByConfigId(jobConfig.getId());
-        Map<String, String> jobExtractFieldMap = jobExtractFields.stream().collect(Collectors.toMap(JobExtractField::getKey, JobExtractField::getValue));
-        spiderConfig.setExtractField(jobExtractFieldMap);
+        List<ExtractField> jobExtractFieldList = jobExtractFields.stream().map(p -> {
+            ExtractField item = new ExtractField();
+            item.setField(p.getField());
+            item.setRule(p.getRule());
+            return item;
+        }).collect(Collectors.toList());
+        spiderConfig.setExtractFields(jobExtractFieldList);
         List<JobTargetUrl> jobTargetUrls = jobConfigDao.getJobTargetUrlByConfigId(jobConfig.getId());
-        spiderConfig.setRegexTargetUrl(jobTargetUrls.stream().map(p -> p.getExpression()).collect(Collectors.toList()));
+        spiderConfig.setRegexTargetUrls(jobTargetUrls.stream().map(p -> p.getExpression()).collect(Collectors.toList()));
         return spiderConfig;
     }
 
@@ -133,7 +139,7 @@ public class SpiderServiceImpl {
      * @param spiderConfig
      * @return
      */
-    public Integer saveSpiderConfig(SpiderConfig spiderConfig) {
+    public Integer addSpiderConfig(SpiderConfig spiderConfig) {
         if (spiderConfig == null) {
             return 0;
         }
@@ -147,20 +153,20 @@ public class SpiderServiceImpl {
         jobConfig.setSleepTime(spiderConfig.getSleepTime());
         jobConfig.setRetryTimes(spiderConfig.getRetryTimes());
         jobConfigDao.insertJobConfig(jobConfig);
-        if (CollectionUtils.isNotEmpty(spiderConfig.getRegexTargetUrl())) {
-            spiderConfig.getRegexTargetUrl().stream().forEach(p -> {
+        if (CollectionUtils.isNotEmpty(spiderConfig.getRegexTargetUrls())) {
+            spiderConfig.getRegexTargetUrls().stream().forEach(p -> {
                 JobTargetUrl jobTargetUrl = new JobTargetUrl();
                 jobTargetUrl.setJobId(jobConfig.getId());
                 jobTargetUrl.setExpression(p);
                 jobConfigDao.insertJobTargetUrl(jobTargetUrl);
             });
         }
-        if (CollectionUtils.isNotEmpty(spiderConfig.getExtractField().entrySet())) {
-            spiderConfig.getExtractField().entrySet().stream().forEach(p -> {
+        if (CollectionUtils.isNotEmpty(spiderConfig.getExtractFields())) {
+            spiderConfig.getExtractFields().stream().forEach(p -> {
                 JobExtractField jobExtractField = new JobExtractField();
                 jobExtractField.setJobId(jobConfig.getId());
-                jobExtractField.setKey(p.getKey());
-                jobExtractField.setValue(p.getValue());
+                jobExtractField.setField(p.getField());
+                jobExtractField.setRule(p.getRule());
                 jobConfigDao.insertJobExtractField(jobExtractField);
             });
         }
@@ -203,17 +209,17 @@ public class SpiderServiceImpl {
         jobConfigDao.deleteJobExtractField(jobConfig.getId());
         spiderList.remove(spider);
         spiderConfigList.remove(spiderConfigExist);
-        if (CollectionUtils.isNotEmpty(spiderConfig.getExtractField().entrySet())) {
-            spiderConfig.getExtractField().entrySet().stream().forEach(p -> {
+        if (CollectionUtils.isNotEmpty(spiderConfig.getExtractFields())) {
+            spiderConfig.getExtractFields().stream().forEach(p -> {
                 JobExtractField jobExtractField = new JobExtractField();
-                jobExtractField.setKey(p.getKey());
+                jobExtractField.setField(p.getField());
                 jobExtractField.setJobId(jobConfig.getId());
-                jobExtractField.setValue(p.getValue());
+                jobExtractField.setRule(p.getRule());
                 jobConfigDao.insertJobExtractField(jobExtractField);
             });
         }
-        if (CollectionUtils.isNotEmpty(spiderConfig.getRegexTargetUrl())) {
-            spiderConfig.getRegexTargetUrl().stream().forEach(p -> {
+        if (CollectionUtils.isNotEmpty(spiderConfig.getRegexTargetUrls())) {
+            spiderConfig.getRegexTargetUrls().stream().forEach(p -> {
                 JobTargetUrl jobTargetUrl = new JobTargetUrl();
                 jobTargetUrl.setExpression(p);
                 jobTargetUrl.setJobId(jobConfig.getId());

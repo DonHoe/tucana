@@ -30,7 +30,7 @@ public interface JobConfigDao {
             " ,create_time AS createTime " +
             " ,modifier " +
             " ,update_time AS updateTime " +
-            " FROM job_config WHERE `delete` = 0 ")
+            " FROM job_config WHERE `delete` = 0 ORDER BY id DESC  ")
     List<JobConfig> getJobConfigList();
 
     @Select("SELECT `id` " +
@@ -57,8 +57,8 @@ public interface JobConfigDao {
      */
     @Select("SELECT `id`  " +
             " ,`job_id` AS jobId  " +
-            " ,`key`  " +
-            " ,`value`  " +
+            " ,`field`  " +
+            " ,`rule`  " +
             " ,`delete` "+
             " ,creator  " +
             " ,create_time AS createTime  " +
@@ -92,9 +92,9 @@ public interface JobConfigDao {
      * @return
      */
     @Insert("INSERT INTO `job_config` " +
-            " (`name`, `desc`,`delete`, `start_url`, `user_agent`, `sleep_time`, `retry_times`, `creator`) " +
+            " (`name`, `desc`,`delete`, `start_url`, `user_agent`, `sleep_time`, `retry_times`) " +
             " VALUES " +
-            " (#{name}, #{desc},#{delete}, #{startUrl}, #{userAgent}, #{sleepTime}, #{retryTimes}, #{creator});")
+            " (#{name}, #{desc},#{delete}, #{startUrl}, #{userAgent}, #{sleepTime}, #{retryTimes});")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     Integer insertJobConfig(JobConfig jobConfig);
 
@@ -105,9 +105,9 @@ public interface JobConfigDao {
      * @return
      */
     @Insert("INSERT INTO `job_extract_field` " +
-            " (`job_id`, `key`, `value`, `creator`) " +
+            " (`job_id`, `field`, `rule`) " +
             " VALUES " +
-            " (#{jobId}, #{key}, #{value}, #{creator});")
+            " (#{jobId}, #{field}, #{rule});")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     Integer insertJobExtractField(JobExtractField jobExtractField);
 
@@ -118,9 +118,9 @@ public interface JobConfigDao {
      * @return
      */
     @Insert("INSERT INTO `job_target_url` " +
-            " (`job_id`, `expression`, `creator`) " +
+            " (`job_id`, `expression`) " +
             " VALUES " +
-            " (#{jobId}, #{expression}, #{creator});")
+            " (#{jobId}, #{expression});")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     Integer insertJobTargetUrl(JobTargetUrl jobTargetUrl);
 

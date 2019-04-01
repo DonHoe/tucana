@@ -1,5 +1,7 @@
 package com.hepic.tucana.model;
 
+import com.hepic.tucana.model.spider.ExtractField;
+
 import java.util.List;
 import java.util.Map;
 
@@ -23,9 +25,9 @@ public class SpiderConfig {
 
     private Integer retryTimes;
 
-    private List<String> regexTargetUrl;
+    private List<String> regexTargetUrls;
 
-    private Map<String, String> extractField;
+    private List<ExtractField> extractFields;
 
     public Long getId() {
         return id;
@@ -99,19 +101,19 @@ public class SpiderConfig {
         this.retryTimes = retryTimes;
     }
 
-    public List<String> getRegexTargetUrl() {
-        return regexTargetUrl;
+    public List<String> getRegexTargetUrls() {
+        return regexTargetUrls;
     }
 
-    public void setRegexTargetUrl(List<String> regexTargetUrl) {
-        this.regexTargetUrl = regexTargetUrl;
+    public void setRegexTargetUrls(List<String> regexTargetUrls) {
+        this.regexTargetUrls = regexTargetUrls;
     }
 
-    public Map<String, String> getExtractField() {
-        return extractField;
+    public List<ExtractField> getExtractFields() {
+        return extractFields;
     }
 
-    public void setExtractField(Map<String, String> extractField) {
-        this.extractField = extractField;
+    public void setExtractFields(List<ExtractField> extractFields) {
+        this.extractFields = extractFields;
     }
 }

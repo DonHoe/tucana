@@ -2,6 +2,7 @@ package com.hepic.tucana.job;
 
 import com.alibaba.fastjson.JSON;
 import com.hepic.tucana.model.SpiderConfig;
+import com.hepic.tucana.model.spider.ExtractField;
 import org.springframework.stereotype.Service;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
@@ -24,11 +25,11 @@ public class PageProcessorFactory implements IPageProcessorFactory {
         PageProcessor pageProcessor = new PageProcessor() {
             @Override
             public void process(Page page) {
-                for (String p : config.getRegexTargetUrl()) {
+                for (String p : config.getRegexTargetUrls()) {
                     page.addTargetRequests(page.getHtml().links().regex(p).all());
                 }
-                for (Map.Entry<String, String> p : config.getExtractField().entrySet()) {
-                    page.putField(p.getKey(), page.getHtml().xpath(p.getValue()).get());
+                for (ExtractField p : config.getExtractFields()) {
+                    page.putField(p.getField(), page.getHtml().xpath(p.getRule()).get());
                 }
                 page.putField("config-id", config.getId());
             }
