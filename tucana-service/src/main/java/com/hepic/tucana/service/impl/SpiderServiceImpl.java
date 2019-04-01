@@ -114,6 +114,20 @@ public class SpiderServiceImpl {
     }
 
     /**
+     * 根据key获取
+     *
+     * @param key
+     * @return
+     */
+    public SpiderConfig getSpiderConfigByKey(String key) {
+        Optional<SpiderConfig> optionalSpider = spiderConfigList.stream().filter(p -> p.getKey().equals(key)).findFirst();
+        if (!optionalSpider.isPresent()) {
+            return null;
+        }
+        return optionalSpider.get();
+    }
+
+    /**
      * 新增配置
      *
      * @param spiderConfig
@@ -166,14 +180,17 @@ public class SpiderServiceImpl {
             throw new BaseException(2001, "配置为空");
         }
         Spider spider = getSpiderByKey(spiderConfig.getKey());
+        SpiderConfig spiderConfigExist = getSpiderConfigByKey(spiderConfig.getKey());
         if (spider == null) {
             throw new BaseException(2002, "找不到");
         }
         if (spider.getStatus() == Spider.Status.Running) {
             throw new BaseException(2003, "仍在执行中");
         }
-
+        //更新主记录
         JobConfig jobConfig = new JobConfig();
+        jobConfig.setId(spiderConfig.getId());
+        jobConfig.setKey(spiderConfig.getKey());
         jobConfig.setName(spiderConfig.getName());
         jobConfig.setDesc(spiderConfig.getDesc());
         jobConfig.setStartUrl(spiderConfig.getStartUrl());
@@ -181,6 +198,30 @@ public class SpiderServiceImpl {
         jobConfig.setSleepTime(spiderConfig.getSleepTime());
         jobConfig.setRetryTimes(spiderConfig.getRetryTimes());
         jobConfigDao.updateModel(jobConfig);
+        //删除旧记录
+        jobConfigDao.deleteJobTargetUrl(jobConfig.getId());
+        jobConfigDao.deleteJobExtractField(jobConfig.getId());
+        spiderList.remove(spider);
+        spiderConfigList.remove(spiderConfigExist);
+        if (CollectionUtils.isNotEmpty(spiderConfig.getExtractField().entrySet())) {
+            spiderConfig.getExtractField().entrySet().stream().forEach(p -> {
+                JobExtractField jobExtractField = new JobExtractField();
+                jobExtractField.setKey(p.getKey());
+                jobExtractField.setJobId(jobConfig.getId());
+                jobExtractField.setValue(p.getValue());
+                jobConfigDao.insertJobExtractField(jobExtractField);
+            });
+        }
+        if (CollectionUtils.isNotEmpty(spiderConfig.getRegexTargetUrl())) {
+            spiderConfig.getRegexTargetUrl().stream().forEach(p -> {
+                JobTargetUrl jobTargetUrl = new JobTargetUrl();
+                jobTargetUrl.setExpression(p);
+                jobTargetUrl.setJobId(jobConfig.getId());
+                jobConfigDao.insertJobTargetUrl(jobTargetUrl);
+            });
+        }
+        spiderConfigList.add(spiderConfig);
+        spiderList.add(pageProcessorFactory.getSpider(spiderConfig));
         return 1;
     }
 
@@ -238,6 +279,8 @@ public class SpiderServiceImpl {
         }
         spiderConfigList.remove(spiderConfig);
         jobConfigDao.deleteJob(key);
+        jobConfigDao.deleteJobExtractField(spiderConfig.getId());
+        jobConfigDao.deleteJobTargetUrl(spiderConfig.getId());
     }
 
 

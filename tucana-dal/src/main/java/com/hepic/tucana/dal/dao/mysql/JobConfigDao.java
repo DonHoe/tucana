@@ -46,7 +46,7 @@ public interface JobConfigDao {
             " ,create_time AS createTime " +
             " ,modifier " +
             " ,update_time AS updateTime " +
-            " FROM job_config WHERE `key` = #{key} LIMIT 1 ")
+            " FROM job_config WHERE `key` = #{key} AND `delete` = 0  LIMIT 1 ")
     JobConfig getJobConfigByKey(String key);
 
     /**
@@ -59,11 +59,12 @@ public interface JobConfigDao {
             " ,`job_id` AS jobId  " +
             " ,`key`  " +
             " ,`value`  " +
+            " ,`delete` "+
             " ,creator  " +
             " ,create_time AS createTime  " +
             " ,modifier  " +
             " ,update_time AS updateTime  " +
-            " FROM job_extract_field where `job_id` = #{jobId}")
+            " FROM job_extract_field where `job_id` = #{jobId} AND `delete` = 0 ")
     List<JobExtractField> getJobExtractFieldByConfigId(Long jobId);
 
     /**
@@ -76,11 +77,12 @@ public interface JobConfigDao {
             " ,`job_id` AS jobId " +
             " ,`expression` " +
             " ,`type` " +
+            " ,`delete` "+
             " ,creator " +
             " ,create_time AS createTime " +
             " ,modifier " +
             " ,update_time AS updateTime " +
-            "FROM job_target_url WHERE `job_id` = #{jobId}")
+            "FROM job_target_url WHERE `job_id` = #{jobId} AND `delete` = 0 ")
     List<JobTargetUrl> getJobTargetUrlByConfigId(Long jobId);
 
     /**
@@ -130,6 +132,24 @@ public interface JobConfigDao {
      */
     @Update("UPDATE job_config SET `delete` = 1 WHERE `key` = #{key} ")
     Integer deleteJob(String key);
+
+    /**
+     * 按主配置id删除提取数据
+     *
+     * @param jobId
+     * @return
+     */
+    @Update("UPDATE job_extract_field SET `delete` = 1 WHERE job_id = #{jobId} ")
+    Integer deleteJobExtractField(Long jobId);
+
+    /**
+     * 按主配置id删除url拉取数据
+     *
+     * @param jobId
+     * @return
+     */
+    @Update("UPDATE job_target_url SET `delete` = 1 WHERE job_id = #{jobId} ")
+    Integer deleteJobTargetUrl(Long jobId);
 
     /**
      * 更新数据

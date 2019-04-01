@@ -12,6 +12,8 @@ public class JobTargetUrl {
 
     private Integer type;
 
+    private Integer delete;
+
     private String creator;
 
     private Date createTime;
@@ -50,6 +52,14 @@ public class JobTargetUrl {
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public Integer getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Integer delete) {
+        this.delete = delete;
     }
 
     public String getCreator() {

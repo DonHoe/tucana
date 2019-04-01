@@ -12,6 +12,8 @@ public class JobExtractField {
 
     private String value;
 
+    private Integer delete;
+
     private String creator;
 
     private Date createTime;
@@ -50,6 +52,14 @@ public class JobExtractField {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public Integer getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Integer delete) {
+        this.delete = delete;
     }
 
     public String getCreator() {
