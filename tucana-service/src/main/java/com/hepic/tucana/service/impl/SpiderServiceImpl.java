@@ -236,7 +236,7 @@ public class SpiderServiceImpl {
      *
      * @param key
      */
-    public void startSpider(String key) {
+    public Integer startSpider(String key) {
         Spider spider = getSpiderByKey(key);
         if (spider == null) {
             throw new BaseException(2001, "找不到");
@@ -246,6 +246,7 @@ public class SpiderServiceImpl {
         }
         spider.start();
         spiderConfigList.stream().filter(p -> p.getKey().equals(key)).forEach(p -> p.setStatus(Spider.Status.Running.ordinal()));
+        return spider.getStatus().ordinal();
     }
 
     /**
@@ -253,7 +254,7 @@ public class SpiderServiceImpl {
      *
      * @param key
      */
-    public void stopSpider(String key) {
+    public Integer stopSpider(String key) {
         Spider spider = getSpiderByKey(key);
         if (spider == null) {
             throw new BaseException(2001, "找不到");
@@ -263,6 +264,7 @@ public class SpiderServiceImpl {
         }
         spider.stop();
         spiderConfigList.stream().filter(p -> p.getKey().equals(key)).forEach(p -> p.setStatus(Spider.Status.Stopped.ordinal()));
+        return spider.getStatus().ordinal();
     }
 
     /**

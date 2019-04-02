@@ -4,9 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.hepic.tucana.model.SpiderConfig;
 import com.hepic.tucana.model.spider.ExtractField;
 import org.springframework.stereotype.Service;
-import us.codecraft.webmagic.Page;
-import us.codecraft.webmagic.Site;
-import us.codecraft.webmagic.Spider;
+import us.codecraft.webmagic.*;
 import us.codecraft.webmagic.pipeline.Pipeline;
 import us.codecraft.webmagic.processor.PageProcessor;
 
@@ -50,7 +48,14 @@ public class PageProcessorFactory implements IPageProcessorFactory {
      * @return
      */
     public Pipeline createPipeline(SpiderConfig config) {
-        Pipeline pipeline = (resultItems, task) -> System.out.println(JSON.toJSONString(resultItems));
+        Pipeline pipeline = new Pipeline() {
+            @Override
+            public void process(ResultItems resultItems, Task task) {
+                for (Map.Entry<String, Object> item : resultItems.getAll().entrySet()) {
+                    System.out.println(item.getKey() + "->" + item.getValue());
+                }
+            }
+        };
         return pipeline;
     }
 

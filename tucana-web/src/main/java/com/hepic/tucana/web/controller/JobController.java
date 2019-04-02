@@ -112,4 +112,44 @@ public class JobController {
         return JSON.toJSONString(responseDto);
     }
 
+    /**
+     * 启动
+     *
+     * @param key
+     * @return
+     */
+    @GetMapping("startSpider")
+    public String startSpider(String key) {
+        CommonResponse<Integer> responseDto = new CommonResponse<>();
+        try {
+            responseDto.setResponseEnum(ResponseEnum.Code_1000);
+            Integer result = spiderServiceImpl.startSpider(key);
+            responseDto.setResult(result);
+        } catch (Exception e) {
+            responseDto.setResponseEnum(ResponseEnum.Code_999);
+            log.error("配置异常", e);
+        }
+        return JSON.toJSONString(responseDto);
+    }
+
+    /**
+     * 暂停
+     *
+     * @param key
+     * @return
+     */
+    @GetMapping("stopSpider")
+    public String stopSpider(String key) {
+        CommonResponse<Integer> responseDto = new CommonResponse<>();
+        try {
+            responseDto.setResponseEnum(ResponseEnum.Code_1000);
+            Integer result = spiderServiceImpl.stopSpider(key);
+            responseDto.setResult(result);
+        } catch (Exception e) {
+            responseDto.setResponseEnum(ResponseEnum.Code_999);
+            log.error("配置异常", e);
+        }
+        return JSON.toJSONString(responseDto);
+    }
+
 }
