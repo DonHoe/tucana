@@ -246,7 +246,7 @@ public class SpiderServiceImpl {
         }
         spider.start();
         spiderConfigList.stream().filter(p -> p.getKey().equals(key)).forEach(p -> p.setStatus(Spider.Status.Running.ordinal()));
-        return spider.getStatus().ordinal();
+        return Spider.Status.Running.ordinal();
     }
 
     /**
@@ -264,7 +264,7 @@ public class SpiderServiceImpl {
         }
         spider.stop();
         spiderConfigList.stream().filter(p -> p.getKey().equals(key)).forEach(p -> p.setStatus(Spider.Status.Stopped.ordinal()));
-        return spider.getStatus().ordinal();
+        return Spider.Status.Stopped.ordinal();
     }
 
     /**
