@@ -31,7 +31,7 @@
             <driverClass>com.mysql.jdbc.Driver</driverClass>
             <url>jdbc:mysql://127.0.0.1:3306/data?serverTimezone=UTC</url>
             <user>root</user>
-            <password>1q2w3e</password>
+            <password>123456</password>
         </connectionSource>
     </appender>
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
