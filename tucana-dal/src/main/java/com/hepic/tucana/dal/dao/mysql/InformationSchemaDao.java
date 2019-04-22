@@ -29,7 +29,8 @@ public interface InformationSchemaDao {
             "IS_NULLABLE AS isNullable, " +
             "COLUMN_TYPE AS columnType, " +
             "COLUMN_KEY AS columnKey, " +
-            "EXTRA AS extra " +
+            "EXTRA AS extra ," +
+            "COLUMN_COMMENT AS columnComment "+
             "FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = #{database} AND TABLE_NAME = #{table} ")
     List<Columns> getColumnsList(String database, String table);
 }

@@ -4,6 +4,8 @@ public class Columns {
 
     private String columnName;
 
+    private String columnComment;
+
     private Integer ordinalPosition;
 
     private String columnDefault;
@@ -22,6 +24,14 @@ public class Columns {
 
     public void setColumnName(String columnName) {
         this.columnName = columnName;
+    }
+
+    public String getColumnComment() {
+        return columnComment;
+    }
+
+    public void setColumnComment(String columnComment) {
+        this.columnComment = columnComment;
     }
 
     public Integer getOrdinalPosition() {
