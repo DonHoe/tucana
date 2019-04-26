@@ -10,7 +10,7 @@ spring:
         type: com.alibaba.druid.pool.DruidDataSource
       sqlite:
         driver-class-name: org.sqlite.JDBC
-        jdbc-url: jdbc:sqlite:E:/Source/Node/BeaconT/web/db/vendor.db
+        jdbc-url: jdbc:sqlite:G:/Project/db/data.db
         username:
         password:
         type: com.alibaba.druid.pool.DruidDataSource

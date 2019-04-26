@@ -31,7 +31,7 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public List<Answer> findAnswerByName(String name) {
-        return answerDao.getListByName(name);
+    public List<Answer> getList(String name) {
+        return answerDao.getList();
     }
 }

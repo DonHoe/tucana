@@ -1,6 +1,7 @@
 package com.hepic.tucana.dal.dao.sqlite;
 
 import com.hepic.tucana.dal.entity.sqlite.Answer;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ import java.util.List;
  */
 public interface AnswerDao {
 
-    List<Answer> getListByName(String name);
+    @Select("SELECT * FROM Answer limit 100;\n")
+    List<Answer> getList();
 
 }

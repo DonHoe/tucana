@@ -1,6 +1,7 @@
 package com.hepic.tucana.web.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.hepic.tucana.dal.dao.sqlite.AnswerDao;
 import com.hepic.tucana.dal.entity.sqlite.Answer;
 import com.hepic.tucana.model.common.CommonResponse;
 import com.hepic.tucana.model.enums.ResponseEnum;
@@ -20,6 +21,9 @@ public class TestController {
     @Autowired
     private TestService testService;
 
+    @Autowired
+    AnswerDao answerDao;
+
     @RequestMapping("/get")
     public String get() {
         CommonResponse<String> response = new CommonResponse<>();
@@ -32,7 +36,7 @@ public class TestController {
     public String getAnswer(String name) {
         CommonResponse<List<Answer>> response = new CommonResponse<>();
         response.setResponseEnum(ResponseEnum.Code_1000);
-        response.setResult(testService.findAnswerByName(name));
+        response.setResult(testService.getList(name));
         return JSON.toJSONString(response);
     }
 

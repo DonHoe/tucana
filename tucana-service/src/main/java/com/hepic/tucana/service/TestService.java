@@ -15,6 +15,6 @@ public interface TestService {
 
     User findUserById(Integer id);
 
-    List<Answer> findAnswerByName(String name);
+    List<Answer> getList(String name);
 
 }
