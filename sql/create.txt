@@ -33,6 +33,27 @@ CREATE TABLE `double_one_eight_godeye_record` (
 	PRIMARY KEY (`id`)
 ) COMMENT='播放纪录表' COLLATE='utf8_general_ci';
 
+-- 问答
+CREATE TABLE `answer` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`url` VARCHAR(500) NULL DEFAULT '',
+	`content` TEXT NULL DEFAULT '',
+	`author` VARCHAR(100) NULL DEFAULT '',
+	`author_id` VARCHAR(100) NOT NULL DEFAULT '',
+	`create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`question_id` INT(11) NOT NULL DEFAULT '0',
+	`question_name` VARCHAR(300) NOT NULL DEFAULT '',
+	`data_flag` INT(11) NOT NULL DEFAULT '0',
+	`img` VARCHAR(300) NOT NULL DEFAULT '',
+	`collection_id` INT(11) NOT NULL DEFAULT '0',
+	`vote_up` INT(11) NOT NULL DEFAULT '0',
+	`comment` INT(11) NOT NULL DEFAULT '0',
+	`thanks` INT(11) NOT NULL DEFAULT '0',
+	PRIMARY KEY (`id`)
+)
+COLLATE='utf8_general_ci'
+;
+
 -- 主配置
 CREATE TABLE `job_config` (
 	`id` BIGINT NOT NULL AUTO_INCREMENT,
