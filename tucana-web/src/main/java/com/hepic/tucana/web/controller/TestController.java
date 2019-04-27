@@ -1,6 +1,8 @@
 package com.hepic.tucana.web.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.hepic.tucana.dal.dao.mongo.MongoDao;
+import com.hepic.tucana.dal.entity.mongo.SpiderResult;
 import com.hepic.tucana.dal.entity.sqlite.Answer;
 import com.hepic.tucana.model.common.CommonResponse;
 import com.hepic.tucana.model.enums.ResponseEnum;
@@ -20,6 +22,9 @@ public class TestController {
     @Autowired
     private TestService testService;
 
+    @Autowired
+    MongoDao mongoDao;
+
     @RequestMapping("/get")
     public String get() {
         CommonResponse<String> response = new CommonResponse<>();
@@ -33,6 +38,23 @@ public class TestController {
         CommonResponse<List<Answer>> response = new CommonResponse<>();
         response.setResponseEnum(ResponseEnum.Code_1000);
         response.setResult(testService.findAnswerByName(name));
+        return JSON.toJSONString(response);
+    }
+
+    @RequestMapping("/addAnswer")
+    public String addAnswer() {
+        CommonResponse<Integer> response = new CommonResponse<>();
+        response.setResponseEnum(ResponseEnum.Code_1000);
+        mongoDao.addData();
+        response.setResult(1);
+        return JSON.toJSONString(response);
+    }
+
+    @RequestMapping("/getList")
+    public String getList() {
+        CommonResponse<List<SpiderResult>> response = new CommonResponse<>();
+        response.setResponseEnum(ResponseEnum.Code_1000);
+        response.setResult(mongoDao.getList());
         return JSON.toJSONString(response);
     }
 
