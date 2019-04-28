@@ -59,13 +59,25 @@ public interface JobConfigDao {
             " ,`job_id` AS jobId  " +
             " ,`field`  " +
             " ,`rule`  " +
-            " ,`delete` "+
+            " ,`delete` " +
             " ,creator  " +
             " ,create_time AS createTime  " +
             " ,modifier  " +
             " ,update_time AS updateTime  " +
             " FROM job_extract_field where `job_id` = #{jobId} AND `delete` = 0 ")
     List<JobExtractField> getJobExtractFieldByConfigId(Long jobId);
+
+    /**
+     * 根据主配置key查询提取配置
+     *
+     * @param key 主配置key
+     * @return
+     */
+    @Select(" SELECT a.* " +
+            " FROM job_extract_field AS a " +
+            " INNER JOIN job_config AS b ON a.job_id = b.id " +
+            " WHERE a.`delete` = 0 AND b.`delete` = 0 AND b.`key` = #{key} ")
+    List<JobExtractField> getJobExtractFieldByKey(String key);
 
     /**
      * 根据主配置id查询URL筛选规则
@@ -77,7 +89,7 @@ public interface JobConfigDao {
             " ,`job_id` AS jobId " +
             " ,`expression` " +
             " ,`type` " +
-            " ,`delete` "+
+            " ,`delete` " +
             " ,creator " +
             " ,create_time AS createTime " +
             " ,modifier " +

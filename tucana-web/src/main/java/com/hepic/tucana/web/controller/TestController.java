@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -45,14 +46,14 @@ public class TestController {
     public String addAnswer() {
         CommonResponse<Integer> response = new CommonResponse<>();
         response.setResponseEnum(ResponseEnum.Code_1000);
-        mongoDao.addData();
+        //mongoDao.addData();
         response.setResult(1);
         return JSON.toJSONString(response);
     }
 
     @RequestMapping("/getList")
     public String getList() {
-        CommonResponse<List<SpiderResult>> response = new CommonResponse<>();
+        CommonResponse<List<Map<String,Object>>> response = new CommonResponse<>();
         response.setResponseEnum(ResponseEnum.Code_1000);
         response.setResult(mongoDao.getList());
         return JSON.toJSONString(response);

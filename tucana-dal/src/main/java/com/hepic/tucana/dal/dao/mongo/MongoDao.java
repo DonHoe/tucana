@@ -1,12 +1,13 @@
 package com.hepic.tucana.dal.dao.mongo;
 
-import com.hepic.tucana.dal.entity.mongo.SpiderResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
+import java.util.Map;
 
 @Service
 public class MongoDao {
@@ -14,15 +15,17 @@ public class MongoDao {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    public void addData(){
-        SpiderResult sr =new SpiderResult();
-        sr.setSpId(1);
-        sr.setKey(UUID.randomUUID().toString());
-        sr.setContent("content");
-        mongoTemplate.insert(sr,"spider_result");
+    public void addData(Map<String, Object> data, String collectionName) {
+        mongoTemplate.insert(data, collectionName);
     }
 
-    public List<SpiderResult> getList(){
-        return mongoTemplate.findAll(SpiderResult.class,"spider_result");
+    public List<Map<String, Object>> getListByQuery(Query query, String collectionName) {
+        Class resultType = HashMap.class;
+        return mongoTemplate.find(query, resultType, collectionName);
+    }
+
+    public List<Map<String, Object>> getList() {
+        Class resultType = HashMap.class;
+        return mongoTemplate.findAll(resultType, "spider_result");
     }
 }
