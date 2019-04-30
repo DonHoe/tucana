@@ -26,6 +26,7 @@ public class MongoDao {
 
     public List<Map<String, Object>> getList() {
         Class resultType = HashMap.class;
+
         return mongoTemplate.findAll(resultType, "spider_result");
     }
 }

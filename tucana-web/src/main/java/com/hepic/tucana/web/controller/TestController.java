@@ -2,7 +2,6 @@ package com.hepic.tucana.web.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.hepic.tucana.dal.dao.mongo.MongoDao;
-import com.hepic.tucana.dal.entity.mongo.SpiderResult;
 import com.hepic.tucana.dal.entity.sqlite.Answer;
 import com.hepic.tucana.model.common.CommonResponse;
 import com.hepic.tucana.model.enums.ResponseEnum;
