@@ -1,10 +1,10 @@
 package com.hepic.tucana.job;
 
-import com.hepic.tucana.dal.dao.mongo.MongoDao;
 import com.hepic.tucana.model.SpiderConfig;
 import com.hepic.tucana.model.spider.ExtractField;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 import us.codecraft.webmagic.*;
 import us.codecraft.webmagic.pipeline.Pipeline;
@@ -16,7 +16,7 @@ import java.util.Date;
 public class PageProcessorFactory implements IPageProcessorFactory {
 
     @Autowired
-    MongoDao mongoDao;
+    private MongoTemplate mongoTemplate;
 
     /**
      * 生成页面处理程序
@@ -62,7 +62,7 @@ public class PageProcessorFactory implements IPageProcessorFactory {
     public Pipeline createPipeline(SpiderConfig config) {
         Pipeline pipeline = (resultItems, task) -> {
             if (resultItems.getAll() != null && resultItems.getAll().size() > 4) {
-                mongoDao.addData(resultItems.getAll(), SpiderConstants.SPIDER_RESULT_COLLECTION);
+                mongoTemplate.insert(resultItems.getAll(), SpiderConstants.SPIDER_RESULT_COLLECTION);
             }
         };
         return pipeline;

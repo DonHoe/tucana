@@ -1,16 +1,17 @@
 package com.hepic.tucana.web.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.hepic.tucana.dal.dao.mongo.MongoDao;
 import com.hepic.tucana.dal.entity.sqlite.Answer;
 import com.hepic.tucana.model.common.CommonResponse;
 import com.hepic.tucana.model.enums.ResponseEnum;
 import com.hepic.tucana.service.TestService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,7 +24,7 @@ public class TestController {
     private TestService testService;
 
     @Autowired
-    MongoDao mongoDao;
+    private MongoTemplate mongoTemplate;
 
     @RequestMapping("/get")
     public String get() {
@@ -54,7 +55,8 @@ public class TestController {
     public String getList() {
         CommonResponse<List<Map<String,Object>>> response = new CommonResponse<>();
         response.setResponseEnum(ResponseEnum.Code_1000);
-        response.setResult(mongoDao.getList());
+        Class resultType = HashMap.class;
+        response.setResult(mongoTemplate.findAll(resultType, "spider_result"));
         return JSON.toJSONString(response);
     }
 

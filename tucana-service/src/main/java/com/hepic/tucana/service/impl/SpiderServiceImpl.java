@@ -1,6 +1,5 @@
 package com.hepic.tucana.service.impl;
 
-import com.hepic.tucana.dal.dao.mongo.MongoDao;
 import com.hepic.tucana.dal.dao.mysql.JobConfigDao;
 import com.hepic.tucana.dal.entity.mysql.JobConfig;
 import com.hepic.tucana.dal.entity.mysql.JobExtractField;
@@ -10,10 +9,12 @@ import com.hepic.tucana.job.SpiderConstants;
 import com.hepic.tucana.model.SpiderConfig;
 import com.hepic.tucana.model.spider.ExtractField;
 import com.hepic.tucana.util.exception.BaseException;
+import com.mongodb.client.result.DeleteResult;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,7 @@ public class SpiderServiceImpl {
 
     private JobConfigDao jobConfigDao;
 
-    private MongoDao mongoDao;
+    private MongoTemplate mongoTemplate;
 
     private IPageProcessorFactory pageProcessorFactory;
 
@@ -39,10 +40,10 @@ public class SpiderServiceImpl {
      * 初始化
      */
     @Autowired
-    public SpiderServiceImpl(JobConfigDao jobConfigDao, IPageProcessorFactory pageProcessorFactory, MongoDao mongoDao) {
+    public SpiderServiceImpl(JobConfigDao jobConfigDao, IPageProcessorFactory pageProcessorFactory, MongoTemplate mongoTemplate) {
         this.jobConfigDao = jobConfigDao;
         this.pageProcessorFactory = pageProcessorFactory;
-        this.mongoDao = mongoDao;
+        this.mongoTemplate = mongoTemplate;
         spiderList = new ArrayList<>();
         spiderConfigList = new ArrayList<>();
         initSpider();
@@ -318,10 +319,24 @@ public class SpiderServiceImpl {
         if (StringUtils.isEmpty(key)) {
             return result;
         }
+        Class resultType = HashMap.class;
         Query query = new Query();
         query.addCriteria(Criteria.where("_config_key").is(key));
         query.with(PageRequest.of(page, size));
-        return mongoDao.getListByQuery(query, SpiderConstants.SPIDER_RESULT_COLLECTION);
+        return mongoTemplate.find(query, resultType, SpiderConstants.SPIDER_RESULT_COLLECTION);
+    }
+
+    /**
+     * 清空已有的数据
+     *
+     * @param key
+     * @return
+     */
+    public Integer clearSpiderResult(String key) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("_config_key").is(key));
+        DeleteResult deleteResult = mongoTemplate.remove(query, SpiderConstants.SPIDER_RESULT_COLLECTION);
+        return (int) deleteResult.getDeletedCount();
     }
 
     /**

@@ -177,4 +177,25 @@ public class JobController {
         return JSON.toJSONStringWithDateFormat(responseDto, "yyyy-MM-dd HH:mm:ss");
     }
 
+    /**
+     * 清空执行结果
+     *
+     * @param key
+     * @return
+     */
+    @GetMapping("clearSpiderResult")
+    public String clearSpiderResult(String key) {
+        CommonResponse<Integer> responseDto = new CommonResponse<>();
+        try {
+            Integer result = 0;
+            responseDto.setResponseEnum(ResponseEnum.Code_1000);
+            result = spiderServiceImpl.clearSpiderResult(key);
+            responseDto.setResult(result);
+        } catch (Exception e) {
+            responseDto.setResponseEnum(ResponseEnum.Code_999);
+            log.error("清空结果异常", e);
+        }
+        return JSON.toJSONString(responseDto);
+    }
+
 }
