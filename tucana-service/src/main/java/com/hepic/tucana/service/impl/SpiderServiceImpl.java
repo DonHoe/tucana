@@ -5,12 +5,18 @@ import com.hepic.tucana.dal.entity.mysql.JobConfig;
 import com.hepic.tucana.dal.entity.mysql.JobExtractField;
 import com.hepic.tucana.dal.entity.mysql.JobTargetUrl;
 import com.hepic.tucana.job.IPageProcessorFactory;
+import com.hepic.tucana.job.SpiderConstants;
 import com.hepic.tucana.model.SpiderConfig;
 import com.hepic.tucana.model.spider.ExtractField;
 import com.hepic.tucana.util.exception.BaseException;
+import com.mongodb.client.result.DeleteResult;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import us.codecraft.webmagic.Spider;
 
@@ -22,6 +28,8 @@ public class SpiderServiceImpl {
 
     private JobConfigDao jobConfigDao;
 
+    private MongoTemplate mongoTemplate;
+
     private IPageProcessorFactory pageProcessorFactory;
 
     private static List<Spider> spiderList;
@@ -32,9 +40,10 @@ public class SpiderServiceImpl {
      * 初始化
      */
     @Autowired
-    public SpiderServiceImpl(JobConfigDao jobConfigDao, IPageProcessorFactory pageProcessorFactory) {
+    public SpiderServiceImpl(JobConfigDao jobConfigDao, IPageProcessorFactory pageProcessorFactory, MongoTemplate mongoTemplate) {
         this.jobConfigDao = jobConfigDao;
         this.pageProcessorFactory = pageProcessorFactory;
+        this.mongoTemplate = mongoTemplate;
         spiderList = new ArrayList<>();
         spiderConfigList = new ArrayList<>();
         initSpider();
@@ -291,5 +300,53 @@ public class SpiderServiceImpl {
         jobConfigDao.deleteJobTargetUrl(spiderConfig.getId());
     }
 
+    /**
+     * 查询执行结果
+     *
+     * @param key  标识
+     * @param page 页数
+     * @param size 行数
+     * @return
+     */
+    public List<Map<String, Object>> getSpiderResultList(String key, Integer page, Integer size) {
+        if (page == null) {
+            page = 0;
+        }
+        if (size == null) {
+            size = 10;
+        }
+        List<Map<String, Object>> result = new ArrayList<>();
+        if (StringUtils.isEmpty(key)) {
+            return result;
+        }
+        Class resultType = HashMap.class;
+        Query query = new Query();
+        query.addCriteria(Criteria.where("_config_key").is(key));
+        query.with(PageRequest.of(page, size));
+        return mongoTemplate.find(query, resultType, SpiderConstants.SPIDER_RESULT_COLLECTION);
+    }
 
+    /**
+     * 清空已有的数据
+     *
+     * @param key
+     * @return
+     */
+    public Integer clearSpiderResult(String key) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("_config_key").is(key));
+        DeleteResult deleteResult = mongoTemplate.remove(query, SpiderConstants.SPIDER_RESULT_COLLECTION);
+        return (int) deleteResult.getDeletedCount();
+    }
+
+    /**
+     * 获取所有表头
+     *
+     * @param key
+     * @return
+     */
+    public List<String> getFieldList(String key) {
+        List<JobExtractField> fieldList = jobConfigDao.getJobExtractFieldByKey(key);
+        return fieldList.stream().map(p -> p.getField()).filter(p -> !p.startsWith("_")).collect(Collectors.toList());
+    }
 }

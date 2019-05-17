@@ -1,17 +1,22 @@
 package com.hepic.tucana.job;
 
-import com.alibaba.fastjson.JSON;
 import com.hepic.tucana.model.SpiderConfig;
 import com.hepic.tucana.model.spider.ExtractField;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 import us.codecraft.webmagic.*;
 import us.codecraft.webmagic.pipeline.Pipeline;
 import us.codecraft.webmagic.processor.PageProcessor;
 
-import java.util.Map;
+import java.util.Date;
 
 @Service
 public class PageProcessorFactory implements IPageProcessorFactory {
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
     /**
      * 生成页面处理程序
@@ -27,9 +32,16 @@ public class PageProcessorFactory implements IPageProcessorFactory {
                     page.addTargetRequests(page.getHtml().links().regex(p).all());
                 }
                 for (ExtractField p : config.getExtractFields()) {
-                    page.putField(p.getField(), page.getHtml().xpath(p.getRule()).get());
+                    String fieldValue = page.getHtml().xpath(p.getRule()).get();
+                    if (StringUtils.isEmpty(fieldValue)) {
+                        continue;
+                    }
+                    page.putField(p.getField(), fieldValue);
                 }
-                page.putField("config-id", config.getId());
+                page.putField("_request_url", page.getRequest().getUrl());
+                page.putField("_config_key", config.getKey());
+                page.putField("_config_name", config.getName());
+                page.putField("_createTime", new Date());
             }
 
             @Override
@@ -48,12 +60,9 @@ public class PageProcessorFactory implements IPageProcessorFactory {
      * @return
      */
     public Pipeline createPipeline(SpiderConfig config) {
-        Pipeline pipeline = new Pipeline() {
-            @Override
-            public void process(ResultItems resultItems, Task task) {
-                for (Map.Entry<String, Object> item : resultItems.getAll().entrySet()) {
-                    System.out.println(item.getKey() + "->" + item.getValue());
-                }
+        Pipeline pipeline = (resultItems, task) -> {
+            if (resultItems.getAll() != null && resultItems.getAll().size() > 4) {
+                mongoTemplate.insert(resultItems.getAll(), SpiderConstants.SPIDER_RESULT_COLLECTION);
             }
         };
         return pipeline;

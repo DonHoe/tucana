@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.hepic.tucana.job.PageInfoSpider;
 import com.hepic.tucana.model.SpiderConfig;
 import com.hepic.tucana.model.common.CommonResponse;
+import com.hepic.tucana.model.common.DynamicTableList;
 import com.hepic.tucana.model.enums.ResponseEnum;
 import com.hepic.tucana.service.impl.SpiderServiceImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import us.codecraft.webmagic.Spider;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author tucana
@@ -148,6 +150,50 @@ public class JobController {
         } catch (Exception e) {
             responseDto.setResponseEnum(ResponseEnum.Code_999);
             log.error("配置异常", e);
+        }
+        return JSON.toJSONString(responseDto);
+    }
+
+    /**
+     * 获取执行结果
+     *
+     * @return
+     */
+    @GetMapping("getSpiderResultList")
+    public String getSpiderResultList(String key, Integer page, Integer size) {
+        CommonResponse<DynamicTableList> responseDto = new CommonResponse<>();
+        try {
+            DynamicTableList result = new DynamicTableList();
+            responseDto.setResponseEnum(ResponseEnum.Code_1000);
+            List<String> column = spiderServiceImpl.getFieldList(key);
+            List<Map<String, Object>> list = spiderServiceImpl.getSpiderResultList(key, page, size);
+            result.setColumn(column);
+            result.setList(list);
+            responseDto.setResult(result);
+        } catch (Exception e) {
+            responseDto.setResponseEnum(ResponseEnum.Code_999);
+            log.error("获取列表异常", e);
+        }
+        return JSON.toJSONStringWithDateFormat(responseDto, "yyyy-MM-dd HH:mm:ss");
+    }
+
+    /**
+     * 清空执行结果
+     *
+     * @param key
+     * @return
+     */
+    @GetMapping("clearSpiderResult")
+    public String clearSpiderResult(String key) {
+        CommonResponse<Integer> responseDto = new CommonResponse<>();
+        try {
+            Integer result = 0;
+            responseDto.setResponseEnum(ResponseEnum.Code_1000);
+            result = spiderServiceImpl.clearSpiderResult(key);
+            responseDto.setResult(result);
+        } catch (Exception e) {
+            responseDto.setResponseEnum(ResponseEnum.Code_999);
+            log.error("清空结果异常", e);
         }
         return JSON.toJSONString(responseDto);
     }
