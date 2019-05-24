@@ -8,6 +8,7 @@ import com.hepic.tucana.model.common.DynamicTableList;
 import com.hepic.tucana.model.enums.ResponseEnum;
 import com.hepic.tucana.service.impl.SpiderServiceImpl;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import us.codecraft.webmagic.Spider;
@@ -57,6 +58,7 @@ public class JobController {
      * @return
      */
     @GetMapping("getSpiderList")
+    @RequiresPermissions("pBargeInfo:list")
     public String getSpiderList() {
         CommonResponse<List<SpiderConfig>> responseDto = new CommonResponse<>();
         try {

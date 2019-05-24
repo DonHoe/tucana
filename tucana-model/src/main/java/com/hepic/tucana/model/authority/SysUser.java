@@ -1,4 +1,4 @@
-package com.hepic.tucana.dal.entity.mysql;
+package com.hepic.tucana.model.authority;
 
 /**
  * @author tucana
@@ -6,9 +6,11 @@ package com.hepic.tucana.dal.entity.mysql;
  * @Description:
  * @date 2018/4/11.
  */
-public class User {
+public class SysUser {
 
-    private Integer userId;
+    private Integer id;
+
+    private String nickName;
 
     private String userName;
 
@@ -16,12 +18,20 @@ public class User {
 
     private String phone;
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
     public String getUserName() {

@@ -28,7 +28,7 @@ public class TestController {
     public String get() {
         CommonResponse<String> response = new CommonResponse<>();
         response.setResponseEnum(ResponseEnum.Code_1000);
-        response.setResult(testService.findUserById(1).getUserName());
+        response.setResult("");
         return JSON.toJSONString(response);
     }
 

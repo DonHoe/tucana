@@ -1,6 +1,7 @@
 package com.hepic.tucana.service;
 
-import com.hepic.tucana.dal.entity.mysql.User;
+import com.hepic.tucana.model.authority.SysUser;
+import com.hepic.tucana.model.authority.User;
 
 /**
  * @author tucana
@@ -9,5 +10,8 @@ import com.hepic.tucana.dal.entity.mysql.User;
  * @date 2018/7/12.
  */
 public interface LoginService {
-    User login(String name, String password);
+
+    User findUserByName(String name);
+
+    SysUser login(String name, String password);
 }
