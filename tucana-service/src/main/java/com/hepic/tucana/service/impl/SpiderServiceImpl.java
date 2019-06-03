@@ -179,6 +179,7 @@ public class SpiderServiceImpl {
                 jobConfigDao.insertJobExtractField(jobExtractField);
             });
         }
+        spiderConfig.setId(spiderConfig.getId());
         spiderConfigList.add(spiderConfig);
         spiderList.add(pageProcessorFactory.getSpider(spiderConfig));
         return 1;

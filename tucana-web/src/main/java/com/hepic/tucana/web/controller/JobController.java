@@ -83,7 +83,7 @@ public class JobController {
         try {
             responseDto.setResponseEnum(ResponseEnum.Code_1000);
             Integer result;
-            if (spiderConfig.getId() < 1) {
+            if (spiderConfig.getId() == null || spiderConfig.getId() < 1) {
                 result = spiderServiceImpl.addSpiderConfig(spiderConfig);
             } else {
                 result = spiderServiceImpl.modifySpiderConfig(spiderConfig);
