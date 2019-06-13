@@ -3,10 +3,7 @@ package com.hepic.tucana.dal.dao.mysql;
 import com.hepic.tucana.dal.entity.mysql.JobConfig;
 import com.hepic.tucana.dal.entity.mysql.JobExtractField;
 import com.hepic.tucana.dal.entity.mysql.JobTargetUrl;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -17,36 +14,21 @@ public interface JobConfigDao {
      *
      * @return
      */
-    @Select("SELECT `id` " +
-            " ,`key` " +
-            " ,`name` " +
-            " ,`desc` " +
-            " ,`start_url` AS startUrl " +
-            " ,`user_agent` AS userAgent " +
-            " , sleep_time AS sleepTime " +
-            " ,retry_times AS retryTimes " +
-            " ,`delete` " +
-            " ,creator " +
-            " ,create_time AS createTime " +
-            " ,modifier " +
-            " ,update_time AS updateTime " +
+    @Select(" SELECT * " +
             " FROM job_config WHERE `delete` = 0 ORDER BY id DESC  ")
+    @Results(id = "jobConfigResults", value = {
+            @Result(property = "startUrl", column = "start_url"),
+            @Result(property = "userAgent", column = "user_agent"),
+            @Result(property = "sleepTime", column = "sleep_time"),
+            @Result(property = "retryTimes", column = "retry_times"),
+            @Result(property = "createTime", column = "create_time"),
+            @Result(property = "updateTime", column = "update_time")
+    })
     List<JobConfig> getJobConfigList();
 
-    @Select("SELECT `id` " +
-            " ,`key` " +
-            " ,`name` " +
-            " ,`desc` " +
-            " ,`start_url` AS startUrl " +
-            " ,`user_agent` AS userAgent " +
-            " , sleep_time AS sleepTime " +
-            " ,retry_times AS retryTimes " +
-            " ,`delete` " +
-            " ,creator " +
-            " ,create_time AS createTime " +
-            " ,modifier " +
-            " ,update_time AS updateTime " +
+    @Select(" SELECT * " +
             " FROM job_config WHERE `key` = #{key} AND `delete` = 0  LIMIT 1 ")
+    @ResultMap("jobConfigResults")
     JobConfig getJobConfigByKey(String key);
 
     /**
