@@ -1,4 +1,4 @@
-package com.hepic.tucana.dal.entity.sqlite;
+package com.hepic.tucana.dal.entity.mysql;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -33,7 +33,7 @@ public class Answer {
 
     private Integer collectionId;
 
-    private Integer voteUp;
+    private Integer vote;
 
     private Integer comment;
 
@@ -127,12 +127,12 @@ public class Answer {
         this.collectionId = collectionId;
     }
 
-    public Integer getVoteUp() {
-        return voteUp;
+    public Integer getVote() {
+        return vote;
     }
 
-    public void setVoteUp(Integer voteUp) {
-        this.voteUp = voteUp;
+    public void setVote(Integer vote) {
+        this.vote = vote;
     }
 
     public Integer getComment() {
