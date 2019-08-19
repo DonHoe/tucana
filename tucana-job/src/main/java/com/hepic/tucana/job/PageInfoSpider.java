@@ -17,17 +17,17 @@ public class PageInfoSpider {
     @Autowired
     PageInfoProcessor pageInfoProcessor;
 
-    @Autowired
-    PageInfoPipeline pageInfoPipeline;
+    //@Autowired
+    //PageInfoPipeline pageInfoPipeline;
 
-    @Autowired
-    MySqlScheduler mySqlScheduler;
+    //@Autowired
+    //MySqlScheduler mySqlScheduler;
 
     private Spider spider;
 
     public Spider getSpider() {
         if (spider == null) {
-            spider = Spider.create(pageInfoProcessor).addPipeline(new ConsolePipeline()).addPipeline(pageInfoPipeline).addUrl("https://www.cnblogs.com/");
+            spider = Spider.create(pageInfoProcessor).addPipeline(new ConsolePipeline()).addUrl("https://www.cnblogs.com/");
         }
         return spider;
     }

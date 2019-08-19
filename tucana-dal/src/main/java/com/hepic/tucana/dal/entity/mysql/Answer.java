@@ -1,5 +1,8 @@
 package com.hepic.tucana.dal.entity.mysql;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -9,8 +12,11 @@ import java.util.Date;
  * @Description:
  * @date 2018/6/5.
  */
+@Entity
+@Table(name = "answer")
 public class Answer {
 
+    @Id
     private Long id;
 
     private String url;

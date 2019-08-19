@@ -53,7 +53,7 @@ public class SpiderServiceImpl {
      * 初始化
      */
     private void initSpider() {
-        List<JobConfig> jobConfigs = jobConfigDao.getJobConfigList();
+        List<JobConfig> jobConfigs = jobConfigDao.findAll();
         for (JobConfig jobConfig : jobConfigs) {
             SpiderConfig spiderConfig = generateSpiderConfig(jobConfig);
             spiderConfigList.add(spiderConfig);
