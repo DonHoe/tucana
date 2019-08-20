@@ -106,3 +106,26 @@ CREATE TABLE `job_extract_field` (
 COLLATE='utf8_general_ci'
 ;
 
+CREATE TABLE `article` (
+  `id` bigint(11) NOT NULL AUTO_INCREMENT,
+  `url` varchar(500) DEFAULT NULL,
+  `content` longtext DEFAULT NULL,
+  `author` varchar(200) DEFAULT NULL,
+  `author_id` varchar(500) NOT NULL,
+  `data_flag` int(11) NOT NULL,
+  `vote` int(11) NOT NULL,
+  `comment` int(11) NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `id_index` (`id`) USING BTREE,
+  KEY `vote_index` (`vote`) USING BTREE,
+  KEY `comment_index` (`comment`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=1437593 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `article_img` (
+  `id` bigint(11) NOT NULL AUTO_INCREMENT,
+  `article_id` bigint(11) DEFAULT NULL,
+  `img` longtext DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `id_index` (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=1437593 DEFAULT CHARSET=utf8;
+
