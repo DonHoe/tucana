@@ -7,11 +7,12 @@ import com.hepic.tucana.model.common.CommonResponse;
 import com.hepic.tucana.model.enums.ResponseEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 
 @Slf4j
 @RestController
@@ -23,10 +24,10 @@ public class ZhiHuController {
 
     @GetMapping("/getList")
     public String getList() {
-        CommonResponse<List<Answer>> responseDto = new CommonResponse<>();
+        CommonResponse<Page<Answer>> responseDto = new CommonResponse<>();
         try {
             responseDto.setResponseEnum(ResponseEnum.Code_1000);
-            List<Answer> list = answerDao.getList();
+            Page<Answer> list = answerDao.findAll(PageRequest.of(1, 20));
             responseDto.setResult(list);
         } catch (Exception e) {
             responseDto.setResponseEnum(ResponseEnum.Code_999);

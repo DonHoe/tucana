@@ -2,18 +2,11 @@ server:
   port: 5566
 spring:
   datasource:
-    mysql:
-      driver-class-name: com.mysql.jdbc.Driver
-      jdbc-url: jdbc:mysql://127.0.0.1:3306/data?serverTimezone=UTC
-      username: root
-      password: 123456
-      type: com.alibaba.druid.pool.DruidDataSource
-    sqlite:
-      driver-class-name: org.sqlite.JDBC
-      jdbc-url: jdbc:sqlite:G:/Project/db/data.db
-      username:
-      password:
-      type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/data?serverTimezone=UTC
+    username: root
+    password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource
   data:
     mongodb:
       uri: mongodb://127.0.0.1:27017/data

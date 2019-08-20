@@ -1,10 +1,6 @@
 package com.hepic.tucana.dal.entity.mysql;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.math.BigDecimal;
-import java.util.Date;
+import javax.persistence.*;
 
 /**
  * @author tucana
@@ -17,6 +13,7 @@ import java.util.Date;
 public class Answer {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String url;
@@ -25,18 +22,21 @@ public class Answer {
 
     private String author;
 
+    @Column(name = "author_id")
     private String authorId;
 
-    private String createTime;
-
+    @Column(name = "question_id")
     private Integer questionId;
 
+    @Column(name = "question_name")
     private String questionName;
 
+    @Column(name = "data_flag")
     private Integer dataFlag;
 
     private String img;
 
+    @Column(name = "collection_id")
     private Integer collectionId;
 
     private Integer vote;
@@ -83,14 +83,6 @@ public class Answer {
 
     public void setAuthorId(String authorId) {
         this.authorId = authorId;
-    }
-
-    public String getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
     }
 
     public Integer getQuestionId() {
