@@ -17,8 +17,8 @@ public class PageInfoSpider {
     @Autowired
     PageInfoProcessor pageInfoProcessor;
 
-    //@Autowired
-    //PageInfoPipeline pageInfoPipeline;
+    @Autowired
+    PageInfoPipeline pageInfoPipeline;
 
     //@Autowired
     //MySqlScheduler mySqlScheduler;
