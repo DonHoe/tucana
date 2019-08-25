@@ -12,7 +12,7 @@ import us.codecraft.webmagic.processor.PageProcessor;
  * @date 2018/8/21.
  */
 @Service
-public class PageInfoProcessor implements PageProcessor {
+public class MutualAidProcessor implements PageProcessor {
 
     private Site site = Site.me().setUserAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_2) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.65 Safari/537.31").setSleepTime(500).setRetryTimes(2);
 

@@ -15,10 +15,10 @@ import us.codecraft.webmagic.pipeline.ConsolePipeline;
 public class PageInfoSpider {
 
     @Autowired
-    PageInfoProcessor pageInfoProcessor;
+    MutualAidProcessor mutualAidProcessor;
 
     @Autowired
-    PageInfoPipeline pageInfoPipeline;
+    MutualAidPipeline pageInfoPipeline;
 
     //@Autowired
     //MySqlScheduler mySqlScheduler;
@@ -27,7 +27,7 @@ public class PageInfoSpider {
 
     public Spider getSpider() {
         if (spider == null) {
-            spider = Spider.create(pageInfoProcessor).addPipeline(new ConsolePipeline()).addUrl("https://www.cnblogs.com/");
+            spider = Spider.create(mutualAidProcessor).addPipeline(new ConsolePipeline()).addUrl("https://www.cnblogs.com/");
         }
         return spider;
     }
