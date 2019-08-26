@@ -10,14 +10,20 @@ public class Article {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String key;
+
+    private String category;
+
+    private String title;
+
     private String url;
 
     private String content;
 
-    private String author;
-
     @Column(name = "author_id")
     private String authorId;
+
+    private String author;
 
     @Column(name = "data_flag")
     private Integer dataFlag;
@@ -26,12 +32,38 @@ public class Article {
 
     private Integer comment;
 
+    private Integer rate;
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getUrl() {
@@ -50,20 +82,20 @@ public class Article {
         this.content = content;
     }
 
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
     public String getAuthorId() {
         return authorId;
     }
 
     public void setAuthorId(String authorId) {
         this.authorId = authorId;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public Integer getDataFlag() {
@@ -88,5 +120,13 @@ public class Article {
 
     public void setComment(Integer comment) {
         this.comment = comment;
+    }
+
+    public Integer getRate() {
+        return rate;
+    }
+
+    public void setRate(Integer rate) {
+        this.rate = rate;
     }
 }
