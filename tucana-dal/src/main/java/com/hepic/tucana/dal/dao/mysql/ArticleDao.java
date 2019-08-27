@@ -10,4 +10,6 @@ import java.util.List;
 public interface ArticleDao extends JpaRepository<Article, Long> {
 
     List<Article> findByCategoryAndKey(String category, String key);
+
+
 }
