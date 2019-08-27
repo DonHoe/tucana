@@ -3,10 +3,12 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/data?serverTimezone=UTC
+    url: jdbc:mysql://127.0.0.1:3306/data?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=TRUE
     username: root
     password: 123456
     type: com.alibaba.druid.pool.DruidDataSource
   data:
     mongodb:
       uri: mongodb://127.0.0.1:27017/data
+  jpa:
+    show-sql: false

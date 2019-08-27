@@ -1,11 +1,15 @@
 package com.hepic.tucana.web.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.hepic.tucana.dal.entity.mysql.Answer;
+import com.hepic.tucana.job.PageInfoSpider;
 import com.hepic.tucana.model.common.CommonResponse;
 import com.hepic.tucana.model.enums.ResponseEnum;
 import com.hepic.tucana.util.exception.BaseException;
 import com.hepic.tucana.web.base.ValidateCode;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,11 +29,13 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/home")
 public class HomeController {
 
+    @Autowired
+    PageInfoSpider pageInfoSpider;
 
     @PostMapping("login")
     public String login(String user, String password, String code,
-                             HttpServletRequest request,
-                             HttpServletResponse response) {
+                        HttpServletRequest request,
+                        HttpServletResponse response) {
         CommonResponse<String> responseDto = new CommonResponse<>();
         try {
 
@@ -72,6 +78,18 @@ public class HomeController {
             response.setStatus(409);
         }
         return null;
+    }
+
+    @RequestMapping("/startSpider")
+    public String startSpider() {
+        CommonResponse<String> responseDto = new CommonResponse<>();
+        try {
+            pageInfoSpider.getSpider().start();
+        } catch (Exception e) {
+            responseDto.setResponseEnum(ResponseEnum.Code_999);
+            log.error("JOB启动异常", e);
+        }
+        return JSON.toJSONString(responseDto);
     }
 
 }

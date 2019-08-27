@@ -27,7 +27,7 @@ public class PageInfoSpider {
 
     public Spider getSpider() {
         if (spider == null) {
-            spider = Spider.create(mutualAidProcessor).addPipeline(new ConsolePipeline()).addUrl("https://www.cnblogs.com/");
+            spider = Spider.create(mutualAidProcessor).addPipeline(pageInfoPipeline).addUrl("https://movie.douban.com/subject/26794435/comments?sort=new_score&status=P");
         }
         return spider;
     }

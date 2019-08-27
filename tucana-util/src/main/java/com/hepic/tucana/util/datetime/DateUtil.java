@@ -1,6 +1,5 @@
 package com.hepic.tucana.util.datetime;
 
-import org.springframework.util.StringUtils;
 
 import java.text.ParseException;
 import java.text.ParsePosition;
