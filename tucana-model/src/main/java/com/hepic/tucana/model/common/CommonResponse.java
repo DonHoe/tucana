@@ -25,6 +25,11 @@ public class CommonResponse<T> {
      */
     private T result;
 
+    public CommonResponse(){
+        this.code = ResponseEnum.Code_1000.getCode();
+        this.message = ResponseEnum.Code_1000.getMessage();
+    }
+
     /**
      * 根据枚举值设置相应
      * @param responseEnum
