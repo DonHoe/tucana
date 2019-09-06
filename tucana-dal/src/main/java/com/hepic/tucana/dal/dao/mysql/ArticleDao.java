@@ -13,7 +13,7 @@ public interface ArticleDao extends JpaRepository<Article, Long> {
 
     List<Article> findByCategoryAndKey(String category, String key);
 
-    @Query(value = "SELECT new com.hepic.tucana.model.spider.MovieRate(rate ,count(id)) FROM Article WHERE rate !=0 GROUP BY rate")
+    @Query(value = "SELECT new com.hepic.tucana.model.spider.MovieRate(type ,count(id)) FROM Article WHERE type !=0 GROUP BY type")
     List<MovieRate> getRatePercent();
 
 }

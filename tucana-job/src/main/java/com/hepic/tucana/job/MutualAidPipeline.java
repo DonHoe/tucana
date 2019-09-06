@@ -28,18 +28,19 @@ public class MutualAidPipeline implements Pipeline {
             if (StringUtils.isBlank(data)) {
                 return;
             }
-            List<Article> list = JSON.parseArray(data, Article.class);
-            if (CollectionUtils.isEmpty(list)) {
+            Article dataObj = JSON.parseObject(data, Article.class);
+            if (dataObj == null) {
                 return;
             }
-            for (Article item : list) {
-                List<Article> exist = articleDao.findByCategoryAndKey(item.getCategory(),item.getKey());
-                if (CollectionUtils.isNotEmpty(exist)) {
-                    continue;
-                }
-                System.out.println(JSON.toJSONString(item));
-                articleDao.save(item);
+            if (StringUtils.isBlank(dataObj.getKey())) {
+                return;
             }
+            List<Article> exist = articleDao.findByCategoryAndKey(dataObj.getCategory(), dataObj.getKey());
+            if (CollectionUtils.isNotEmpty(exist)) {
+                return;
+            }
+            System.out.println(JSON.toJSONString(dataObj));
+            articleDao.save(dataObj);
         } catch (Exception e) {
             log.error("数据处理失败", e);
         }

@@ -28,14 +28,20 @@ public class Article {
     @Column(nullable = false)
     private String url;
 
-    @Column(nullable = false)
     private String content;
+
+    private String img;
 
     @Column(name = "author_id",nullable = false)
     private String authorId;
 
     @Column(nullable = false)
     private String author;
+
+    private String remark;
+
+    @Column(nullable = false)
+    private Integer type;
 
     @Column(name = "data_flag",nullable = false)
     private Integer dataFlag;
@@ -47,7 +53,7 @@ public class Article {
     private Integer comment;
 
     @Column(nullable = false)
-    private Integer rate;
+    private String rate;
 
     @Column(name = "publish_time",nullable = false)
     private Date publishTime;
@@ -103,6 +109,14 @@ public class Article {
         this.content = content;
     }
 
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
     public String getAuthorId() {
         return authorId;
     }
@@ -117,6 +131,22 @@ public class Article {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 
     public Integer getDataFlag() {
@@ -143,11 +173,11 @@ public class Article {
         this.comment = comment;
     }
 
-    public Integer getRate() {
+    public String getRate() {
         return rate;
     }
 
-    public void setRate(Integer rate) {
+    public void setRate(String rate) {
         this.rate = rate;
     }
 
