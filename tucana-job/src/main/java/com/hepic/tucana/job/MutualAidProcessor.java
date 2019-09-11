@@ -3,6 +3,7 @@ package com.hepic.tucana.job;
 import com.alibaba.fastjson.JSON;
 import com.hepic.tucana.dal.entity.mysql.Article;
 import com.hepic.tucana.util.datetime.DateUtil;
+import org.apache.commons.lang3.RegExUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import us.codecraft.webmagic.Page;
@@ -15,6 +16,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author tucana
@@ -25,6 +28,8 @@ import java.util.Map;
 @Service
 public class MutualAidProcessor implements PageProcessor {
 
+    private Pattern pattern = Pattern.compile("https?://.*?/");
+
     private Site site = Site.me()
             .setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36")
             .setSleepTime(2000)
@@ -33,10 +38,14 @@ public class MutualAidProcessor implements PageProcessor {
     @Override
     public void process(Page page) {
         System.out.println("开始处理");
-        Selectable links = page.getHtml().links();
-        List<String> listList = links.regex("https://movie\\.douban\\.com/subject/.*").all();
-        page.addTargetRequests(listList);
-
+        //限定本域
+        Matcher matcher = pattern.matcher(page.getRequest().getUrl());
+        if (matcher.find()) {
+            String domain = matcher.group();
+            Selectable links = page.getHtml().links();
+            List<String> listList = links.regex(domain + ".*").all();
+            page.addTargetRequests(listList);
+        }
         Html html = page.getHtml();
 
         List<Article> list = new ArrayList<>();
@@ -44,13 +53,13 @@ public class MutualAidProcessor implements PageProcessor {
         Article itemArticle = new Article();
         String title = page.getHtml().$("title").xpath("title/text()").get();
         String key = title;
-        if (StringUtils.isBlank(key)){
+        if (StringUtils.isBlank(key)) {
             page.setSkip(true);
             return;
         }
-        String content = html.$("#link-report span","text").get();
-        String rating = html.$(".rating_num","text").get();
-        String comment = html.$(".rating_people span","text").get();
+        String content = html.$("#link-report span", "text").get();
+        String rating = html.$(".rating_num", "text").get();
+        String comment = html.$(".rating_people span", "text").get();
 
         itemArticle.setTitle(title);
         itemArticle.setCategory("douban");
