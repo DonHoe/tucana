@@ -32,6 +32,27 @@ public class Article {
 
     private String img;
 
+    @Column(nullable = false)
+    private String code;
+
+    @Column(nullable = false)
+    private String director;
+
+    @Column(nullable = false)
+    private String mold;
+
+    @Column(nullable = false)
+    private String role;
+
+    @Column(nullable = false)
+    private String actor;
+
+    @Column(nullable = false)
+    private String series;
+
+    @Column(nullable = false)
+    private String publisher;
+
     @Column(name = "author_id",nullable = false)
     private String authorId;
 
@@ -115,6 +136,62 @@ public class Article {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getDirector() {
+        return director;
+    }
+
+    public void setDirector(String director) {
+        this.director = director;
+    }
+
+    public String getMold() {
+        return mold;
+    }
+
+    public void setMold(String mold) {
+        this.mold = mold;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getActor() {
+        return actor;
+    }
+
+    public void setActor(String actor) {
+        this.actor = actor;
+    }
+
+    public String getSeries() {
+        return series;
+    }
+
+    public void setSeries(String series) {
+        this.series = series;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
     }
 
     public String getAuthorId() {
