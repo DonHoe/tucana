@@ -25,22 +25,22 @@
         <queueSize>256</queueSize>
         <appender-ref ref="FILE"/>
     </appender>
-    <appender name="DB"  class="ch.qos.logback.classic.db.DBAppender">
-        <connectionSource
-                class="ch.qos.logback.core.db.DriverManagerConnectionSource">
-            <driverClass>com.mysql.jdbc.Driver</driverClass>
-            <url>jdbc:mysql://127.0.0.1:3306/data?serverTimezone=UTC</url>
-            <user>root</user>
-            <password>123456</password>
-        </connectionSource>
-    </appender>
+    <!--<appender name="DB"  class="ch.qos.logback.classic.db.DBAppender">-->
+        <!--<connectionSource-->
+                <!--class="ch.qos.logback.core.db.DriverManagerConnectionSource">-->
+            <!--<driverClass>com.mysql.jdbc.Driver</driverClass>-->
+            <!--<url>jdbc:mysql://127.0.0.1:3306/data?serverTimezone=UTC</url>-->
+            <!--<user>root</user>-->
+            <!--<password>123456</password>-->
+        <!--</connectionSource>-->
+    <!--</appender>-->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
     <logger name="com.hepic.tucana" level="INFO" additivity="false">
-        <appender-ref ref="DB"/>
+        <!--<appender-ref ref="DB"/>-->
         <appender-ref ref="STDOUT" />
     </logger>
     <root level="INFO">
