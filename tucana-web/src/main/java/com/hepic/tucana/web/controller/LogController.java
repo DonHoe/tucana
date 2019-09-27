@@ -9,6 +9,7 @@ import com.hepic.tucana.model.enums.ResponseEnum;
 import com.hepic.tucana.model.log.LogListRequest;
 import com.hepic.tucana.service.LogService;
 import com.hepic.tucana.util.datetime.DateUtil;
+import com.hepic.tucana.web.base.BaseController;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/log")
-public class LogController {
+public class LogController extends BaseController {
 
     @Autowired
     LogService logService;

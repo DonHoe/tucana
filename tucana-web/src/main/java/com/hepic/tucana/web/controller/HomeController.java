@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.hepic.tucana.model.common.CommonResponse;
 import com.hepic.tucana.model.enums.ResponseEnum;
 import com.hepic.tucana.util.exception.BaseException;
+import com.hepic.tucana.web.base.BaseController;
 import com.hepic.tucana.web.base.ValidateCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +24,7 @@ import javax.servlet.http.HttpSession;
 @Slf4j
 @RestController
 @RequestMapping("/home")
-public class HomeController {
+public class HomeController extends BaseController {
 
 
     @PostMapping("login")

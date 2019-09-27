@@ -6,6 +6,7 @@ import com.hepic.tucana.dal.entity.mysql.Answer;
 import com.hepic.tucana.model.common.CommonResponse;
 import com.hepic.tucana.model.enums.ResponseEnum;
 import com.hepic.tucana.service.TestService;
+import com.hepic.tucana.web.base.BaseController;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/test")
-public class TestController {
+public class TestController extends BaseController {
 
     @Autowired
     private TestService testService;

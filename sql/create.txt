@@ -106,3 +106,43 @@ CREATE TABLE `job_extract_field` (
 COLLATE='utf8_general_ci'
 ;
 
+CREATE TABLE `article` (
+  `id` bigint(11) NOT NULL AUTO_INCREMENT,
+  `key` varchar(100) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `category` varchar(100) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `title` varchar(300) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `url` varchar(500) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `content` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `img` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `code` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `director` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `mold` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `role` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `actor` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `series` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `publisher` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `author_id` varchar(500) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `author` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `remark` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `type` int(255) NOT NULL DEFAULT 0,
+  `data_flag` int(11) NOT NULL DEFAULT 0,
+  `vote` int(11) NOT NULL DEFAULT 0,
+  `comment` int(11) NOT NULL DEFAULT 0,
+  `rate` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `publish_time` datetime NOT NULL DEFAULT current_timestamp(),
+  `create_time` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `id_index` (`id`) USING BTREE,
+  KEY `vote_index` (`vote`) USING BTREE,
+  KEY `comment_index` (`comment`) USING BTREE,
+  KEY `category_index` (`category`) USING BTREE,
+  KEY `key_index` (`key`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `article_img` (
+  `id` bigint(11) NOT NULL AUTO_INCREMENT,
+  `article_id` bigint(11) DEFAULT NULL,
+  `img` longtext DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `id_index` (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=1437593 DEFAULT CHARSET=utf8;
