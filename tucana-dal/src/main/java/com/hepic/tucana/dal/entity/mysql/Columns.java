@@ -12,6 +12,8 @@ public class Columns {
 
     private String isNullable;
 
+    private String dataType;
+
     private String columnType;
 
     private String columnKey;
@@ -64,6 +66,14 @@ public class Columns {
 
     public void setColumnType(String columnType) {
         this.columnType = columnType;
+    }
+
+    public String getDataType() {
+        return dataType;
+    }
+
+    public void setDataType(String dataType) {
+        this.dataType = dataType;
     }
 
     public String getColumnKey() {

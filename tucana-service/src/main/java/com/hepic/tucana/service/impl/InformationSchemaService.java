@@ -2,6 +2,7 @@ package com.hepic.tucana.service.impl;
 
 import com.hepic.tucana.dal.dao.mysql.InformationSchemaDao;
 import com.hepic.tucana.dal.entity.mysql.Columns;
+import com.hepic.tucana.dal.entity.mysql.TableInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +33,7 @@ public class InformationSchemaService {
      * @param database 数据库
      * @return
      */
-    public List<String> getTableList(String database) {
+    public List<TableInfo> getTableList(String database) {
         return informationSchemaDao.getTableList(database);
     }
 

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hepic.tucana.dal.dao.mysql.PageInfoDao">
+    <resultMap id="BaseResultMap" type="com.hepic.tucana.dal.entity.mysql.PageInfo">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="code" property="code" jdbcType="VARCHAR"/>
+        <result column="content" property="content" jdbcType="VARCHAR"/>
+        <result column="img_list" property="imgList" jdbcType="VARCHAR"/>
+        <result column="cdate" property="cdate" jdbcType="DATE"/>
+        <result column="udate" property="udate" jdbcType="DATE"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, title, code, content, img_list, cdate, udate
+    </sql>
+    <select id="selectListByModel" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM page_info
+        WHERE 1 =1
+        <if test="id != null">AND id = #{id}</if>
+        <if test="title != null">AND title = #{title}</if>
+        <if test="code != null">AND code = #{code}</if>
+    </select>
+    <insert id="insert"  parameterType="com.hepic.tucana.dal.entity.mysql.PageInfo">
+        INSERT INTO page_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="title != null">title,</if>
+            <if test="code != null">code,</if>
+            <if test="content != null">content,</if>
+            <if test="img_list != null">img_list,</if>
+            <if test="cdate != null">cdate,</if>
+            <if test="udate != null">udate,</if>
+        </trim>
+        <trim prefix=" values (" suffix=")" suffixOverrides=",">
+            <if test="title != null">#{title},</if>
+            <if test="code != null">#{code},</if>
+            <if test="content != null">#{content},</if>
+            <if test="img_list != null">#{imgList},</if>
+            <if test="cdate != null">#{cdate},</if>
+            <if test="udate != null">#{udate},</if>
+        </trim>
+    </insert>
+</mapper>
