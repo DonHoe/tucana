@@ -21,6 +21,20 @@ public interface InformationSchemaDao {
     List<TableInfo> getTableList(String database);
 
     /**
+     * 查询表
+     *
+     * @param database database name
+     * @param table    table name
+     * @return table list
+     */
+    @Select("select TABLE_NAME as tableName  " +
+            " ,TABLE_COMMENT as tableComment " +
+            " FROM INFORMATION_SCHEMA.TABLES " +
+            " WHERE table_type = 'BASE TABLE' " +
+            " AND TABLE_SCHEMA = #{database} AND TABLE_NAME = #{table} ")
+    TableInfo getTableByName(String database, String table);
+
+    /**
      * 表查询字段
      *
      * @param database database name

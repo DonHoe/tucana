@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class ConstantMap {
 
-    public static Map<String, String> typeMap = new HashMap<String, String>() {
+    public static final Map<String, String> typeMap = new HashMap<String, String>() {
         {
             put("tinyint", "Integer");
             put("smallint", "Integer");
