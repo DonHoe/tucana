@@ -53,4 +53,17 @@ public class CommonUtil {
         }
         return name;
     }
+
+    /**
+     * 首字母大写
+     *
+     * @param word
+     * @return
+     */
+    public static String toUpperInitial(String word) {
+        if (StringUtils.isBlank(word)) {
+            return word;
+        }
+        return word.substring(0, 1).toUpperCase() + word.substring(1);
+    }
 }

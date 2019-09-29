@@ -56,7 +56,8 @@ public class InformationSchemaService {
         }
         tableInfo.setProject("com.hepic.tucana");
         List<Columns> columns = informationSchemaDao.getColumnsList(ConstantString.database, table);
-        tableInfo.setBeanName(CommonUtil.translateName(tableInfo.getTableName(), ""));
+        tableInfo.setAttributeName(CommonUtil.translateName(tableInfo.getTableName(), ""));
+        tableInfo.setBeanName(CommonUtil.toUpperInitial(tableInfo.getAttributeName()));
         String tableComment = tableInfo.getTableComment();
         if (StringUtils.isNotBlank(tableComment) && (tableComment.indexOf("表") == tableComment.length() - 1)) {
             tableInfo.setTableComment(tableComment.substring(0, tableComment.length() - 1));
