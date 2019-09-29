@@ -1,0 +1,14 @@
+package ${table.project}.service;
+
+import ${table.project}.entity.${table.beanName};
+
+public interface ${table.beanName}Service {
+
+    List<${table.beanName}> select${table.beanName}ListByModel(${table.beanName} model);
+
+    ${table.beanName} select${table.beanName}ById(String id);
+
+    int insert${table.beanName}(${table.beanName} model);
+
+    int update${table.beanName}(${table.beanName} model);
+}

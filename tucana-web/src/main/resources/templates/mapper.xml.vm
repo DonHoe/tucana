@@ -21,7 +21,7 @@
         </where>
     </select>
 
-    <select id="select${table.beanName}ById" parameterType="${table.project}.entity.${table.beanName}" resultMap="${table.beanName}ResultMap">
+    <select id="select${table.beanName}ById" parameterType="String" resultMap="${table.beanName}ResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM ${table.tableName}

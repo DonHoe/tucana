@@ -20,6 +20,11 @@ public class TableInfo {
     private String beanName;
 
     /**
+     * 类名
+     */
+    private String attributeName;
+
+    /**
      * 备注
      */
     private String tableComment;
@@ -51,6 +56,14 @@ public class TableInfo {
 
     public void setBeanName(String beanName) {
         this.beanName = beanName;
+    }
+
+    public String getAttributeName() {
+        return attributeName;
+    }
+
+    public void setAttributeName(String attributeName) {
+        this.attributeName = attributeName;
     }
 
     public String getTableComment() {

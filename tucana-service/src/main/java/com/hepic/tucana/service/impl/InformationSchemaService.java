@@ -4,22 +4,16 @@ import com.hepic.tucana.dal.dao.mysql.InformationSchemaDao;
 import com.hepic.tucana.dal.entity.mysql.Columns;
 import com.hepic.tucana.dal.entity.mysql.TableInfo;
 import com.hepic.tucana.util.CommonUtil;
-import com.hepic.tucana.util.VelocityInitializer;
 import com.hepic.tucana.util.VelocityUtil;
 import com.hepic.tucana.util.constant.ConstantMap;
 import com.hepic.tucana.util.constant.ConstantString;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.velocity.Template;
-import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.Velocity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.StringWriter;
 import java.nio.charset.Charset;
-import java.sql.Array;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +25,13 @@ public class InformationSchemaService {
 
     @Autowired
     private InformationSchemaDao informationSchemaDao;
+
+    private Map<String, String> templateMap = new HashMap<String, String>() {{
+        put("templates/mapper.xml.vm", "resources/mapping/%sMapper.xml");
+        put("templates/dao.java.vm", "java/dao/%sDao.java");
+        put("templates/service.java.vm", "java/service/%sServiceImpl.java");
+        put("templates/interface.java.vm", "java/service/%sService.java");
+    }};
 
     /**
      * 构建生成器
@@ -84,10 +85,17 @@ public class InformationSchemaService {
      * @param table    表
      * @return
      */
-    public List<Columns> getColumnsList(String table)  {
+    public List<Columns> getColumnsList(String table) {
         return informationSchemaDao.getColumnsList(ConstantString.database, table);
     }
 
+    /**
+     * 构建代码
+     *
+     * @param table
+     * @return
+     * @throws IOException
+     */
     public byte[] codeCreate(String table) throws IOException {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ZipOutputStream zip = new ZipOutputStream(byteArrayOutputStream);
@@ -95,11 +103,20 @@ public class InformationSchemaService {
         TableInfo tableInfo = generateTableInfo(table);
         Map<String, Object> map = new HashMap<>();
         map.put("table", tableInfo);
-        String result = VelocityUtil.render("templates/mapper.xml.vm", map);
-        // 添加到zip
-        zip.putNextEntry(new ZipEntry("resources/mapping/mapper.xml"));
-        zip.write(result.getBytes(Charset.defaultCharset()));
-        zip.closeEntry();
+
+        templateMap.entrySet().forEach(p -> {
+            String result = null;
+            try {
+                result = VelocityUtil.render(p.getKey(), map);
+                // 添加到zip
+                String fileName = String.format(p.getValue(), tableInfo.getBeanName());
+                zip.putNextEntry(new ZipEntry(fileName));
+                zip.write(result.getBytes(Charset.defaultCharset()));
+                zip.closeEntry();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
         zip.close();
         return byteArrayOutputStream.toByteArray();
     }

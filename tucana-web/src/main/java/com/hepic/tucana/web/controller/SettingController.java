@@ -6,24 +6,16 @@ import com.hepic.tucana.dal.entity.mysql.TableInfo;
 import com.hepic.tucana.model.common.CommonResponse;
 import com.hepic.tucana.model.enums.ResponseEnum;
 import com.hepic.tucana.service.impl.InformationSchemaService;
-import com.hepic.tucana.util.VelocityUtil;
 import com.hepic.tucana.util.exception.BaseException;
 import com.hepic.tucana.web.base.BaseController;
-import com.hepic.tucana.util.VelocityInitializer;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.velocity.Template;
-import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.Velocity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.StringWriter;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Slf4j
 @RestController
