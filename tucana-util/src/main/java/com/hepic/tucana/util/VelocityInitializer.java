@@ -1,4 +1,4 @@
-package com.hepic.tucana.web.base;
+package com.hepic.tucana.util;
 
 import org.apache.velocity.app.Velocity;
 

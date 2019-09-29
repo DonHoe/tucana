@@ -5,7 +5,8 @@ import com.hepic.tucana.dal.entity.mysql.Columns;
 import com.hepic.tucana.dal.entity.mysql.TableInfo;
 import com.hepic.tucana.model.common.CommonResponse;
 import com.hepic.tucana.model.enums.ResponseEnum;
-import com.hepic.tucana.service.impl.InformationSchemaService;
+import com.hepic.tucana.service.InformationSchemaService;
+import com.hepic.tucana.util.exception.BaseException;
 import com.hepic.tucana.web.base.BaseController;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Slf4j
@@ -52,11 +54,11 @@ public class SettingController extends BaseController {
      * @return
      */
     @GetMapping("getColumnsList")
-    public String getColumnsList(String tableName) {
+    public String getColumnsList(String table) {
         CommonResponse<List<Columns>> response = new CommonResponse();
         try {
             response.setResponseEnum(ResponseEnum.Code_1000);
-            List<Columns> result = informationSchemaService.getColumnsList(tableName);
+            List<Columns> result = informationSchemaService.getColumnsList(table);
             response.setResult(result);
         } catch (Exception e) {
             response.setResponseEnum(ResponseEnum.Code_999);
@@ -72,11 +74,11 @@ public class SettingController extends BaseController {
      * @return
      */
     @GetMapping("getTableInfo")
-    public String getTableInfo(String tableName) {
+    public String getTableInfo(String table) {
         CommonResponse<TableInfo> response = new CommonResponse();
         try {
             response.setResponseEnum(ResponseEnum.Code_1000);
-            TableInfo result = informationSchemaService.generateTableInfo(tableName);
+            TableInfo result = informationSchemaService.generateTableInfo(table);
             response.setResult(result);
         } catch (Exception e) {
             response.setResponseEnum(ResponseEnum.Code_999);
@@ -85,5 +87,24 @@ public class SettingController extends BaseController {
         return JSON.toJSONString(response);
     }
 
-
+    /**
+     * 代码构建
+     *
+     * @return
+     */
+    @RequestMapping("/codeCreate")
+    public void codeCreate(HttpServletResponse response,String table) {
+        CommonResponse<String> responseDto = new CommonResponse<>();
+        try {
+            byte[] data = informationSchemaService.codeCreate(table);
+            response.reset();
+            response.setHeader("Content-Disposition", "attachment; filename=\"code.zip\"");
+            response.addHeader("Content-Length", "" + data.length);
+            response.setContentType("application/octet-stream; charset=UTF-8");
+            response.getOutputStream().write(data);
+        } catch (BaseException e) {
+        } catch (Exception e) {
+            log.error("", e);
+        }
+    }
 }

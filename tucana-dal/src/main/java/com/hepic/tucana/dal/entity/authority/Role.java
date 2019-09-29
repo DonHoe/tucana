@@ -1,4 +1,4 @@
-package com.hepic.tucana.model.authority;
+package com.hepic.tucana.dal.entity.authority;
 
 import java.util.List;
 

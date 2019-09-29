@@ -1,7 +1,7 @@
 package com.hepic.tucana.service;
 
-import com.hepic.tucana.model.authority.SysUser;
-import com.hepic.tucana.model.authority.User;
+import com.hepic.tucana.dal.entity.authority.SysUser;
+import com.hepic.tucana.dal.entity.authority.User;
 
 /**
  * @author tucana

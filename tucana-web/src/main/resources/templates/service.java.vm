@@ -1,0 +1,39 @@
+package ${table.project}.service;
+
+import ${table.project}.entity.${table.beanName}Dao;
+import ${table.project}.entity.${table.beanName};
+import ${table.project}.service.${table.beanName}Service;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.List;
+
+@Slf4j
+@Service
+public class ${table.beanName}ServiceImpl implements ${table.beanName}Service {
+
+    @Autowired
+    ${table.beanName}Dao ${table.beanName}Dao;
+
+    @Override
+    public List<${table.beanName}> select${table.beanName}ListByModel(${table.beanName} model){
+        return ${table.beanName}Dao.select${table.beanName}ListByModel(model);
+    }
+
+    @Override
+    public ${table.beanName} select${table.beanName}ById(String id){
+        return ${table.beanName}Dao.select${table.beanName}ById(id);
+    }
+
+    @Override
+    public int insert${table.beanName}(${table.beanName} model){
+        return ${table.beanName}Dao.insert${table.beanName}(model);
+    }
+
+    @Override
+    public int update${table.beanName}(${table.beanName} model){
+        return ${table.beanName}Dao.update${table.beanName}(model);
+    }
+}

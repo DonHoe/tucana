@@ -1,0 +1,15 @@
+package ${table.project}.dao;
+
+import ${table.project}.entity.${table.beanName};
+
+public interface ${table.beanName}Dao {
+
+    List<${table.beanName}> select${table.beanName}ListByModel(${table.beanName} model);
+
+    ${table.beanName} select${table.beanName}ById(String id);
+
+    int insert${table.beanName}(${table.beanName} model);
+
+    int update${table.beanName}(${table.beanName} model);
+
+}
