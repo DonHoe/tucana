@@ -54,7 +54,7 @@ public class InformationSchemaService {
         if (table == null) {
             return tableInfo;
         }
-        tableInfo.setProject("com.hepic.tucana.dal");
+        tableInfo.setProject("com.hepic.tucana");
         List<Columns> columns = informationSchemaDao.getColumnsList(ConstantString.database, table);
         tableInfo.setBeanName(CommonUtil.translateName(tableInfo.getTableName(), ""));
         String tableComment = tableInfo.getTableComment();
