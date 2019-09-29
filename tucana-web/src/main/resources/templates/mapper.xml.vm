@@ -3,44 +3,51 @@
 <mapper namespace="${table.project}.dao.${table.beanName}Dao}">
 
     <resultMap id="${table.beanName}ResultMap" type="${table.project}.entity.${table.beanName}">
-#foreach($column in $table.columns)
+        #foreach($column in $table.columns)
         <result column="${column.columnName}" property="${column.propertyName}"/>
-#end
+        #end
     </resultMap>
     <sql id="Base_Column_List">
-    #foreach($column in $table.columns)${column.columnName}#if($velocityCount != $table.columns.size()),#end#end
+        #foreach($column in $table.columns)${column.columnName}#if($velocityCount != $table.columns.size()),#end#end
     </sql>
-    <select id="select${table.beanName}ListByModel" parameterType="${table.project}.entity.${table.beanName}"
-            resultMap="${table.beanName}ResultMap">
+    <select id="select${table.beanName}ListByModel" parameterType="${table.project}.entity.${table.beanName}" resultMap="${table.beanName}ResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM ${table.tableName}
         <where>
-#foreach($column in $table.columns)
-        <if test="${column.propertyName} != null">AND ${column.columnName} = #{${column.propertyName}}</if>
-#end
+            #foreach($column in $table.columns)
+            <if test="${column.propertyName} != null">AND ${column.columnName} = #{${column.propertyName}}</if>
+            #end
         </where>
     </select>
+
+    <select id="select${table.beanName}ById" parameterType="${table.project}.entity.${table.beanName}" resultMap="${table.beanName}ResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM ${table.tableName}
+        where #foreach($column in $table.columns)#if($column.ordinalPosition == '1')${column.columnName} = #{${column.propertyName}}#end#end
+    </select>
+
     <insert id="insert${table.beanName}" parameterType="${table.project}.entity.${table.beanName}">
         INSERT INTO ${table.tableName}
         <trim prefix="(" suffix=")" suffixOverrides=",">
-#foreach($column in $table.columns)
-        <if test="${column.propertyName} != null">${column.columnName},</if>
-#end
+            #foreach($column in $table.columns)
+            <if test="${column.propertyName} != null">${column.columnName},</if>
+            #end
         </trim>
         <trim prefix=" values (" suffix=")" suffixOverrides=",">
-#foreach($column in $table.columns)
-        <if test="${column.propertyName} != null">#{${column.columnName}},</if>
-#end
+            #foreach($column in $table.columns)
+            <if test="${column.propertyName} != null">#{${column.columnName}},</if>
+            #end
         </trim>
     </insert>
 
     <update id="update${table.beanName}" parameterType="${table.project}.entity.${table.beanName}">
         update ${table.tableName}
         <set>
-#foreach($column in $table.columns)
-        <if test="${column.propertyName} != null">${column.columnName} = #{${column.propertyName}},</if>
-#end
+            #foreach($column in $table.columns)
+            <if test="${column.propertyName} != null">${column.columnName} = #{${column.propertyName}},</if>
+            #end
         </set>
         where #foreach($column in $table.columns)#if($column.ordinalPosition == '1')${column.columnName} = #{${column.propertyName}}#end#end
     </update>

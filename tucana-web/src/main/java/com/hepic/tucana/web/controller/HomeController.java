@@ -6,11 +6,7 @@ import com.hepic.tucana.model.enums.ResponseEnum;
 import com.hepic.tucana.util.exception.BaseException;
 import com.hepic.tucana.web.base.BaseController;
 import com.hepic.tucana.web.base.ValidateCode;
-import com.hepic.tucana.web.base.VelocityInitializer;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.velocity.Template;
-import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.Velocity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.StringWriter;
 
 /**
  * @author tucana

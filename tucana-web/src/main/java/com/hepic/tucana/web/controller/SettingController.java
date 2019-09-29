@@ -6,9 +6,10 @@ import com.hepic.tucana.dal.entity.mysql.TableInfo;
 import com.hepic.tucana.model.common.CommonResponse;
 import com.hepic.tucana.model.enums.ResponseEnum;
 import com.hepic.tucana.service.impl.InformationSchemaService;
+import com.hepic.tucana.util.VelocityUtil;
 import com.hepic.tucana.util.exception.BaseException;
 import com.hepic.tucana.web.base.BaseController;
-import com.hepic.tucana.web.base.VelocityInitializer;
+import com.hepic.tucana.util.VelocityInitializer;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
@@ -18,8 +19,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.StringWriter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -97,26 +101,18 @@ public class SettingController extends BaseController {
      * @return
      */
     @RequestMapping("/codeCreate")
-    public String codeCreate(String table) {
+    public void codeCreate(HttpServletResponse response,String table) {
         CommonResponse<String> responseDto = new CommonResponse<>();
         try {
-            VelocityInitializer.initVelocity();
-            Template t = Velocity.getTemplate("templates/mapper.vm");
-            VelocityContext ctx = new VelocityContext();
-            TableInfo tableInfo = informationSchemaService.generateTableInfo(table);
-            ctx.put("table", tableInfo);
-            StringWriter sw = new StringWriter();
-            t.merge(ctx, sw);
-            System.out.println(sw.toString());
-            responseDto.setResult(sw.toString());
-            sw.close();
+            byte[] data = informationSchemaService.codeCreate(table);
+            response.reset();
+            response.setHeader("Content-Disposition", "attachment; filename=\"code.zip\"");
+            response.addHeader("Content-Length", "" + data.length);
+            response.setContentType("application/octet-stream; charset=UTF-8");
+            response.getOutputStream().write(data);
         } catch (BaseException e) {
-            responseDto.setCode(e.getCode());
-            responseDto.setMessage(e.getMessage());
         } catch (Exception e) {
-            responseDto.setResponseEnum(ResponseEnum.Code_999);
             log.error("", e);
         }
-        return JSON.toJSONString(responseDto);
     }
 }
