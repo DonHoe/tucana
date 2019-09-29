@@ -1,10 +1,10 @@
-package com.hepic.tucana.model.authority;
+package com.hepic.tucana.dal.entity.authority;
 
-public class SysUserRole {
+public class SysRolePermission {
 
     private Integer id;
 
-    private Integer uid;
+    private Integer pid;
 
     private Integer rid;
 
@@ -16,12 +16,12 @@ public class SysUserRole {
         this.id = id;
     }
 
-    public Integer getUid() {
-        return uid;
+    public Integer getPid() {
+        return pid;
     }
 
-    public void setUid(Integer uid) {
-        this.uid = uid;
+    public void setPid(Integer pid) {
+        this.pid = pid;
     }
 
     public Integer getRid() {

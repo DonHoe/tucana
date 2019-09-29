@@ -1,4 +1,4 @@
-package com.hepic.tucana.service.impl;
+package com.hepic.tucana.service;
 
 import com.hepic.tucana.dal.dao.mysql.LoginDao;
 import com.hepic.tucana.dal.dao.mysql.AnswerDao;

@@ -5,7 +5,7 @@ import com.hepic.tucana.dal.entity.mysql.Columns;
 import com.hepic.tucana.dal.entity.mysql.TableInfo;
 import com.hepic.tucana.model.common.CommonResponse;
 import com.hepic.tucana.model.enums.ResponseEnum;
-import com.hepic.tucana.service.impl.InformationSchemaService;
+import com.hepic.tucana.service.InformationSchemaService;
 import com.hepic.tucana.util.exception.BaseException;
 import com.hepic.tucana.web.base.BaseController;
 import lombok.extern.slf4j.Slf4j;

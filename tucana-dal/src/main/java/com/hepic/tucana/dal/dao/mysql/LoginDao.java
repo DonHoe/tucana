@@ -1,6 +1,6 @@
 package com.hepic.tucana.dal.dao.mysql;
 
-import com.hepic.tucana.model.authority.*;
+import com.hepic.tucana.dal.entity.authority.*;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
