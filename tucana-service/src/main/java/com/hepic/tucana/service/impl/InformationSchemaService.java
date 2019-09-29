@@ -40,14 +40,15 @@ public class InformationSchemaService {
         if (table == null) {
             return tableInfo;
         }
+        tableInfo.setProject("com.hepic.tucana.dal");
         List<Columns> columns = informationSchemaDao.getColumnsList(ConstantString.database, table);
-        tableInfo.setTableName(CommonUtil.translateName(tableInfo.getTableName(), ""));
+        tableInfo.setBeanName(CommonUtil.translateName(tableInfo.getTableName(), ""));
         String tableComment = tableInfo.getTableComment();
         if (StringUtils.isNotBlank(tableComment) && (tableComment.indexOf("表") == tableComment.length() - 1)) {
             tableInfo.setTableComment(tableComment.substring(0, tableComment.length() - 1));
         }
         columns.forEach(p -> {
-            p.setColumnName(CommonUtil.translateName(p.getColumnName(), ""));
+            p.setPropertyName(CommonUtil.translateName(p.getColumnName(), ""));
             p.setDataType(ConstantMap.typeMap.get(p.getDataType()));
         });
         tableInfo.setColumns(columns);

@@ -4,6 +4,8 @@ public class Columns {
 
     private String columnName;
 
+    private String propertyName;
+
     private String columnComment;
 
     private Integer ordinalPosition;
@@ -26,6 +28,14 @@ public class Columns {
 
     public void setColumnName(String columnName) {
         this.columnName = columnName;
+    }
+
+    public String getPropertyName() {
+        return propertyName;
+    }
+
+    public void setPropertyName(String propertyName) {
+        this.propertyName = propertyName;
     }
 
     public String getColumnComment() {
@@ -60,20 +70,20 @@ public class Columns {
         this.isNullable = isNullable;
     }
 
-    public String getColumnType() {
-        return columnType;
-    }
-
-    public void setColumnType(String columnType) {
-        this.columnType = columnType;
-    }
-
     public String getDataType() {
         return dataType;
     }
 
     public void setDataType(String dataType) {
         this.dataType = dataType;
+    }
+
+    public String getColumnType() {
+        return columnType;
+    }
+
+    public void setColumnType(String columnType) {
+        this.columnType = columnType;
     }
 
     public String getColumnKey() {

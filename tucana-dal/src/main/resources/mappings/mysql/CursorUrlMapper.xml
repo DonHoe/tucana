@@ -1,96 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hepic.tucana.dal.dao.mysql.CursorUrlDao">
-  <resultMap id="BaseResultMap" type="com.hepic.tucana.dal.entity.mysql.CursorUrl">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="url" jdbcType="VARCHAR" property="url" />
-    <result column="crawl" jdbcType="TINYINT" property="crawl" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-  </resultMap>
-  <sql id="Base_Column_List">
+    <resultMap id="BaseResultMap" type="com.hepic.tucana.dal.entity.mysql.CursorUrl">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="crawl" jdbcType="TINYINT" property="crawl"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     id, url, crawl,status, create_time
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from cursor_url
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from cursor_url
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from cursor_url
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insertSelective" parameterType="com.hepic.tucana.dal.entity.mysql.CursorUrl">
-    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into cursor_url
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="url != null">
-        url,
-      </if>
-      <if test="crawl != null">
-        crawl,
-      </if>
-      <if test="status != null">
-        status,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="url != null">
-        #{url,jdbcType=VARCHAR},
-      </if>
-      <if test="crawl != null">
-        #{crawl,jdbcType=TINYINT},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=INTEGER}
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hepic.tucana.dal.entity.mysql.CursorUrl">
-    update cursor_url
-    <set>
-      <if test="url != null">
-        url = #{url,jdbcType=VARCHAR},
-      </if>
-      <if test="crawl != null">
-        crawl = #{crawl,jdbcType=TINYINT},
-      </if>
-      <if test="status != null">
-        status = #{status,jdbcType=INTEGER}
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <select id="selectCount">
+    <insert id="insertSelective" parameterType="com.hepic.tucana.dal.entity.mysql.CursorUrl">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into cursor_url
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="url != null">
+                url,
+            </if>
+            <if test="crawl != null">
+                crawl,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="url != null">
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="crawl != null">
+                #{crawl,jdbcType=TINYINT},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER}
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.hepic.tucana.dal.entity.mysql.CursorUrl">
+        update cursor_url
+        <set>
+            <if test="url != null">
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="crawl != null">
+                crawl = #{crawl,jdbcType=TINYINT},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER}
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <select id="selectCount">
     select COUNT(1)
     from cursor_url
     where status =  #{status,jdbcType=INTEGER}
     limit 1
   </select>
-  <select id="selectTop"  resultType="com.hepic.tucana.dal.entity.mysql.CursorUrl">
-    select
-    <include refid="Base_Column_List" />
-    from cursor_url
-    where status = 1
-    limit 1
-  </select>
-  <select id="selectByUrl" resultType="com.hepic.tucana.dal.entity.mysql.CursorUrl">
-    select
-    <include refid="Base_Column_List" />
-    from cursor_url
-    where url = #{url}
-    limit 1
-  </select>
+    <select id="selectTop" resultType="com.hepic.tucana.dal.entity.mysql.CursorUrl">
+        select
+        <include refid="Base_Column_List"/>
+        from cursor_url
+        where status = 1
+        limit 1
+    </select>
+    <select id="selectByUrl" resultType="com.hepic.tucana.dal.entity.mysql.CursorUrl">
+        select
+        <include refid="Base_Column_List"/>
+        from cursor_url
+        where url = #{url}
+        limit 1
+    </select>
 </mapper>

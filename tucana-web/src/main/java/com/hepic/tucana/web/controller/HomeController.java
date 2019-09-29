@@ -80,27 +80,4 @@ public class HomeController extends BaseController {
         return null;
     }
 
-    @RequestMapping("/codeCreate")
-    public String codeCreate() {
-        CommonResponse<String> responseDto = new CommonResponse<>();
-        try {
-            VelocityInitializer.initVelocity();
-            Template t = Velocity.getTemplate("templates/test.vm");
-            VelocityContext ctx = new VelocityContext();
-            ctx.put("hello","hello");
-            ctx.put("world","world");
-            StringWriter sw = new StringWriter();
-            t.merge(ctx, sw);
-            responseDto.setResult(sw.toString());
-            sw.close();
-        } catch (BaseException e) {
-            responseDto.setCode(e.getCode());
-            responseDto.setMessage(e.getMessage());
-        } catch (Exception e) {
-            responseDto.setResponseEnum(ResponseEnum.Code_999);
-            log.error("", e);
-        }
-        return JSON.toJSONString(responseDto);
-    }
-
 }
