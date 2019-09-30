@@ -2,6 +2,9 @@ package ${table.project}.service;
 
 import ${table.project}.entity.${table.beanName};
 
+/**
+ *${table.tableComment}服务接口
+ */
 public interface ${table.beanName}Service {
 
     List<${table.beanName}> select${table.beanName}ListByModel(${table.beanName} model);

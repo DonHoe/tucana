@@ -2,6 +2,9 @@ package ${table.project}.dao;
 
 import ${table.project}.entity.${table.beanName};
 
+/**
+ *${table.tableComment}数据访问接口
+ */
 public interface ${table.beanName}Dao {
 
     List<${table.beanName}> select${table.beanName}ListByModel(${table.beanName} model);

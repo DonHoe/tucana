@@ -1,13 +1,22 @@
 package ${table.project}.entity;
 
-public class ${table.beanName} {
+import java.util.Date;
 
+/**
+ *${table.tableComment}
+ */
+public class ${table.beanName} {
 #foreach($column in $table.columns)
-    private ${column.dataType} ${column.propertyName}
+
+    /**
+    * ${column.columnComment}
+    */
+    private ${column.dataType} ${column.propertyName};
 #end
 
 #foreach($column in $table.columns)
-    public ${column.dataType} getId() {
+
+    public ${column.dataType} get${column.propertyNameUp}() {
         return ${column.propertyName};
     }
 

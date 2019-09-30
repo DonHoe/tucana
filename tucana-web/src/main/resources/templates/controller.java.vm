@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ *${table.tableComment}控制类
+ */
 @Slf4j
 @RestController
 @RequestMapping("/${table.attributeName}")

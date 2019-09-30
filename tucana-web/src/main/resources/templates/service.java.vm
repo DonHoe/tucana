@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 
+/**
+ *${table.tableComment}服务实现
+ */
 @Slf4j
 @Service
 public class ${table.beanName}ServiceImpl implements ${table.beanName}Service {
