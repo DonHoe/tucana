@@ -2,6 +2,7 @@ CREATE TABLE `sys_user`
 (
   `id`          bigint(20)                              NOT NULL AUTO_INCREMENT COMMENT '主键',
   `user_name`   varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '用户名',
+  `login_name`  varchar(100) COLLATE utf8mb4_unicode_ci          DEFAULT NULL COMMENT '登录名',
   `password`    varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '密码',
   `phone`       varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '电话号码',
   `status`      int(255)                                NOT NULL DEFAULT 0 COMMENT '状态',
@@ -10,18 +11,19 @@ CREATE TABLE `sys_user`
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
-  COLLATE = utf8mb4_unicode_ci;
+  COLLATE = utf8mb4_unicode_ci COMMENT ='用户表';
 
 CREATE TABLE `sys_role`
 (
   `id`          bigint(20)                              NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `role_key`    varchar(100) COLLATE utf8mb4_unicode_ci          DEFAULT NULL COMMENT '角色键',
   `role_name`   varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '角色名',
   `create_time` datetime                                NOT NULL DEFAULT current_timestamp() COMMENT '创建时间',
   `update_time` datetime                                NOT NULL DEFAULT current_timestamp() COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
-  COLLATE = utf8mb4_unicode_ci;
+  COLLATE = utf8mb4_unicode_ci COMMENT ='角色表';
 
 CREATE TABLE `sys_menu`
 (
@@ -37,7 +39,7 @@ CREATE TABLE `sys_menu`
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
-  COLLATE = utf8mb4_unicode_ci;
+  COLLATE = utf8mb4_unicode_ci COMMENT ='菜单权限表';
 
 CREATE TABLE `sys_user_role`
 (
@@ -47,7 +49,7 @@ CREATE TABLE `sys_user_role`
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
-  COLLATE = utf8mb4_unicode_ci;
+  COLLATE = utf8mb4_unicode_ci COMMENT ='用户角色关系表';
 
 CREATE TABLE `sys_role_menu`
 (
@@ -57,4 +59,4 @@ CREATE TABLE `sys_role_menu`
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
-  COLLATE = utf8mb4_unicode_ci;
+  COLLATE = utf8mb4_unicode_ci COMMENT ='角色菜单关系表';
