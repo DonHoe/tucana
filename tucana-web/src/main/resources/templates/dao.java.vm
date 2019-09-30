@@ -10,7 +10,7 @@ public interface ${table.beanName}Dao {
 
     List<${table.beanName}> select${table.beanName}ListByModel(${table.beanName} model);
 
-    ${table.beanName} select${table.beanName}ById(String id);
+    ${table.beanName} select${table.beanName}ById(Long id);
 
     int insert${table.beanName}(${table.beanName} model);
 

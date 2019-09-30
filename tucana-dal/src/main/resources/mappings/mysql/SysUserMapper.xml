@@ -5,6 +5,7 @@
     <resultMap id="SysUserResultMap" type="com.hepic.tucana.dal.entity.authority.SysUser">
         <result column="id" property="id"/>
         <result column="user_name" property="userName"/>
+        <result column="login_name" property="loginName"/>
         <result column="password" property="password"/>
         <result column="phone" property="phone"/>
         <result column="status" property="status"/>
@@ -12,14 +13,16 @@
         <result column="update_time" property="updateTime"/>
     </resultMap>
     <sql id="Base_Column_List">
-        id,user_name,password,phone,status,create_time,update_time    </sql>
-    <select id="selectSysUserListByModel" parameterType="com.hepic.tucana.dal.entity.authority.SysUser" resultMap="SysUserResultMap">
+        id,user_name,login_name,password,phone,status,create_time,update_time    </sql>
+    <select id="selectSysUserListByModel" parameterType="com.hepic.tucana.dal.entity.authority.SysUser"
+            resultMap="SysUserResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM sys_user
         <where>
             <if test="id != null">AND id = #{id}</if>
             <if test="userName != null">AND user_name = #{userName}</if>
+            <if test="loginName != null">AND login_name = #{loginName}</if>
             <if test="password != null">AND password = #{password}</if>
             <if test="phone != null">AND phone = #{phone}</if>
             <if test="status != null">AND status = #{status}</if>
@@ -40,6 +43,7 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">id,</if>
             <if test="userName != null">user_name,</if>
+            <if test="loginName != null">login_name,</if>
             <if test="password != null">password,</if>
             <if test="phone != null">phone,</if>
             <if test="status != null">status,</if>
@@ -49,6 +53,7 @@
         <trim prefix=" values (" suffix=")" suffixOverrides=",">
             <if test="id != null">#{id},</if>
             <if test="userName != null">#{user_name},</if>
+            <if test="loginName != null">#{login_name},</if>
             <if test="password != null">#{password},</if>
             <if test="phone != null">#{phone},</if>
             <if test="status != null">#{status},</if>
@@ -62,6 +67,7 @@
         <set>
             <if test="id != null">id = #{id},</if>
             <if test="userName != null">user_name = #{userName},</if>
+            <if test="loginName != null">login_name = #{loginName},</if>
             <if test="password != null">password = #{password},</if>
             <if test="phone != null">phone = #{phone},</if>
             <if test="status != null">status = #{status},</if>

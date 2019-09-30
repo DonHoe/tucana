@@ -13,6 +13,11 @@ public class SysRole {
     private Long id;
 
     /**
+     * 角色键
+     */
+    private String key;
+
+    /**
      * 角色名
      */
     private String roleName;
@@ -34,6 +39,14 @@ public class SysRole {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getRoleName() {

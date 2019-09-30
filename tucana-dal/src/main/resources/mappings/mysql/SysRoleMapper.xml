@@ -32,6 +32,13 @@
         where id = #{id}
     </select>
 
+    <select id="selectRoleByUserId" parameterType="String" resultMap="SysRoleResultMap">
+        SELECT role.*
+        FROM sys_role role
+        INNER JOIN sys_user_role userRole on role.id = userRole.role_id
+        WHERE userRole.user_id = #{userId}
+    </select>
+
     <insert id="insertSysRole" parameterType="com.hepic.tucana.dal.entity.authority.SysRole">
         INSERT INTO sys_role
         <trim prefix="(" suffix=")" suffixOverrides=",">

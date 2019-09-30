@@ -18,6 +18,11 @@ public class SysUser {
     private String userName;
 
     /**
+     * 登录名
+     */
+    private String loginName;
+
+    /**
      * 密码
      */
     private String password;
@@ -57,6 +62,14 @@ public class SysUser {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getLoginName() {
+        return loginName;
+    }
+
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
     }
 
     public String getPassword() {

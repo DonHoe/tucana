@@ -4,11 +4,21 @@ import java.util.List;
 
 public class Role {
 
+    private Long id;
+
     private String key;
 
     private String name;
 
     private List<Permit> permitList;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getKey() {
         return key;

@@ -11,6 +11,8 @@ public interface SysRoleDao {
 
     List<SysRole> selectSysRoleListByModel(SysRole model);
 
+    List<SysRole> selectRoleByUserId(String userId);
+
     SysRole selectSysRoleById(String id);
 
     int insertSysRole(SysRole model);
