@@ -20,12 +20,6 @@ import org.springframework.stereotype.Service;
 public class LoginServiceImpl implements LoginService {
 
     /**
-     * 用户表数据访问
-     */
-    @Autowired
-    private LoginDao loginDao;
-
-    /**
      * 查询用户信息
      *
      * @param name
@@ -33,14 +27,7 @@ public class LoginServiceImpl implements LoginService {
      */
     @Override
     public User findUserByName(String name) {
-        User user = loginDao.findUserByName(name);
-        if (user == null) {
-            return null;
-        }
-        user.setRoles(loginDao.findRoleByUserId(user.getId()));
-        for (Role role : user.getRoles()) {
-            role.setPermissions(loginDao.findPermissionByRoleId(role.getId()));
-        }
+        User user = new User();
         return user;
     }
 
@@ -54,13 +41,7 @@ public class LoginServiceImpl implements LoginService {
      */
     @Override
     public SysUser login(String name, String password) {
-        SysUser sysUser = loginDao.findUserByName(name);
-        if (sysUser == null || sysUser.getId() < 1) {
-            throw new BaseException(2001, "找不到用户");
-        }
-        if (!Md5.encode(password, Md5.encryptionKey).equals(sysUser.getPassword())) {
-            throw new BaseException(2002, "密码错误");
-        }
+        SysUser sysUser = new SysUser();
         return sysUser;
     }
 

@@ -1,6 +1,6 @@
 package ${table.project}.service;
 
-import ${table.project}.entity.${table.beanName}Dao;
+import ${table.project}.dao.${table.beanName}Dao;
 import ${table.project}.entity.${table.beanName};
 import ${table.project}.service.${table.beanName}Service;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- *${table.tableComment}服务实现
+ *${table.tableComment} 服务实现
  */
 @Slf4j
 @Service

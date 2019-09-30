@@ -1,9 +1,10 @@
 package ${table.project}.service;
 
 import ${table.project}.entity.${table.beanName};
+import java.util.List;
 
 /**
- *${table.tableComment}服务接口
+ *${table.tableComment} 服务接口
  */
 public interface ${table.beanName}Service {
 

@@ -1,9 +1,10 @@
 package ${table.project}.dao;
 
+import java.util.List;
 import ${table.project}.entity.${table.beanName};
 
 /**
- *${table.tableComment}数据访问接口
+ *${table.tableComment} 数据访问接口
  */
 public interface ${table.beanName}Dao {
 
