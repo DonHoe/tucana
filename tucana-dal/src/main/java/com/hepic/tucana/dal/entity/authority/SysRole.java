@@ -15,7 +15,7 @@ public class SysRole {
     /**
      * 角色键
      */
-    private String key;
+    private String roleKey;
 
     /**
      * 角色名
@@ -41,12 +41,12 @@ public class SysRole {
         this.id = id;
     }
 
-    public String getKey() {
-        return key;
+    public String getRoleKey() {
+        return roleKey;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setRoleKey(String roleKey) {
+        this.roleKey = roleKey;
     }
 
     public String getRoleName() {

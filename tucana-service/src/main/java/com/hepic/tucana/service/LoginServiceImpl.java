@@ -73,7 +73,7 @@ public class LoginServiceImpl implements LoginService {
         List<Role> roleList = sysRoles.stream().map(p -> {
             Role role = new Role();
             role.setId(p.getId());
-            role.setKey(p.getKey());
+            role.setRoleKey(p.getRoleKey());
             role.setName(p.getRoleName());
             return role;
         }).collect(Collectors.toList());

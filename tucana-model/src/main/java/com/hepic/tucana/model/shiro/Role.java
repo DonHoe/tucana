@@ -6,7 +6,7 @@ public class Role {
 
     private Long id;
 
-    private String key;
+    private String roleKey;
 
     private String name;
 
@@ -20,12 +20,12 @@ public class Role {
         this.id = id;
     }
 
-    public String getKey() {
-        return key;
+    public String getRoleKey() {
+        return roleKey;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setRoleKey(String roleKey) {
+        this.roleKey = roleKey;
     }
 
     public String getName() {
