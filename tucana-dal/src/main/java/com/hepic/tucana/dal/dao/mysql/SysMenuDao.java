@@ -11,9 +11,9 @@ public interface SysMenuDao {
 
     List<SysMenu> selectSysMenuListByModel(SysMenu model);
 
-    List<SysMenu> selectSysMenuByRoleId(String id);
+    List<SysMenu> selectSysMenuByRoleId(Long roleId);
 
-    SysMenu selectSysMenuById(String id);
+    SysMenu selectSysMenuById(Long id);
 
     int insertSysMenu(SysMenu model);
 

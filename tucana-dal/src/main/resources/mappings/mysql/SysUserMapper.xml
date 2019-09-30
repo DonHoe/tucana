@@ -31,7 +31,7 @@
         </where>
     </select>
 
-    <select id="selectSysUserById" parameterType="String" resultMap="SysUserResultMap">
+    <select id="selectSysUserById" parameterType="long" resultMap="SysUserResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM sys_user

@@ -33,14 +33,14 @@
         </where>
     </select>
 
-    <select id="selectSysMenuByRoleId" parameterType="String" resultMap="SysMenuResultMap">
+    <select id="selectSysMenuByRoleId" parameterType="long" resultMap="SysMenuResultMap">
         SELECT menu.*
         FROM sys_menu menu
         INNER JOIN sys_role_menu roleMenu on menu.id = roleMenu.menu_id
         WHERE roleMenu.role_id = #{roleId}
     </select>
 
-    <select id="selectSysMenuByRoleId" parameterType="String" resultMap="SysMenuResultMap">
+    <select id="selectSysMenuById" parameterType="long" resultMap="SysMenuResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM sys_menu

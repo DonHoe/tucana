@@ -24,7 +24,7 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public SysUser selectSysUserById(String id) {
+    public SysUser selectSysUserById(Long id) {
         return sysUserDao.selectSysUserById(id);
     }
 

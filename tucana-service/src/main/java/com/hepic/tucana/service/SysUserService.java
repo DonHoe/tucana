@@ -10,7 +10,7 @@ public interface SysUserService {
 
     List<SysUser> selectSysUserListByModel(SysUser model);
 
-    SysUser selectSysUserById(String id);
+    SysUser selectSysUserById(Long id);
 
     int insertSysUser(SysUser model);
 

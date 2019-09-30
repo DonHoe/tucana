@@ -25,14 +25,14 @@
         </where>
     </select>
 
-    <select id="selectSysRoleById" parameterType="String" resultMap="SysRoleResultMap">
+    <select id="selectSysRoleById" parameterType="long" resultMap="SysRoleResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM sys_role
         where id = #{id}
     </select>
 
-    <select id="selectRoleByUserId" parameterType="String" resultMap="SysRoleResultMap">
+    <select id="selectRoleByUserId" parameterType="long" resultMap="SysRoleResultMap">
         SELECT role.*
         FROM sys_role role
         INNER JOIN sys_user_role userRole on role.id = userRole.role_id

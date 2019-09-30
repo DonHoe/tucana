@@ -69,7 +69,7 @@ public class LoginServiceImpl implements LoginService {
         userInfo.setId(sysUser.getId());
         userInfo.setLoginName(sysUser.getLoginName());
         userInfo.setName(sysUser.getUserName());
-        List<SysRole> sysRoles = sysRoleDao.selectRoleByUserId(sysUser.getId().toString());
+        List<SysRole> sysRoles = sysRoleDao.selectRoleByUserId(sysUser.getId());
         List<Role> roleList = sysRoles.stream().map(p -> {
             Role role = new Role();
             role.setId(p.getId());
@@ -78,7 +78,7 @@ public class LoginServiceImpl implements LoginService {
             return role;
         }).collect(Collectors.toList());
         for (Role roleItem : roleList) {
-            List<SysMenu> sysMenus = sysMenuDao.selectSysMenuByRoleId(roleItem.getId().toString());
+            List<SysMenu> sysMenus = sysMenuDao.selectSysMenuByRoleId(roleItem.getId());
             List<Permit> permitList = sysMenus.stream().map(p -> {
                 Permit permit = new Permit();
                 permit.setKey(p.getPermit());
