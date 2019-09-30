@@ -1,0 +1,18 @@
+package ${table.project}.entity;
+
+public class ${table.beanName} {
+
+#foreach($column in $table.columns)
+    private ${column.dataType} ${column.propertyName}
+#end
+
+#foreach($column in $table.columns)
+    public ${column.dataType} getId() {
+        return ${column.propertyName};
+    }
+
+    public void set${column.propertyNameUp}(${column.dataType} ${column.propertyName}) {
+        this.${column.propertyName} = ${column.propertyName};
+    }
+#end
+}

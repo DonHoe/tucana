@@ -6,6 +6,8 @@ public class Columns {
 
     private String propertyName;
 
+    private String propertyNameUp;
+
     private String columnComment;
 
     private Integer ordinalPosition;
@@ -36,6 +38,14 @@ public class Columns {
 
     public void setPropertyName(String propertyName) {
         this.propertyName = propertyName;
+    }
+
+    public String getPropertyNameUp() {
+        return propertyNameUp;
+    }
+
+    public void setPropertyNameUp(String propertyNameUp) {
+        this.propertyNameUp = propertyNameUp;
     }
 
     public String getColumnComment() {

@@ -31,6 +31,8 @@ public class InformationSchemaService {
         put("templates/dao.java.vm", "java/dao/%sDao.java");
         put("templates/service.java.vm", "java/service/%sServiceImpl.java");
         put("templates/interface.java.vm", "java/service/%sService.java");
+        put("templates/entity.java.vm", "java/entity/%s.java");
+        put("templates/controller.java.vm", "java/controller/%sController.java");
     }};
 
     /**
@@ -64,6 +66,7 @@ public class InformationSchemaService {
         }
         columns.forEach(p -> {
             p.setPropertyName(CommonUtil.translateName(p.getColumnName(), ""));
+            p.setPropertyNameUp(CommonUtil.toUpperInitial(p.getPropertyName()));
             p.setDataType(ConstantMap.typeMap.get(p.getDataType()));
         });
         tableInfo.setColumns(columns);

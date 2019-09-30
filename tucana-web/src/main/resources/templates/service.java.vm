@@ -15,25 +15,25 @@ import java.util.List;
 public class ${table.beanName}ServiceImpl implements ${table.beanName}Service {
 
     @Autowired
-    ${table.beanName}Dao ${table.beanName}Dao;
+    ${table.beanName}Dao ${table.attributeName}Dao;
 
     @Override
     public List<${table.beanName}> select${table.beanName}ListByModel(${table.beanName} model){
-        return ${table.beanName}Dao.select${table.beanName}ListByModel(model);
+        return ${table.attributeName}Dao.select${table.beanName}ListByModel(model);
     }
 
     @Override
     public ${table.beanName} select${table.beanName}ById(String id){
-        return ${table.beanName}Dao.select${table.beanName}ById(id);
+        return ${table.attributeName}Dao.select${table.beanName}ById(id);
     }
 
     @Override
     public int insert${table.beanName}(${table.beanName} model){
-        return ${table.beanName}Dao.insert${table.beanName}(model);
+        return ${table.attributeName}Dao.insert${table.beanName}(model);
     }
 
     @Override
     public int update${table.beanName}(${table.beanName} model){
-        return ${table.beanName}Dao.update${table.beanName}(model);
+        return ${table.attributeName}Dao.update${table.beanName}(model);
     }
 }
