@@ -1,6 +1,7 @@
 package com.hepic.tucana.web.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializeConfig;
 import com.hepic.tucana.dal.entity.mysql.Columns;
 import com.hepic.tucana.dal.entity.mysql.TableInfo;
 import com.hepic.tucana.model.common.CommonResponse;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Slf4j
@@ -44,7 +46,7 @@ public class SettingController extends BaseController {
             response.setResponseEnum(ResponseEnum.Code_999);
             log.error("获取表集合异常", e);
         }
-        return JSON.toJSONString(response);
+        return JSON.toJSONStringWithDateFormat(response, "yyyy-MM-dd HH:mm:ss");
     }
 
     /**
@@ -93,13 +95,14 @@ public class SettingController extends BaseController {
      * @return
      */
     @RequestMapping("/codeCreate")
-    public void codeCreate(HttpServletResponse response,String table) {
+    public void codeCreate(HttpServletResponse response, String table) {
         CommonResponse<String> responseDto = new CommonResponse<>();
         try {
             byte[] data = informationSchemaService.codeCreate(table);
             response.reset();
             response.setHeader("Content-Disposition", "attachment; filename=\"code.zip\"");
             response.addHeader("Content-Length", "" + data.length);
+            response.addHeader("Access-Control-Allow-Origin","*");
             response.setContentType("application/octet-stream; charset=UTF-8");
             response.getOutputStream().write(data);
         } catch (BaseException e) {

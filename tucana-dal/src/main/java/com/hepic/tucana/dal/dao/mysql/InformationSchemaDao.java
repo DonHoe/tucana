@@ -16,6 +16,8 @@ public interface InformationSchemaDao {
      */
     @Select("select TABLE_NAME as tableName  " +
             " ,TABLE_COMMENT as tableComment " +
+            " ,CREATE_TIME as createTime " +
+            " ,UPDATE_TIME as updateTime " +
             " FROM INFORMATION_SCHEMA.TABLES " +
             " WHERE table_type = 'BASE TABLE' AND TABLE_SCHEMA = #{database} ")
     List<TableInfo> getTableList(String database);

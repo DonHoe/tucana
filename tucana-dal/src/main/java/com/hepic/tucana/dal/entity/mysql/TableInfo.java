@@ -1,5 +1,6 @@
 package com.hepic.tucana.dal.entity.mysql;
 
+import java.util.Date;
 import java.util.List;
 
 public class TableInfo {
@@ -33,6 +34,10 @@ public class TableInfo {
      * 列信息
      */
     private List<Columns> columns;
+
+    private Date createTime;
+
+    private Date updateTime;
 
     public String getProject() {
         return project;
@@ -80,5 +85,21 @@ public class TableInfo {
 
     public void setColumns(List<Columns> columns) {
         this.columns = columns;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }
