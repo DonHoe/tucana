@@ -1,6 +1,7 @@
 package com.hepic.tucana.dal.entity.authority;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -51,6 +52,11 @@ public class SysMenu {
      * 更新时间
      */
     private Date updateTime;
+
+    /**
+     * 子菜单
+     */
+    private List<SysMenu> children;
 
 
     public Long getId() {
@@ -123,5 +129,13 @@ public class SysMenu {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public List<SysMenu> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<SysMenu> children) {
+        this.children = children;
     }
 }
