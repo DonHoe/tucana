@@ -20,3 +20,6 @@ spring:
 
 mybatis:
   mapperLocations: classpath:mappings/*/*.xml
+logging:
+  level:
+    com.hepic.tucana.dal.dao: debug
