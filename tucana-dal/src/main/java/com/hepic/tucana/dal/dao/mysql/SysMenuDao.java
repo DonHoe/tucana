@@ -19,4 +19,5 @@ public interface SysMenuDao {
 
     int updateSysMenu(SysMenu model);
 
+    int deleteById(Long id);
 }

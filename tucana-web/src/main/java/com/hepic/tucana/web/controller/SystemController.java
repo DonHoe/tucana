@@ -59,7 +59,27 @@ public class SystemController {
             response.setResult(result);
         } catch (Exception e) {
             response.setResponseEnum(ResponseEnum.Code_999);
-            log.error("获取列集合异常", e);
+            log.error("保存菜单异常", e);
+        }
+        return JSON.toJSONString(response);
+    }
+
+    /**
+     * 删除菜单
+     *
+     * @param sysMenu
+     * @return
+     */
+    @PostMapping(value = "deleteMenu")
+    public String deleteMenu(@RequestBody SysMenu sysMenu) {
+        CommonResponse<Integer> response = new CommonResponse();
+        try {
+            response.setResponseEnum(ResponseEnum.Code_1000);
+            Integer result = systemService.deleteMenu(sysMenu.getId());
+            response.setResult(result);
+        } catch (Exception e) {
+            response.setResponseEnum(ResponseEnum.Code_999);
+            log.error("删除菜单异常", e);
         }
         return JSON.toJSONString(response);
     }

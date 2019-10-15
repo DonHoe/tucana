@@ -44,6 +44,11 @@ public class SysMenu {
     private Integer visible;
 
     /**
+     * 图标
+     */
+    private String icon;
+
+    /**
      * 创建时间
      */
     private Date createTime;
@@ -113,6 +118,14 @@ public class SysMenu {
 
     public void setVisible(Integer visible) {
         this.visible = visible;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     public Date getCreateTime() {

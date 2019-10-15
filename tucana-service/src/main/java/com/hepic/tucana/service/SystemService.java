@@ -30,4 +30,12 @@ public interface SystemService {
      */
     int editMenu(SysMenu sysMenu);
 
+    /**
+     * 删除菜单
+     *
+     * @param id
+     * @return
+     */
+    int deleteMenu(Long id);
+
 }

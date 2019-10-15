@@ -10,11 +10,12 @@
         <result column="permit" property="permit"/>
         <result column="menu_type" property="menuType"/>
         <result column="visible" property="visible"/>
+        <result column="icon" property="icon"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
     </resultMap>
     <sql id="Base_Column_List">
-        id,parent_id,menu_name,url,permit,menu_type,visible,create_time,update_time    </sql>
+        id,parent_id,menu_name,url,permit,menu_type,visible,icon,create_time,update_time    </sql>
     <select id="selectSysMenuListByModel" parameterType="com.hepic.tucana.dal.entity.authority.SysMenu"
             resultMap="SysMenuResultMap">
         SELECT
@@ -28,6 +29,7 @@
             <if test="permit != null">AND permit = #{permit}</if>
             <if test="menuType != null">AND menu_type = #{menuType}</if>
             <if test="visible != null">AND visible = #{visible}</if>
+            <if test="icon != null">AND icon = #{icon}</if>
             <if test="createTime != null">AND create_time = #{createTime}</if>
             <if test="updateTime != null">AND update_time = #{updateTime}</if>
         </where>
@@ -57,19 +59,21 @@
             <if test="permit != null">permit,</if>
             <if test="menuType != null">menu_type,</if>
             <if test="visible != null">visible,</if>
+            <if test="icon != null">icon,</if>
             <if test="createTime != null">create_time,</if>
             <if test="updateTime != null">update_time,</if>
         </trim>
         <trim prefix=" values (" suffix=")" suffixOverrides=",">
             <if test="id != null">#{id},</if>
-            <if test="parentId != null">#{parent_id},</if>
-            <if test="menuName != null">#{menu_name},</if>
+            <if test="parentId != null">#{parentId},</if>
+            <if test="menuName != null">#{menuName},</if>
             <if test="url != null">#{url},</if>
             <if test="permit != null">#{permit},</if>
-            <if test="menuType != null">#{menu_type},</if>
+            <if test="menuType != null">#{menuType},</if>
             <if test="visible != null">#{visible},</if>
-            <if test="createTime != null">#{create_time},</if>
-            <if test="updateTime != null">#{update_time},</if>
+            <if test="icon != null">#{icon},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
         </trim>
     </insert>
 
@@ -83,9 +87,14 @@
             <if test="permit != null">permit = #{permit},</if>
             <if test="menuType != null">menu_type = #{menuType},</if>
             <if test="visible != null">visible = #{visible},</if>
+            <if test="icon != null">icon = #{icon},</if>
             <if test="createTime != null">create_time = #{createTime},</if>
             <if test="updateTime != null">update_time = #{updateTime},</if>
         </set>
         where id = #{id}
     </update>
+
+    <delete id="deleteById" parameterType="Long">
+        delete from sys_menu where id = #{id}
+    </delete>
 </mapper>

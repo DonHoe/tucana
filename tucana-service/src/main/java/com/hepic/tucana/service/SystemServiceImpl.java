@@ -58,6 +58,17 @@ public class SystemServiceImpl implements SystemService {
     }
 
     /**
+     * 删除菜单
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public int deleteMenu(Long id) {
+        return sysMenuDao.deleteById(id);
+    }
+
+    /**
      * 编辑菜单
      *
      * @param sysMenu

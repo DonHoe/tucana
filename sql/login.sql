@@ -34,6 +34,7 @@ CREATE TABLE `sys_menu`
   `permit`      varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '权限',
   `menu_type`   int(255)                                NOT NULL DEFAULT 0 COMMENT '菜单类型',
   `visible`     int(255)                                NOT NULL DEFAULT 0 COMMENT '可见性',
+  `icon`        varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '图标',
   `create_time` datetime                                NOT NULL DEFAULT current_timestamp() COMMENT '创建时间',
   `update_time` datetime                                NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '更新时间',
   PRIMARY KEY (`id`)
