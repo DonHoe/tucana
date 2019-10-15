@@ -33,11 +33,11 @@ public class SystemServiceImpl implements SystemService {
     public List<SysMenu> getMenuList(SysMenu sysMenu) {
         List<SysMenu> result = new ArrayList<>();
         List<SysMenu> list = sysMenuDao.selectSysMenuListByModel(sysMenu);
-        result = list.stream().filter(p -> p.getParentId().equals(0)).collect(Collectors.toList());
+        result = list.stream().filter(p -> p.getParentId().intValue() == 0).collect(Collectors.toList());
         for (SysMenu item : result) {
             List<SysMenu> child = list.stream().filter(p -> p.getParentId().equals(item.getId())).collect(Collectors.toList());
             child.forEach(p -> {
-                List<SysMenu> subChild = list.stream().filter(q -> q.getParentId().equals(p.getId())).collect(Collectors.toList());
+                List<SysMenu> subChild = list.stream().filter(q -> q.getParentId().intValue() == p.getId().intValue()).collect(Collectors.toList());
                 p.setChildren(subChild);
             });
             item.setChildren(child);
