@@ -19,4 +19,5 @@ public interface SysRoleDao {
 
     int updateSysRole(SysRole model);
 
+    int deleteById(Long id);
 }

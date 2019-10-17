@@ -68,4 +68,8 @@
         </set>
         where id = #{id}
     </update>
+
+    <delete id="deleteById" parameterType="Long">
+        delete from sys_role where id = #{id}
+    </delete>
 </mapper>

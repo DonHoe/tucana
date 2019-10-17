@@ -78,4 +78,48 @@ public class SystemServiceImpl implements SystemService {
     public int editMenu(SysMenu sysMenu) {
         return sysMenuDao.updateSysMenu(sysMenu);
     }
+
+    /**
+     * 查询角色集合
+     *
+     * @param sysRole
+     * @return
+     */
+    @Override
+    public List<SysRole> getRoleList(SysRole sysRole) {
+        return sysRoleDao.selectSysRoleListByModel(sysRole);
+    }
+
+    /**
+     * 新增角色集合
+     *
+     * @param sysRole
+     * @return
+     */
+    @Override
+    public int addRole(SysRole sysRole) {
+        return sysRoleDao.insertSysRole(sysRole);
+    }
+
+    /**
+     * 编辑角色集合
+     *
+     * @param sysRole
+     * @return
+     */
+    @Override
+    public int editRole(SysRole sysRole) {
+        return sysRoleDao.updateSysRole(sysRole);
+    }
+
+    /**
+     * 删除角色
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public int deleteRole(Long id) {
+        return sysRoleDao.deleteById(id);
+    }
 }

@@ -51,4 +51,8 @@
         </set>
         where #foreach($column in $table.columns)#if($column.ordinalPosition == '1')${column.columnName} = #{${column.propertyName}}#end#end
     </update>
+
+    <delete id="deleteById" parameterType="Long">
+        delete from ${table.tableName} where id = #{id}
+    </delete>
 </mapper>

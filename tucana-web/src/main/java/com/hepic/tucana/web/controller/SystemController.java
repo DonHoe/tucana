@@ -2,6 +2,7 @@ package com.hepic.tucana.web.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.hepic.tucana.dal.entity.authority.SysMenu;
+import com.hepic.tucana.dal.entity.authority.SysRole;
 import com.hepic.tucana.model.common.CommonResponse;
 import com.hepic.tucana.model.enums.ResponseEnum;
 import com.hepic.tucana.service.SystemService;
@@ -40,7 +41,7 @@ public class SystemController {
     }
 
     /**
-     * 获取菜单列表
+     * 保存菜单
      *
      * @param sysMenu
      * @return
@@ -76,6 +77,71 @@ public class SystemController {
         try {
             response.setResponseEnum(ResponseEnum.Code_1000);
             Integer result = systemService.deleteMenu(sysMenu.getId());
+            response.setResult(result);
+        } catch (Exception e) {
+            response.setResponseEnum(ResponseEnum.Code_999);
+            log.error("删除菜单异常", e);
+        }
+        return JSON.toJSONString(response);
+    }
+
+    /**
+     * 查询角色列表
+     *
+     * @param sysRole
+     * @return
+     */
+    @GetMapping(value = "getRoleList")
+    public String getRoleList(SysRole sysRole) {
+        CommonResponse<List<SysRole>> response = new CommonResponse();
+        try {
+            response.setResponseEnum(ResponseEnum.Code_1000);
+            List<SysRole> result = systemService.getRoleList(sysRole);
+            response.setResult(result);
+        } catch (Exception e) {
+            response.setResponseEnum(ResponseEnum.Code_999);
+            log.error("获取列集合异常", e);
+        }
+        return JSON.toJSONString(response);
+    }
+
+    /**
+     * 保存角色
+     *
+     * @param sysRole
+     * @return
+     */
+    @PostMapping(value = "saveRole")
+    public String saveMenu(@RequestBody SysRole sysRole) {
+        CommonResponse<Integer> response = new CommonResponse();
+        try {
+            response.setResponseEnum(ResponseEnum.Code_1000);
+            Integer result = 0;
+            if (sysRole.getId() == null || sysRole.getId().intValue() == 0) {
+                result = systemService.addRole(sysRole);
+            } else {
+                result = systemService.editRole(sysRole);
+            }
+            response.setResult(result);
+        } catch (Exception e) {
+            response.setResponseEnum(ResponseEnum.Code_999);
+            log.error("保存角色异常", e);
+        }
+        return JSON.toJSONString(response);
+    }
+
+    /**
+     * 删除角色
+     *
+     * @param sysMenu
+     * @return
+     */
+    @PostMapping(value = "deleteRole")
+    public String deleteRole(@RequestBody SysRole sysRole) {
+        CommonResponse<Integer> response = new CommonResponse();
+        try {
+            response.setResponseEnum(ResponseEnum.Code_1000);
+            Integer result = systemService.deleteRole(sysRole.getId());
             response.setResult(result);
         } catch (Exception e) {
             response.setResponseEnum(ResponseEnum.Code_999);
