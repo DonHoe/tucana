@@ -37,7 +37,7 @@
         </trim>
         <trim prefix=" values (" suffix=")" suffixOverrides=",">
             #foreach($column in $table.columns)
-            <if test="${column.propertyName} != null">#{${column.columnName}},</if>
+            <if test="${column.propertyName} != null">#{${column.propertyName}},</if>
             #end
         </trim>
     </insert>

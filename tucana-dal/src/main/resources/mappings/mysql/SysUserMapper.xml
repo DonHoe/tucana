@@ -52,13 +52,13 @@
         </trim>
         <trim prefix=" values (" suffix=")" suffixOverrides=",">
             <if test="id != null">#{id},</if>
-            <if test="userName != null">#{user_name},</if>
-            <if test="loginName != null">#{login_name},</if>
+            <if test="userName != null">#{userName},</if>
+            <if test="loginName != null">#{loginName},</if>
             <if test="password != null">#{password},</if>
             <if test="phone != null">#{phone},</if>
             <if test="status != null">#{status},</if>
-            <if test="createTime != null">#{create_time},</if>
-            <if test="updateTime != null">#{update_time},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
         </trim>
     </insert>
 
