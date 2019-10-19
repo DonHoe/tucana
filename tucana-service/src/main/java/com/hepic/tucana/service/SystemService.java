@@ -70,4 +70,12 @@ public interface SystemService {
      * @return
      */
     int deleteRole(Long id);
+
+    /**
+     * 获取角色下的菜单列表
+     *
+     * @param roleId
+     * @return
+     */
+    List<SysMenu> getSysMenuByRoleId(Long roleId);
 }

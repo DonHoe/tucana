@@ -122,4 +122,15 @@ public class SystemServiceImpl implements SystemService {
     public int deleteRole(Long id) {
         return sysRoleDao.deleteById(id);
     }
+
+    /**
+     * 获取角色下的菜单列表
+     *
+     * @param roleId
+     * @return
+     */
+    @Override
+    public List<SysMenu> getSysMenuByRoleId(Long roleId) {
+        return sysMenuDao.selectSysMenuByRoleId(roleId);
+    }
 }

@@ -7,10 +7,13 @@ import com.hepic.tucana.model.common.CommonResponse;
 import com.hepic.tucana.model.enums.ResponseEnum;
 import com.hepic.tucana.service.SystemService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
@@ -33,6 +36,24 @@ public class SystemController {
             response.setResponseEnum(ResponseEnum.Code_1000);
             List<SysMenu> result = systemService.getMenuList(sysMenu);
             response.setResult(result);
+        } catch (Exception e) {
+            response.setResponseEnum(ResponseEnum.Code_999);
+            log.error("获取列集合异常", e);
+        }
+        return JSON.toJSONString(response);
+    }
+
+    @GetMapping(value = "getMenuIdByRoleId")
+    public String getMenuIdByRoleId(Long roleId) {
+        CommonResponse<List<Long>> response = new CommonResponse();
+        try {
+            List<Long> menuIds = new ArrayList<>();
+            response.setResponseEnum(ResponseEnum.Code_1000);
+            List<SysMenu> result = systemService.getSysMenuByRoleId(roleId);
+            if (CollectionUtils.isNotEmpty(result)) {
+                menuIds = result.stream().map(p -> p.getId()).collect(Collectors.toList());
+            }
+            response.setResult(menuIds);
         } catch (Exception e) {
             response.setResponseEnum(ResponseEnum.Code_999);
             log.error("获取列集合异常", e);
