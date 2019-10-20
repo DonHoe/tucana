@@ -1,6 +1,7 @@
 package com.hepic.tucana.dal.entity.authority;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -31,6 +32,11 @@ public class SysRole {
      * 更新时间
      */
     private Date updateTime;
+
+    /**
+     * 菜单主键集合
+     */
+    private List<Long> menuIds;
 
 
     public Long getId() {
@@ -71,5 +77,13 @@ public class SysRole {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public List<Long> getMenuIds() {
+        return menuIds;
+    }
+
+    public void setMenuIds(List<Long> menuIds) {
+        this.menuIds = menuIds;
     }
 }

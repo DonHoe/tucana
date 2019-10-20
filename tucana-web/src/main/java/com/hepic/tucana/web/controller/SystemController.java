@@ -43,6 +43,12 @@ public class SystemController {
         return JSON.toJSONString(response);
     }
 
+    /**
+     * 获取根据角色菜单列表
+     *
+     * @param roleId 角色键
+     * @return
+     */
     @GetMapping(value = "getMenuIdByRoleId")
     public String getMenuIdByRoleId(Long roleId) {
         CommonResponse<List<Long>> response = new CommonResponse();
@@ -133,7 +139,7 @@ public class SystemController {
      * @return
      */
     @PostMapping(value = "saveRole")
-    public String saveMenu(@RequestBody SysRole sysRole) {
+    public String saveRole(@RequestBody SysRole sysRole) {
         CommonResponse<Integer> response = new CommonResponse();
         try {
             response.setResponseEnum(ResponseEnum.Code_1000);

@@ -42,6 +42,23 @@
         WHERE roleMenu.role_id = #{roleId}
     </select>
 
+    <delete id="deleteRoleMenu" parameterType="Long">
+        delete from sys_role_menu where role_id = roleId
+    </delete>
+
+    <insert id="insertRoleMenu">
+        INSERT INTO sys_menu
+        (
+          role_id,
+          menu_id
+        )
+        values
+        (
+          #{roleId},
+          #{menuId}
+        )
+    </insert>
+
     <select id="selectSysMenuById" parameterType="long" resultMap="SysMenuResultMap">
         SELECT
         <include refid="Base_Column_List"/>

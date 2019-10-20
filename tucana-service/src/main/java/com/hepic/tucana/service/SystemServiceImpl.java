@@ -5,6 +5,7 @@ import com.hepic.tucana.dal.dao.mysql.SysRoleDao;
 import com.hepic.tucana.dal.dao.mysql.SysUserDao;
 import com.hepic.tucana.dal.entity.authority.SysMenu;
 import com.hepic.tucana.dal.entity.authority.SysRole;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -98,7 +99,9 @@ public class SystemServiceImpl implements SystemService {
      */
     @Override
     public int addRole(SysRole sysRole) {
-        return sysRoleDao.insertSysRole(sysRole);
+        int result = sysRoleDao.insertSysRole(sysRole);
+        buildRoleMenu(sysRole.getId(), sysRole.getMenuIds());
+        return result;
     }
 
     /**
@@ -109,7 +112,9 @@ public class SystemServiceImpl implements SystemService {
      */
     @Override
     public int editRole(SysRole sysRole) {
-        return sysRoleDao.updateSysRole(sysRole);
+        int result = sysRoleDao.updateSysRole(sysRole);
+        buildRoleMenu(sysRole.getId(), sysRole.getMenuIds());
+        return result;
     }
 
     /**
@@ -132,5 +137,22 @@ public class SystemServiceImpl implements SystemService {
     @Override
     public List<SysMenu> getSysMenuByRoleId(Long roleId) {
         return sysMenuDao.selectSysMenuByRoleId(roleId);
+    }
+
+    /**
+     * 构建角色菜单关系
+     *
+     * @param roleId
+     * @param menuIds
+     * @return
+     */
+    public int buildRoleMenu(Long roleId, List<Long> menuIds) {
+        int result = 0;
+        sysMenuDao.deleteRoleMenu(roleId);
+        if (CollectionUtils.isNotEmpty(menuIds)) {
+            result = menuIds.size();
+            menuIds.forEach(p -> sysMenuDao.insertRoleMenu(roleId, p));
+        }
+        return result;
     }
 }
