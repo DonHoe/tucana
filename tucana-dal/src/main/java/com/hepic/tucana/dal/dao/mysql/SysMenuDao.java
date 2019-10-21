@@ -14,7 +14,7 @@ public interface SysMenuDao {
 
     List<SysMenu> selectSysMenuByRoleId(Long roleId);
 
-    SysMenu selectSysMenuById(Long id);
+    SysMenu selectSysMenuById(Long roleId);
 
     int deleteRoleMenu(Long id);
 

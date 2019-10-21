@@ -39,7 +39,7 @@
         WHERE userRole.user_id = #{userId}
     </select>
 
-    <insert id="insertSysRole" parameterType="com.hepic.tucana.dal.entity.authority.SysRole">
+    <insert id="insertSysRole" parameterType="com.hepic.tucana.dal.entity.authority.SysRole" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         INSERT INTO sys_role
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">id,</if>

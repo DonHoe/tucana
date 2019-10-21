@@ -28,7 +28,7 @@
         where #foreach($column in $table.columns)#if($column.ordinalPosition == '1')${column.columnName} = #{${column.propertyName}}#end#end
     </select>
 
-    <insert id="insert${table.beanName}" parameterType="${table.project}.entity.${table.beanName}">
+    <insert id="insert${table.beanName}" parameterType="${table.project}.entity.${table.beanName}" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         INSERT INTO ${table.tableName}
         <trim prefix="(" suffix=")" suffixOverrides=",">
             #foreach($column in $table.columns)
