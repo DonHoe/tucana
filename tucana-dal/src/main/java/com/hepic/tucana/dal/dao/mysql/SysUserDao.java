@@ -16,4 +16,6 @@ public interface SysUserDao {
 
     int updateSysUser(SysUser model);
 
+    int deleteById(Long id);
+
 }

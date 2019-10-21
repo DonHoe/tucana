@@ -38,7 +38,7 @@
         where id = #{id}
     </select>
 
-    <insert id="insertSysUser" parameterType="com.hepic.tucana.dal.entity.authority.SysUser">
+    <insert id="insertSysUser" parameterType="com.hepic.tucana.dal.entity.authority.SysUser" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         INSERT INTO sys_user
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">id,</if>
@@ -76,4 +76,8 @@
         </set>
         where id = #{id}
     </update>
+
+    <delete id="deleteById" parameterType="Long">
+        delete from sys_user where id = #{id}
+    </delete>
 </mapper>

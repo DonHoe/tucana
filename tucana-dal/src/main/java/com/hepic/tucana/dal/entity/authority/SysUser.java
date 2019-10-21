@@ -1,6 +1,7 @@
 package com.hepic.tucana.dal.entity.authority;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 用户表
@@ -46,6 +47,11 @@ public class SysUser {
      * 更新时间
      */
     private Date updateTime;
+
+    /**
+     * 角色列表
+     */
+    private List<Long> roleIds;
 
 
     public Long getId() {
@@ -110,5 +116,13 @@ public class SysUser {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public List<Long> getRoleIds() {
+        return roleIds;
+    }
+
+    public void setRoleIds(List<Long> roleIds) {
+        this.roleIds = roleIds;
     }
 }

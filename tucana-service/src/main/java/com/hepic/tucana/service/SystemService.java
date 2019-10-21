@@ -2,6 +2,7 @@ package com.hepic.tucana.service;
 
 import com.hepic.tucana.dal.entity.authority.SysMenu;
 import com.hepic.tucana.dal.entity.authority.SysRole;
+import com.hepic.tucana.dal.entity.authority.SysUser;
 
 import java.util.List;
 
@@ -78,4 +79,44 @@ public interface SystemService {
      * @return
      */
     List<SysMenu> getSysMenuByRoleId(Long roleId);
+
+    /**
+     * 查询用户集合
+     *
+     * @param sysUser
+     * @return
+     */
+    List<SysUser> getUserList(SysUser sysUser);
+
+    /**
+     * 新增用户
+     *
+     * @param sysUser
+     * @return
+     */
+    int addUser(SysUser sysUser);
+
+    /**
+     * 编辑用户
+     *
+     * @param sysUser
+     * @return
+     */
+    int editUser(SysUser sysUser);
+
+    /**
+     * 删除用户
+     *
+     * @param id
+     * @return
+     */
+    int deleteUser(Long id);
+
+    /**
+     * 获取用户下的角色列表
+     *
+     * @param userId
+     * @return
+     */
+    List<SysRole> getSysRoleByUserId(Long userId);
 }

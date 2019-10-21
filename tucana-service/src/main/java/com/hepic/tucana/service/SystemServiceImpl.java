@@ -5,6 +5,7 @@ import com.hepic.tucana.dal.dao.mysql.SysRoleDao;
 import com.hepic.tucana.dal.dao.mysql.SysUserDao;
 import com.hepic.tucana.dal.entity.authority.SysMenu;
 import com.hepic.tucana.dal.entity.authority.SysRole;
+import com.hepic.tucana.dal.entity.authority.SysUser;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -152,6 +153,82 @@ public class SystemServiceImpl implements SystemService {
         if (CollectionUtils.isNotEmpty(menuIds)) {
             result = menuIds.size();
             menuIds.forEach(p -> sysMenuDao.insertRoleMenu(roleId, p));
+        }
+        return result;
+    }
+
+    /**
+     * 查询用户集合
+     *
+     * @param sysUser
+     * @return
+     */
+    @Override
+    public List<SysUser> getUserList(SysUser sysUser) {
+        return sysUserDao.selectSysUserListByModel(sysUser);
+    }
+
+    /**
+     * 新增用户
+     *
+     * @param sysUser
+     * @return
+     */
+    @Override
+    public int addUser(SysUser sysUser) {
+        int result = sysUserDao.insertSysUser(sysUser);
+        buildUserRole(sysUser.getId(), sysUser.getRoleIds());
+        return result;
+    }
+
+    /**
+     * 编辑用户
+     *
+     * @param sysUser
+     * @return
+     */
+    @Override
+    public int editUser(SysUser sysUser) {
+        int result = sysUserDao.updateSysUser(sysUser);
+        buildUserRole(sysUser.getId(), sysUser.getRoleIds());
+        return result;
+    }
+
+    /**
+     * 删除用户
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public int deleteUser(Long id) {
+        return sysUserDao.deleteById(id);
+    }
+
+    /**
+     * 获取用户下的角色列表
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<SysRole> getSysRoleByUserId(Long userId) {
+        return sysRoleDao.selectRoleByUserId(userId);
+    }
+
+    /**
+     * 构建用户角色关系
+     *
+     * @param userId
+     * @param roleIds
+     * @return
+     */
+    public int buildUserRole(Long userId, List<Long> roleIds) {
+        int result = 0;
+        sysRoleDao.deleteUserRole(userId);
+        if (CollectionUtils.isNotEmpty(roleIds)) {
+            result = roleIds.size();
+            roleIds.forEach(p -> sysRoleDao.insertUserRole(userId, p));
         }
         return result;
     }

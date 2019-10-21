@@ -3,6 +3,7 @@ package com.hepic.tucana.web.controller;
 import com.alibaba.fastjson.JSON;
 import com.hepic.tucana.dal.entity.authority.SysMenu;
 import com.hepic.tucana.dal.entity.authority.SysRole;
+import com.hepic.tucana.dal.entity.authority.SysUser;
 import com.hepic.tucana.model.common.CommonResponse;
 import com.hepic.tucana.model.enums.ResponseEnum;
 import com.hepic.tucana.service.SystemService;
@@ -160,7 +161,7 @@ public class SystemController {
     /**
      * 删除角色
      *
-     * @param sysMenu
+     * @param sysRole
      * @return
      */
     @PostMapping(value = "deleteRole")
@@ -172,9 +173,99 @@ public class SystemController {
             response.setResult(result);
         } catch (Exception e) {
             response.setResponseEnum(ResponseEnum.Code_999);
-            log.error("删除菜单异常", e);
+            log.error("删除角色异常", e);
         }
         return JSON.toJSONString(response);
     }
+
+    /**
+     * 查询用户列表
+     *
+     * @param sysUser
+     * @return
+     */
+    @GetMapping(value = "getUserList")
+    public String getUserList(SysUser sysUser) {
+        CommonResponse<List<SysUser>> response = new CommonResponse();
+        try {
+            response.setResponseEnum(ResponseEnum.Code_1000);
+            List<SysUser> result = systemService.getUserList(sysUser);
+            response.setResult(result);
+        } catch (Exception e) {
+            response.setResponseEnum(ResponseEnum.Code_999);
+            log.error("获取列集合异常", e);
+        }
+        return JSON.toJSONString(response);
+    }
+
+    /**
+     * 根据用户获取角色列表
+     *
+     * @param userId 用户id
+     * @return
+     */
+    @GetMapping(value = "getRoleByUserId")
+    public String getRoleByUserId(Long userId) {
+        CommonResponse<List<Long>> response = new CommonResponse();
+        try {
+            List<Long> roleIds = new ArrayList<>();
+            response.setResponseEnum(ResponseEnum.Code_1000);
+            List<SysRole> result = systemService.getSysRoleByUserId(userId);
+            if (CollectionUtils.isNotEmpty(result)) {
+                roleIds = result.stream().map(p -> p.getId()).collect(Collectors.toList());
+            }
+            response.setResult(roleIds);
+        } catch (Exception e) {
+            response.setResponseEnum(ResponseEnum.Code_999);
+            log.error("获取列集合异常", e);
+        }
+        return JSON.toJSONString(response);
+    }
+
+    /**
+     * 保存用户
+     *
+     * @param sysUser
+     * @return
+     */
+    @PostMapping(value = "saveUser")
+    public String saveUser(@RequestBody SysUser sysUser) {
+        CommonResponse<Integer> response = new CommonResponse();
+        try {
+            response.setResponseEnum(ResponseEnum.Code_1000);
+            Integer result = 0;
+            if (sysUser.getId() == null || sysUser.getId().intValue() == 0) {
+                result = systemService.addUser(sysUser);
+            } else {
+                result = systemService.editUser(sysUser);
+            }
+            response.setResult(result);
+        } catch (Exception e) {
+            response.setResponseEnum(ResponseEnum.Code_999);
+            log.error("保存用户异常", e);
+        }
+        return JSON.toJSONString(response);
+    }
+
+    /**
+     * 删除用户
+     *
+     * @param sysUser
+     * @return
+     */
+    @PostMapping(value = "deleteUser")
+    public String deleteUser(@RequestBody SysUser sysUser) {
+        CommonResponse<Integer> response = new CommonResponse();
+        try {
+            response.setResponseEnum(ResponseEnum.Code_1000);
+            Integer result = systemService.deleteUser(sysUser.getId());
+            response.setResult(result);
+        } catch (Exception e) {
+            response.setResponseEnum(ResponseEnum.Code_999);
+            log.error("删除用户异常", e);
+        }
+        return JSON.toJSONString(response);
+    }
+
 
 }
