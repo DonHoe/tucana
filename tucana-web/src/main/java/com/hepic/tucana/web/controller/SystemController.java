@@ -204,8 +204,8 @@ public class SystemController {
      * @param userId 用户id
      * @return
      */
-    @GetMapping(value = "getRoleByUserId")
-    public String getRoleByUserId(Long userId) {
+    @GetMapping(value = "getRoleIdByUserId")
+    public String getRoleIdByUserId(Long userId) {
         CommonResponse<List<Long>> response = new CommonResponse();
         try {
             List<Long> roleIds = new ArrayList<>();
