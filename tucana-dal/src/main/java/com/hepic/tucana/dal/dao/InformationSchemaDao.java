@@ -2,6 +2,7 @@ package com.hepic.tucana.dal.dao;
 
 import com.hepic.tucana.model.dal.Columns;
 import com.hepic.tucana.model.dal.TableInfo;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;

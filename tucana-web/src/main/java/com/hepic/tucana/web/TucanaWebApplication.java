@@ -7,6 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {"com.hepic.tucana"})
+@MapperScan("com.hepic.tucana.dal.dao")
 public class TucanaWebApplication {
 
     public static void main(String[] args) {
