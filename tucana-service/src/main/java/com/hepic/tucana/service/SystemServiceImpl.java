@@ -3,9 +3,9 @@ package com.hepic.tucana.service;
 import com.hepic.tucana.dal.dao.SysMenuDao;
 import com.hepic.tucana.dal.dao.SysRoleDao;
 import com.hepic.tucana.dal.dao.SysUserDao;
-import com.hepic.tucana.model.shiro.SysMenu;
-import com.hepic.tucana.model.shiro.SysRole;
-import com.hepic.tucana.model.shiro.SysUser;
+import com.hepic.tucana.model.shiro.Menu;
+import com.hepic.tucana.model.shiro.Role;
+import com.hepic.tucana.model.shiro.User;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,17 +29,17 @@ public class SystemServiceImpl implements SystemService {
     /**
      * 获取菜单列表
      *
-     * @param sysMenu
+     * @param menu
      * @return
      */
-    public List<SysMenu> getMenuList(SysMenu sysMenu) {
-        List<SysMenu> result = new ArrayList<>();
-        List<SysMenu> list = sysMenuDao.selectSysMenuListByModel(sysMenu);
+    public List<Menu> getMenuList(Menu menu) {
+        List<Menu> result = new ArrayList<>();
+        List<Menu> list = sysMenuDao.selectSysMenuListByModel(menu);
         result = list.stream().filter(p -> p.getParentId().intValue() == 0).collect(Collectors.toList());
-        for (SysMenu item : result) {
-            List<SysMenu> child = list.stream().filter(p -> p.getParentId().equals(item.getId())).collect(Collectors.toList());
+        for (Menu item : result) {
+            List<Menu> child = list.stream().filter(p -> p.getParentId().equals(item.getId())).collect(Collectors.toList());
             child.forEach(p -> {
-                List<SysMenu> subChild = list.stream().filter(q -> q.getParentId().intValue() == p.getId().intValue()).collect(Collectors.toList());
+                List<Menu> subChild = list.stream().filter(q -> q.getParentId().intValue() == p.getId().intValue()).collect(Collectors.toList());
                 p.setChildren(subChild);
             });
             item.setChildren(child);
@@ -51,12 +51,12 @@ public class SystemServiceImpl implements SystemService {
     /**
      * 新增菜单
      *
-     * @param sysMenu
+     * @param menu
      * @return
      */
     @Override
-    public int addMenu(SysMenu sysMenu) {
-        return sysMenuDao.insertSysMenu(sysMenu);
+    public int addMenu(Menu menu) {
+        return sysMenuDao.insertSysMenu(menu);
     }
 
     /**
@@ -73,48 +73,48 @@ public class SystemServiceImpl implements SystemService {
     /**
      * 编辑菜单
      *
-     * @param sysMenu
+     * @param menu
      * @return
      */
     @Override
-    public int editMenu(SysMenu sysMenu) {
-        return sysMenuDao.updateSysMenu(sysMenu);
+    public int editMenu(Menu menu) {
+        return sysMenuDao.updateSysMenu(menu);
     }
 
     /**
      * 查询角色集合
      *
-     * @param sysRole
+     * @param role
      * @return
      */
     @Override
-    public List<SysRole> getRoleList(SysRole sysRole) {
-        return sysRoleDao.selectSysRoleListByModel(sysRole);
+    public List<Role> getRoleList(Role role) {
+        return sysRoleDao.selectSysRoleListByModel(role);
     }
 
     /**
      * 新增角色集合
      *
-     * @param sysRole
+     * @param role
      * @return
      */
     @Override
-    public int addRole(SysRole sysRole) {
-        int result = sysRoleDao.insertSysRole(sysRole);
-        buildRoleMenu(sysRole.getId(), sysRole.getMenuIds());
+    public int addRole(Role role) {
+        int result = sysRoleDao.insertSysRole(role);
+        buildRoleMenu(role.getId(), role.getMenuIds());
         return result;
     }
 
     /**
      * 编辑角色集合
      *
-     * @param sysRole
+     * @param role
      * @return
      */
     @Override
-    public int editRole(SysRole sysRole) {
-        int result = sysRoleDao.updateSysRole(sysRole);
-        buildRoleMenu(sysRole.getId(), sysRole.getMenuIds());
+    public int editRole(Role role) {
+        int result = sysRoleDao.updateSysRole(role);
+        buildRoleMenu(role.getId(), role.getMenuIds());
         return result;
     }
 
@@ -136,7 +136,7 @@ public class SystemServiceImpl implements SystemService {
      * @return
      */
     @Override
-    public List<SysMenu> getSysMenuByRoleId(Long roleId) {
+    public List<Menu> getSysMenuByRoleId(Long roleId) {
         return sysMenuDao.selectSysMenuByRoleId(roleId);
     }
 
@@ -160,37 +160,37 @@ public class SystemServiceImpl implements SystemService {
     /**
      * 查询用户集合
      *
-     * @param sysUser
+     * @param user
      * @return
      */
     @Override
-    public List<SysUser> getUserList(SysUser sysUser) {
-        return sysUserDao.selectSysUserListByModel(sysUser);
+    public List<User> getUserList(User user) {
+        return sysUserDao.selectSysUserListByModel(user);
     }
 
     /**
      * 新增用户
      *
-     * @param sysUser
+     * @param user
      * @return
      */
     @Override
-    public int addUser(SysUser sysUser) {
-        int result = sysUserDao.insertSysUser(sysUser);
-        buildUserRole(sysUser.getId(), sysUser.getRoleIds());
+    public int addUser(User user) {
+        int result = sysUserDao.insertSysUser(user);
+        buildUserRole(user.getId(), user.getRoleIds());
         return result;
     }
 
     /**
      * 编辑用户
      *
-     * @param sysUser
+     * @param user
      * @return
      */
     @Override
-    public int editUser(SysUser sysUser) {
-        int result = sysUserDao.updateSysUser(sysUser);
-        buildUserRole(sysUser.getId(), sysUser.getRoleIds());
+    public int editUser(User user) {
+        int result = sysUserDao.updateSysUser(user);
+        buildUserRole(user.getId(), user.getRoleIds());
         return result;
     }
 
@@ -212,7 +212,7 @@ public class SystemServiceImpl implements SystemService {
      * @return
      */
     @Override
-    public List<SysRole> getSysRoleByUserId(Long userId) {
+    public List<Role> getSysRoleByUserId(Long userId) {
         return sysRoleDao.selectRoleByUserId(userId);
     }
 

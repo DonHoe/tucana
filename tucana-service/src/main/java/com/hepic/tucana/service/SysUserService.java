@@ -1,6 +1,6 @@
 package com.hepic.tucana.service;
 
-import com.hepic.tucana.model.shiro.SysUser;
+import com.hepic.tucana.model.shiro.User;
 import java.util.List;
 
 /**
@@ -8,11 +8,11 @@ import java.util.List;
  */
 public interface SysUserService {
 
-    List<SysUser> selectSysUserListByModel(SysUser model);
+    List<User> selectSysUserListByModel(User model);
 
-    SysUser selectSysUserById(Long id);
+    User selectSysUserById(Long id);
 
-    int insertSysUser(SysUser model);
+    int insertSysUser(User model);
 
-    int updateSysUser(SysUser model);
+    int updateSysUser(User model);
 }

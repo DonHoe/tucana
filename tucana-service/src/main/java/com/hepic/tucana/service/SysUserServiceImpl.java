@@ -1,7 +1,7 @@
 package com.hepic.tucana.service;
 
 import com.hepic.tucana.dal.dao.SysUserDao;
-import com.hepic.tucana.model.shiro.SysUser;
+import com.hepic.tucana.model.shiro.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,22 +19,22 @@ public class SysUserServiceImpl implements SysUserService {
     SysUserDao sysUserDao;
 
     @Override
-    public List<SysUser> selectSysUserListByModel(SysUser model) {
+    public List<User> selectSysUserListByModel(User model) {
         return sysUserDao.selectSysUserListByModel(model);
     }
 
     @Override
-    public SysUser selectSysUserById(Long id) {
+    public User selectSysUserById(Long id) {
         return sysUserDao.selectSysUserById(id);
     }
 
     @Override
-    public int insertSysUser(SysUser model) {
+    public int insertSysUser(User model) {
         return sysUserDao.insertSysUser(model);
     }
 
     @Override
-    public int updateSysUser(SysUser model) {
+    public int updateSysUser(User model) {
         return sysUserDao.updateSysUser(model);
     }
 }

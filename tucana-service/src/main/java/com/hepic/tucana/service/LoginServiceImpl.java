@@ -3,7 +3,7 @@ package com.hepic.tucana.service;
 import com.hepic.tucana.dal.dao.SysMenuDao;
 import com.hepic.tucana.dal.dao.SysRoleDao;
 import com.hepic.tucana.dal.dao.SysUserDao;
-import com.hepic.tucana.model.shiro.SysUser;
+import com.hepic.tucana.model.shiro.User;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,12 +36,12 @@ public class LoginServiceImpl implements LoginService {
      * @return 用户实体
      */
     @Override
-    public SysUser login(String name, String password) {
-        SysUser sysUser = new SysUser();
-        sysUser.setUserName(name);
-        sysUser.setPassword(password);
-        List<SysUser> list = sysUserDao.selectSysUserListByModel(sysUser);
-        SysUser result = null;
+    public User login(String name, String password) {
+        User user = new User();
+        user.setUserName(name);
+        user.setPassword(password);
+        List<User> list = sysUserDao.selectSysUserListByModel(user);
+        User result = null;
         if (CollectionUtils.isNotEmpty(list)) {
             result = list.get(0);
         }

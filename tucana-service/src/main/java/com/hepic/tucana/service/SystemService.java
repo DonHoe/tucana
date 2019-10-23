@@ -1,8 +1,8 @@
 package com.hepic.tucana.service;
 
-import com.hepic.tucana.model.shiro.SysMenu;
-import com.hepic.tucana.model.shiro.SysRole;
-import com.hepic.tucana.model.shiro.SysUser;
+import com.hepic.tucana.model.shiro.Menu;
+import com.hepic.tucana.model.shiro.Role;
+import com.hepic.tucana.model.shiro.User;
 
 import java.util.List;
 
@@ -11,26 +11,26 @@ public interface SystemService {
     /**
      * 获取菜单列表
      *
-     * @param sysMenu
+     * @param menu
      * @return
      */
-    List<SysMenu> getMenuList(SysMenu sysMenu);
+    List<Menu> getMenuList(Menu menu);
 
     /**
      * 新增菜单
      *
-     * @param sysMenu
+     * @param menu
      * @return
      */
-    int addMenu(SysMenu sysMenu);
+    int addMenu(Menu menu);
 
     /**
      * 编辑菜单
      *
-     * @param sysMenu
+     * @param menu
      * @return
      */
-    int editMenu(SysMenu sysMenu);
+    int editMenu(Menu menu);
 
     /**
      * 删除菜单
@@ -43,26 +43,26 @@ public interface SystemService {
     /**
      * 查询角色集合
      *
-     * @param sysRole
+     * @param role
      * @return
      */
-    List<SysRole> getRoleList(SysRole sysRole);
+    List<Role> getRoleList(Role role);
 
     /**
      * 新增角色
      *
-     * @param sysRole
+     * @param role
      * @return
      */
-    int addRole(SysRole sysRole);
+    int addRole(Role role);
 
     /**
      * 编辑角色
      *
-     * @param sysRole
+     * @param role
      * @return
      */
-    int editRole(SysRole sysRole);
+    int editRole(Role role);
 
     /**
      * 删除角色
@@ -78,31 +78,31 @@ public interface SystemService {
      * @param roleId
      * @return
      */
-    List<SysMenu> getSysMenuByRoleId(Long roleId);
+    List<Menu> getSysMenuByRoleId(Long roleId);
 
     /**
      * 查询用户集合
      *
-     * @param sysUser
+     * @param user
      * @return
      */
-    List<SysUser> getUserList(SysUser sysUser);
+    List<User> getUserList(User user);
 
     /**
      * 新增用户
      *
-     * @param sysUser
+     * @param user
      * @return
      */
-    int addUser(SysUser sysUser);
+    int addUser(User user);
 
     /**
      * 编辑用户
      *
-     * @param sysUser
+     * @param user
      * @return
      */
-    int editUser(SysUser sysUser);
+    int editUser(User user);
 
     /**
      * 删除用户
@@ -118,5 +118,5 @@ public interface SystemService {
      * @param userId
      * @return
      */
-    List<SysRole> getSysRoleByUserId(Long userId);
+    List<Role> getSysRoleByUserId(Long userId);
 }

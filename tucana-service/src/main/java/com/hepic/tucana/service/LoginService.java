@@ -1,6 +1,6 @@
 package com.hepic.tucana.service;
 
-import com.hepic.tucana.model.shiro.SysUser;
+import com.hepic.tucana.model.shiro.User;
 
 /**
  * @author tucana
@@ -10,6 +10,6 @@ import com.hepic.tucana.model.shiro.SysUser;
  */
 public interface LoginService {
 
-    SysUser login(String name, String password);
+    User login(String name, String password);
 
 }

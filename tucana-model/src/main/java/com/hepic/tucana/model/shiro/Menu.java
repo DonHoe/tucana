@@ -6,7 +6,7 @@ import java.util.List;
 /**
  *
  */
-public class SysMenu {
+public class Menu {
 
     /**
      * 主键
@@ -61,7 +61,7 @@ public class SysMenu {
     /**
      * 子菜单
      */
-    private List<SysMenu> children;
+    private List<Menu> children;
 
 
     public Long getId() {
@@ -144,11 +144,11 @@ public class SysMenu {
         this.updateTime = updateTime;
     }
 
-    public List<SysMenu> getChildren() {
+    public List<Menu> getChildren() {
         return children;
     }
 
-    public void setChildren(List<SysMenu> children) {
+    public void setChildren(List<Menu> children) {
         this.children = children;
     }
 }

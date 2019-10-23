@@ -1,9 +1,9 @@
 package com.hepic.tucana.web.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.hepic.tucana.model.shiro.SysMenu;
-import com.hepic.tucana.model.shiro.SysRole;
-import com.hepic.tucana.model.shiro.SysUser;
+import com.hepic.tucana.model.shiro.Menu;
+import com.hepic.tucana.model.shiro.Role;
+import com.hepic.tucana.model.shiro.User;
 import com.hepic.tucana.model.common.CommonResponse;
 import com.hepic.tucana.model.enums.ResponseEnum;
 import com.hepic.tucana.service.SystemService;
@@ -27,15 +27,15 @@ public class SystemController {
     /**
      * 获取菜单列表
      *
-     * @param sysMenu
+     * @param menu
      * @return
      */
     @GetMapping(value = "getMenuList")
-    public String getMenuList(SysMenu sysMenu) {
-        CommonResponse<List<SysMenu>> response = new CommonResponse();
+    public String getMenuList(Menu menu) {
+        CommonResponse<List<Menu>> response = new CommonResponse();
         try {
             response.setResponseEnum(ResponseEnum.Code_1000);
-            List<SysMenu> result = systemService.getMenuList(sysMenu);
+            List<Menu> result = systemService.getMenuList(menu);
             response.setResult(result);
         } catch (Exception e) {
             response.setResponseEnum(ResponseEnum.Code_999);
@@ -56,7 +56,7 @@ public class SystemController {
         try {
             List<Long> menuIds = new ArrayList<>();
             response.setResponseEnum(ResponseEnum.Code_1000);
-            List<SysMenu> result = systemService.getSysMenuByRoleId(roleId);
+            List<Menu> result = systemService.getSysMenuByRoleId(roleId);
             if (CollectionUtils.isNotEmpty(result)) {
                 menuIds = result.stream().map(p -> p.getId()).collect(Collectors.toList());
             }
@@ -71,19 +71,19 @@ public class SystemController {
     /**
      * 保存菜单
      *
-     * @param sysMenu
+     * @param menu
      * @return
      */
     @PostMapping(value = "saveMenu")
-    public String saveMenu(@RequestBody SysMenu sysMenu) {
+    public String saveMenu(@RequestBody Menu menu) {
         CommonResponse<Integer> response = new CommonResponse();
         try {
             response.setResponseEnum(ResponseEnum.Code_1000);
             Integer result = 0;
-            if (sysMenu.getId() == null || sysMenu.getId().intValue() == 0) {
-                result = systemService.addMenu(sysMenu);
+            if (menu.getId() == null || menu.getId().intValue() == 0) {
+                result = systemService.addMenu(menu);
             } else {
-                result = systemService.editMenu(sysMenu);
+                result = systemService.editMenu(menu);
             }
             response.setResult(result);
         } catch (Exception e) {
@@ -96,15 +96,15 @@ public class SystemController {
     /**
      * 删除菜单
      *
-     * @param sysMenu
+     * @param menu
      * @return
      */
     @PostMapping(value = "deleteMenu")
-    public String deleteMenu(@RequestBody SysMenu sysMenu) {
+    public String deleteMenu(@RequestBody Menu menu) {
         CommonResponse<Integer> response = new CommonResponse();
         try {
             response.setResponseEnum(ResponseEnum.Code_1000);
-            Integer result = systemService.deleteMenu(sysMenu.getId());
+            Integer result = systemService.deleteMenu(menu.getId());
             response.setResult(result);
         } catch (Exception e) {
             response.setResponseEnum(ResponseEnum.Code_999);
@@ -116,15 +116,15 @@ public class SystemController {
     /**
      * 查询角色列表
      *
-     * @param sysRole
+     * @param role
      * @return
      */
     @GetMapping(value = "getRoleList")
-    public String getRoleList(SysRole sysRole) {
-        CommonResponse<List<SysRole>> response = new CommonResponse();
+    public String getRoleList(Role role) {
+        CommonResponse<List<Role>> response = new CommonResponse();
         try {
             response.setResponseEnum(ResponseEnum.Code_1000);
-            List<SysRole> result = systemService.getRoleList(sysRole);
+            List<Role> result = systemService.getRoleList(role);
             response.setResult(result);
         } catch (Exception e) {
             response.setResponseEnum(ResponseEnum.Code_999);
@@ -136,19 +136,19 @@ public class SystemController {
     /**
      * 保存角色
      *
-     * @param sysRole
+     * @param role
      * @return
      */
     @PostMapping(value = "saveRole")
-    public String saveRole(@RequestBody SysRole sysRole) {
+    public String saveRole(@RequestBody Role role) {
         CommonResponse<Integer> response = new CommonResponse();
         try {
             response.setResponseEnum(ResponseEnum.Code_1000);
             Integer result = 0;
-            if (sysRole.getId() == null || sysRole.getId().intValue() == 0) {
-                result = systemService.addRole(sysRole);
+            if (role.getId() == null || role.getId().intValue() == 0) {
+                result = systemService.addRole(role);
             } else {
-                result = systemService.editRole(sysRole);
+                result = systemService.editRole(role);
             }
             response.setResult(result);
         } catch (Exception e) {
@@ -161,15 +161,15 @@ public class SystemController {
     /**
      * 删除角色
      *
-     * @param sysRole
+     * @param role
      * @return
      */
     @PostMapping(value = "deleteRole")
-    public String deleteRole(@RequestBody SysRole sysRole) {
+    public String deleteRole(@RequestBody Role role) {
         CommonResponse<Integer> response = new CommonResponse();
         try {
             response.setResponseEnum(ResponseEnum.Code_1000);
-            Integer result = systemService.deleteRole(sysRole.getId());
+            Integer result = systemService.deleteRole(role.getId());
             response.setResult(result);
         } catch (Exception e) {
             response.setResponseEnum(ResponseEnum.Code_999);
@@ -181,15 +181,15 @@ public class SystemController {
     /**
      * 查询用户列表
      *
-     * @param sysUser
+     * @param user
      * @return
      */
     @GetMapping(value = "getUserList")
-    public String getUserList(SysUser sysUser) {
-        CommonResponse<List<SysUser>> response = new CommonResponse();
+    public String getUserList(User user) {
+        CommonResponse<List<User>> response = new CommonResponse();
         try {
             response.setResponseEnum(ResponseEnum.Code_1000);
-            List<SysUser> result = systemService.getUserList(sysUser);
+            List<User> result = systemService.getUserList(user);
             response.setResult(result);
         } catch (Exception e) {
             response.setResponseEnum(ResponseEnum.Code_999);
@@ -210,7 +210,7 @@ public class SystemController {
         try {
             List<Long> roleIds = new ArrayList<>();
             response.setResponseEnum(ResponseEnum.Code_1000);
-            List<SysRole> result = systemService.getSysRoleByUserId(userId);
+            List<Role> result = systemService.getSysRoleByUserId(userId);
             if (CollectionUtils.isNotEmpty(result)) {
                 roleIds = result.stream().map(p -> p.getId()).collect(Collectors.toList());
             }
@@ -225,19 +225,19 @@ public class SystemController {
     /**
      * 保存用户
      *
-     * @param sysUser
+     * @param user
      * @return
      */
     @PostMapping(value = "saveUser")
-    public String saveUser(@RequestBody SysUser sysUser) {
+    public String saveUser(@RequestBody User user) {
         CommonResponse<Integer> response = new CommonResponse();
         try {
             response.setResponseEnum(ResponseEnum.Code_1000);
             Integer result = 0;
-            if (sysUser.getId() == null || sysUser.getId().intValue() == 0) {
-                result = systemService.addUser(sysUser);
+            if (user.getId() == null || user.getId().intValue() == 0) {
+                result = systemService.addUser(user);
             } else {
-                result = systemService.editUser(sysUser);
+                result = systemService.editUser(user);
             }
             response.setResult(result);
         } catch (Exception e) {
@@ -250,15 +250,15 @@ public class SystemController {
     /**
      * 删除用户
      *
-     * @param sysUser
+     * @param user
      * @return
      */
     @PostMapping(value = "deleteUser")
-    public String deleteUser(@RequestBody SysUser sysUser) {
+    public String deleteUser(@RequestBody User user) {
         CommonResponse<Integer> response = new CommonResponse();
         try {
             response.setResponseEnum(ResponseEnum.Code_1000);
-            Integer result = systemService.deleteUser(sysUser.getId());
+            Integer result = systemService.deleteUser(user.getId());
             response.setResult(result);
         } catch (Exception e) {
             response.setResponseEnum(ResponseEnum.Code_999);

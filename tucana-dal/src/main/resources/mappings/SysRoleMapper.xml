@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hepic.tucana.dal.dao.SysRoleDao">
 
-    <resultMap id="SysRoleResultMap" type="com.hepic.tucana.model.shiro.SysRole">
+    <resultMap id="SysRoleResultMap" type="com.hepic.tucana.model.shiro.Role">
         <result column="id" property="id"/>
         <result column="role_key" property="roleKey"/>
         <result column="role_name" property="roleName"/>
@@ -11,7 +11,7 @@
     </resultMap>
     <sql id="Base_Column_List">
         id,role_key,role_name,create_time,update_time    </sql>
-    <select id="selectSysRoleListByModel" parameterType="com.hepic.tucana.model.shiro.SysRole"
+    <select id="selectSysRoleListByModel" parameterType="com.hepic.tucana.model.shiro.Role"
             resultMap="SysRoleResultMap">
         SELECT
         <include refid="Base_Column_List"/>
@@ -63,7 +63,7 @@
         WHERE userRole.user_id = #{userId}
     </select>
 
-    <insert id="insertSysRole" parameterType="com.hepic.tucana.model.shiro.SysRole" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    <insert id="insertSysRole" parameterType="com.hepic.tucana.model.shiro.Role" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         INSERT INTO sys_role
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">id,</if>
@@ -81,7 +81,7 @@
         </trim>
     </insert>
 
-    <update id="updateSysRole" parameterType="com.hepic.tucana.model.shiro.SysRole">
+    <update id="updateSysRole" parameterType="com.hepic.tucana.model.shiro.Role">
         update sys_role
         <set>
             <if test="id != null">id = #{id},</if>

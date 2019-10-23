@@ -6,7 +6,7 @@ import java.util.List;
 /**
  *
  */
-public class SysRole {
+public class Role {
 
     /**
      * 主键

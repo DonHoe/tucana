@@ -2,7 +2,7 @@ package com.hepic.tucana.dal.dao;
 
 import java.util.List;
 
-import com.hepic.tucana.model.shiro.SysRole;
+import com.hepic.tucana.model.shiro.Role;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -10,21 +10,21 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface SysRoleDao {
 
-    List<SysRole> selectSysRoleListByModel(SysRole model);
+    List<Role> selectSysRoleListByModel(Role model);
 
-    List<SysRole> selectRoleByUserId(Long userId);
+    List<Role> selectRoleByUserId(Long userId);
 
-    List<SysRole> selectSysRoleByUserId(Long userId);
+    List<Role> selectSysRoleByUserId(Long userId);
 
     int deleteUserRole(Long userId);
 
     int insertUserRole(@Param("userId") Long userId, @Param("roleId") Long roleId);
 
-    SysRole selectSysRoleById(Long id);
+    Role selectSysRoleById(Long id);
 
-    int insertSysRole(SysRole model);
+    int insertSysRole(Role model);
 
-    int updateSysRole(SysRole model);
+    int updateSysRole(Role model);
 
     int deleteById(Long id);
 }
