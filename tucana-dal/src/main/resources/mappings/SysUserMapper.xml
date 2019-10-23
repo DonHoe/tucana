@@ -8,6 +8,7 @@
         <result column="login_name" property="loginName"/>
         <result column="password" property="password"/>
         <result column="phone" property="phone"/>
+        <result column="salt" property="salt"/>
         <result column="status" property="status"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
@@ -38,7 +39,30 @@
         where id = #{id}
     </select>
 
-    <insert id="insertSysUser" parameterType="com.hepic.tucana.model.shiro.User" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    <select id="selectSysUserByName" parameterType="String" resultMap="SysUserResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sys_user
+        where user_name = #{userName}
+    </select>
+
+    <select id="findRoleKeyByUserId" parameterType="long" resultType="String">
+        SELECT DISTINCT role_key
+        FROM sys_user_role userRole
+        INNER JOIN sys_role role on userRole.role_id = role.id
+        where userRole.user_id = #{userId}
+    </select>
+
+    <select id="findPermitByUserId" parameterType="long" resultType="String">
+        SELECT DISTINCT permit
+        FROM sys_user_role userRole
+        INNER JOIN sys_role_menu roleMenu on userRole.role_id = roleMenu.role_id
+        INNER JOIN sys_menu menu on roleMenu.menu_id = menu.id
+        where userRole.user_id = #{userId}
+    </select>
+
+    <insert id="insertSysUser" parameterType="com.hepic.tucana.model.shiro.User" useGeneratedKeys="true"
+            keyProperty="id" keyColumn="id">
         INSERT INTO sys_user
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">id,</if>
@@ -46,6 +70,7 @@
             <if test="loginName != null">login_name,</if>
             <if test="password != null">password,</if>
             <if test="phone != null">phone,</if>
+            <if test="salt != null">salt,</if>
             <if test="status != null">status,</if>
             <if test="createTime != null">create_time,</if>
             <if test="updateTime != null">update_time,</if>
@@ -56,6 +81,7 @@
             <if test="loginName != null">#{loginName},</if>
             <if test="password != null">#{password},</if>
             <if test="phone != null">#{phone},</if>
+            <if test="salt != null">#{salt},</if>
             <if test="status != null">#{status},</if>
             <if test="createTime != null">#{createTime},</if>
             <if test="updateTime != null">#{updateTime},</if>
@@ -70,6 +96,7 @@
             <if test="loginName != null">login_name = #{loginName},</if>
             <if test="password != null">password = #{password},</if>
             <if test="phone != null">phone = #{phone},</if>
+            <if test="salt != null">salt = #{salt},</if>
             <if test="status != null">status = #{status},</if>
             <if test="createTime != null">create_time = #{createTime},</if>
             <if test="updateTime != null">update_time = #{updateTime},</if>

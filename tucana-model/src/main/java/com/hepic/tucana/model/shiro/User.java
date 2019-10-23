@@ -1,5 +1,7 @@
 package com.hepic.tucana.model.shiro;
 
+import org.apache.shiro.crypto.SecureRandomNumberGenerator;
+
 import java.util.Date;
 import java.util.List;
 
@@ -32,6 +34,11 @@ public class User {
      * 电话号码
      */
     private String phone;
+
+    /**
+     * 加密盐
+     */
+    private String salt;
 
     /**
      * 状态
@@ -94,6 +101,14 @@ public class User {
         this.phone = phone;
     }
 
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
     public Integer getStatus() {
         return status;
     }
@@ -124,5 +139,14 @@ public class User {
 
     public void setRoleIds(List<Long> roleIds) {
         this.roleIds = roleIds;
+    }
+
+    /**
+     * 生成随机盐
+     */
+    public void randomSalt() {
+        SecureRandomNumberGenerator secureRandom = new SecureRandomNumberGenerator();
+        String hex = secureRandom.nextBytes(5).toHex();
+        setSalt(hex);
     }
 }

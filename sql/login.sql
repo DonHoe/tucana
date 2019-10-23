@@ -5,6 +5,7 @@ CREATE TABLE `sys_user`
   `login_name`  varchar(100) COLLATE utf8mb4_unicode_ci          DEFAULT NULL COMMENT '登录名',
   `password`    varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '密码',
   `phone`       varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '电话号码',
+  `salt`        varchar(20) COLLATE utf8mb4_unicode_ci  NOT NULL DEFAULT '' COMMENT '加密盐',
   `status`      int(255)                                NOT NULL DEFAULT 0 COMMENT '状态',
   `create_time` datetime                                NOT NULL DEFAULT current_timestamp() COMMENT '创建时间',
   `update_time` datetime                                NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '更新时间',

@@ -7,6 +7,7 @@ import com.hepic.tucana.model.shiro.Menu;
 import com.hepic.tucana.model.shiro.Role;
 import com.hepic.tucana.model.shiro.User;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -176,6 +177,7 @@ public class SystemServiceImpl implements SystemService {
      */
     @Override
     public int addUser(User user) {
+        user.randomSalt();
         int result = sysUserDao.insertSysUser(user);
         buildUserRole(user.getId(), user.getRoleIds());
         return result;
@@ -214,6 +216,51 @@ public class SystemServiceImpl implements SystemService {
     @Override
     public List<Role> getSysRoleByUserId(Long userId) {
         return sysRoleDao.selectRoleByUserId(userId);
+    }
+
+    /**
+     * 获取用户的角色键
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<String> findRoleKeyByUserId(Long userId) {
+        return sysUserDao.findRoleKeyByUserId(userId);
+    }
+
+    /**
+     * 获取用户的菜单键
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<String> findPermitByUserId(Long userId) {
+        return sysUserDao.findPermitByUserId(userId);
+    }
+
+    /**
+     * 根据用户名获取用户资料
+     *
+     * @param userName
+     * @return
+     */
+    @Override
+    public User selectSysUserByName(String userName) {
+        return sysUserDao.selectSysUserByName(userName);
+    }
+
+    /**
+     * 加密密码
+     *
+     * @param userName 用户名
+     * @param password 密码
+     * @param salt     加密盐
+     * @return
+     */
+    public String encryptPassword(String userName, String password, String salt) {
+        return new Md5Hash(userName + password + salt).toHex();
     }
 
     /**
