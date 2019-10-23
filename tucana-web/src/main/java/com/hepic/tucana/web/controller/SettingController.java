@@ -6,7 +6,7 @@ import com.hepic.tucana.model.dal.TableInfo;
 import com.hepic.tucana.model.common.CommonResponse;
 import com.hepic.tucana.model.enums.ResponseEnum;
 import com.hepic.tucana.service.InformationSchemaService;
-import com.hepic.tucana.util.exception.BaseException;
+import com.hepic.tucana.model.exception.BaseException;
 import com.hepic.tucana.web.base.BaseController;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

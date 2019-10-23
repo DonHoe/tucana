@@ -1,4 +1,6 @@
-package com.hepic.tucana.util.exception;
+package com.hepic.tucana.model.exception;
+
+import com.hepic.tucana.model.enums.ResponseEnum;
 
 /**
  * @author tucana
@@ -13,6 +15,11 @@ public class BaseException extends RuntimeException {
     public BaseException(Integer code, String message) {
         super(message);
         this.code = code;
+    }
+
+    public BaseException(ResponseEnum responseEnum) {
+        super(responseEnum.getMessage());
+        this.code = responseEnum.getCode();
     }
 
     public Integer getCode() {

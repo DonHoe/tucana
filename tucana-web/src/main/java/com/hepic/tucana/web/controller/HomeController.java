@@ -3,10 +3,14 @@ package com.hepic.tucana.web.controller;
 import com.alibaba.fastjson.JSON;
 import com.hepic.tucana.model.common.CommonResponse;
 import com.hepic.tucana.model.enums.ResponseEnum;
-import com.hepic.tucana.util.exception.BaseException;
+import com.hepic.tucana.model.exception.BaseException;
 import com.hepic.tucana.web.base.BaseController;
 import com.hepic.tucana.web.base.ValidateCode;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,22 +32,27 @@ public class HomeController extends BaseController {
 
 
     @PostMapping("login")
-    public String login(String user, String password, String code,
-                             HttpServletRequest request,
-                             HttpServletResponse response) {
+    public String login(String userName, String password, String code,
+                        HttpServletRequest request,
+                        HttpServletResponse response) {
         CommonResponse<String> responseDto = new CommonResponse<>();
+        responseDto.setResponseEnum(ResponseEnum.Code_1000);
         try {
-
-            Object objCode = request.getSession().getAttribute("code");
-            String _code = objCode.toString().toLowerCase();
-            if (!code.equals(_code)) {
-                throw new BaseException(ResponseEnum.Code_1401.getCode(), ResponseEnum.Code_1401.getMessage());
-            }
+            //Object objCode = request.getSession().getAttribute("code");
+            //String _code = objCode.toString().toLowerCase();
+            //if (!code.equals(_code)) {
+            //    throw new BaseException(ResponseEnum.Code_900);
+            //}
+            Subject currentUser = SecurityUtils.getSubject();
+            UsernamePasswordToken token = new UsernamePasswordToken(userName, password);
+            currentUser.login(token);
+            Session session = currentUser.getSession();
+            session.setAttribute("userName", userName);
         } catch (BaseException e) {
             responseDto.setCode(e.getCode());
             responseDto.setMessage(e.getMessage());
         }
-        return JSON.toJSONString(response);
+        return JSON.toJSONString(responseDto);
     }
 
 

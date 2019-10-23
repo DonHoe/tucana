@@ -2,7 +2,8 @@ package com.hepic.tucana.web.config;
 
 import com.hepic.tucana.model.shiro.User;
 import com.hepic.tucana.service.SystemService;
-import com.hepic.tucana.util.exception.BaseException;
+import com.hepic.tucana.model.enums.ResponseEnum;
+import com.hepic.tucana.model.exception.BaseException;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -38,10 +39,10 @@ public class ShiroRealm extends AuthorizingRealm {
         User user = systemService.selectSysUserByName(userNameToken.getUsername());
         try {
             if (user == null) {
-                throw new BaseException(900, "用户不存在");
+                throw new BaseException(ResponseEnum.Code_901);
             }
             if (!user.getPassword().equals(systemService.encryptPassword(user.getUserName(), password, user.getSalt()))) {
-                throw new BaseException(901, "密码不正确");
+                throw new BaseException(ResponseEnum.Code_902);
             }
         } catch (BaseException e) {
             throw new AuthenticationException(e.getMessage(), e);
