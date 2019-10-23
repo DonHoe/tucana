@@ -14,11 +14,15 @@
         <result column="update_time" property="updateTime"/>
     </resultMap>
     <sql id="Base_Column_List">
-        id,user_name,login_name,password,phone,status,create_time,update_time    </sql>
+        id,user_name,login_name,password,phone,salt,status,create_time,update_time
+    </sql>
+    <sql id="Query_Column_List">
+        id,user_name,login_name,password,phone,status,create_time,update_time
+    </sql>
     <select id="selectSysUserListByModel" parameterType="com.hepic.tucana.model.shiro.User"
             resultMap="SysUserResultMap">
         SELECT
-        <include refid="Base_Column_List"/>
+        <include refid="Query_Column_List"/>
         FROM sys_user
         <where>
             <if test="id != null">AND id = #{id}</if>
