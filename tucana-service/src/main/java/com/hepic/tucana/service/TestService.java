@@ -1,6 +1,6 @@
 package com.hepic.tucana.service;
 
-import com.hepic.tucana.dal.entity.mysql.Answer;
+import com.hepic.tucana.model.dal.Answer;
 
 import java.util.List;
 

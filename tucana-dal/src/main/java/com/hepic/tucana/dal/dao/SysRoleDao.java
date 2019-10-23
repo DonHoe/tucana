@@ -1,9 +1,8 @@
-package com.hepic.tucana.dal.dao.mysql;
+package com.hepic.tucana.dal.dao;
 
 import java.util.List;
 
-import com.hepic.tucana.dal.entity.authority.SysMenu;
-import com.hepic.tucana.dal.entity.authority.SysRole;
+import com.hepic.tucana.model.shiro.SysRole;
 import org.apache.ibatis.annotations.Param;
 
 /**

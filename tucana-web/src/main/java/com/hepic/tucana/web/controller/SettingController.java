@@ -1,9 +1,8 @@
 package com.hepic.tucana.web.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.serializer.SerializeConfig;
-import com.hepic.tucana.dal.entity.mysql.Columns;
-import com.hepic.tucana.dal.entity.mysql.TableInfo;
+import com.hepic.tucana.model.dal.Columns;
+import com.hepic.tucana.model.dal.TableInfo;
 import com.hepic.tucana.model.common.CommonResponse;
 import com.hepic.tucana.model.enums.ResponseEnum;
 import com.hepic.tucana.service.InformationSchemaService;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Slf4j

@@ -1,8 +1,8 @@
-package com.hepic.tucana.dal.dao.mysql;
+package com.hepic.tucana.dal.dao;
 
 import java.util.List;
 
-import com.hepic.tucana.dal.entity.mysql.Article;
+import com.hepic.tucana.model.dal.Article;
 
 /**
  * 数据访问接口

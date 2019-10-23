@@ -1,11 +1,11 @@
 package com.hepic.tucana.service;
 
-import com.hepic.tucana.dal.dao.mysql.SysMenuDao;
-import com.hepic.tucana.dal.dao.mysql.SysRoleDao;
-import com.hepic.tucana.dal.dao.mysql.SysUserDao;
-import com.hepic.tucana.dal.entity.authority.SysMenu;
-import com.hepic.tucana.dal.entity.authority.SysRole;
-import com.hepic.tucana.dal.entity.authority.SysUser;
+import com.hepic.tucana.dal.dao.SysMenuDao;
+import com.hepic.tucana.dal.dao.SysRoleDao;
+import com.hepic.tucana.dal.dao.SysUserDao;
+import com.hepic.tucana.model.shiro.SysMenu;
+import com.hepic.tucana.model.shiro.SysRole;
+import com.hepic.tucana.model.shiro.SysUser;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

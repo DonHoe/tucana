@@ -1,6 +1,6 @@
 package com.hepic.tucana.service;
 
-import com.hepic.tucana.dal.entity.authority.SysUser;
+import com.hepic.tucana.model.shiro.SysUser;
 import java.util.List;
 
 /**

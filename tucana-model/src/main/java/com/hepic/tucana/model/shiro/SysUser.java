@@ -1,4 +1,4 @@
-package com.hepic.tucana.dal.entity.authority;
+package com.hepic.tucana.model.shiro;
 
 import java.util.Date;
 import java.util.List;

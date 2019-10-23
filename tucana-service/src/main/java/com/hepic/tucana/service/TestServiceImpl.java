@@ -1,7 +1,7 @@
 package com.hepic.tucana.service;
 
-import com.hepic.tucana.dal.dao.mysql.AnswerDao;
-import com.hepic.tucana.dal.entity.mysql.Answer;
+import com.hepic.tucana.dal.dao.AnswerDao;
+import com.hepic.tucana.model.dal.Answer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

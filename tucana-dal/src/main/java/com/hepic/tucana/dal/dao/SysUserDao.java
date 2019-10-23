@@ -1,6 +1,6 @@
-package com.hepic.tucana.dal.dao.mysql;
+package com.hepic.tucana.dal.dao;
 
-import com.hepic.tucana.dal.entity.authority.SysUser;
+import com.hepic.tucana.model.shiro.SysUser;
 import java.util.List;
 
 /**

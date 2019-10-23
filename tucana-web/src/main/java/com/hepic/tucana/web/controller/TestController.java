@@ -1,8 +1,8 @@
 package com.hepic.tucana.web.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.hepic.tucana.dal.dao.mysql.AnswerDao;
-import com.hepic.tucana.dal.entity.mysql.Answer;
+import com.hepic.tucana.dal.dao.AnswerDao;
+import com.hepic.tucana.model.dal.Answer;
 import com.hepic.tucana.model.common.CommonResponse;
 import com.hepic.tucana.model.enums.ResponseEnum;
 import com.hepic.tucana.service.TestService;

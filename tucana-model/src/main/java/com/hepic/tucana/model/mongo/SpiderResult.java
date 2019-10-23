@@ -1,4 +1,4 @@
-package com.hepic.tucana.dal.entity.mongo;
+package com.hepic.tucana.model.mongo;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 

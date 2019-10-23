@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.hepic.tucana.dal.dao.mysql.ArticleImgDao">
+<mapper namespace="com.hepic.tucana.dal.dao.ArticleImgDao">
 
-    <resultMap id="ArticleImgResultMap" type="com.hepic.tucana.dal.entity.mysql.ArticleImg">
+    <resultMap id="ArticleImgResultMap" type="com.hepic.tucana.model.dal.ArticleImg">
         <result column="id" property="id"/>
         <result column="article_id" property="articleId"/>
         <result column="img" property="img"/>
     </resultMap>
     <sql id="Base_Column_List">
         id,article_id,img    </sql>
-    <select id="selectArticleImgListByModel" parameterType="com.hepic.tucana.dal.entity.mysql.ArticleImg"
+    <select id="selectArticleImgListByModel" parameterType="com.hepic.tucana.model.dal.ArticleImg"
             resultMap="ArticleImgResultMap">
         SELECT
         <include refid="Base_Column_List"/>
@@ -28,7 +28,7 @@
         where id = #{id}
     </select>
 
-    <insert id="insertArticleImg" parameterType="com.hepic.tucana.dal.entity.mysql.ArticleImg" useGeneratedKeys="true"
+    <insert id="insertArticleImg" parameterType="com.hepic.tucana.model.dal.ArticleImg" useGeneratedKeys="true"
             keyProperty="id" keyColumn="id">
         INSERT INTO article_img
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -43,7 +43,7 @@
         </trim>
     </insert>
 
-    <update id="updateArticleImg" parameterType="com.hepic.tucana.dal.entity.mysql.ArticleImg">
+    <update id="updateArticleImg" parameterType="com.hepic.tucana.model.dal.ArticleImg">
         update article_img
         <set>
             <if test="id != null">id = #{id},</if>

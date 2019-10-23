@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.hepic.tucana.dal.dao.mysql.ArticleDao">
+<mapper namespace="com.hepic.tucana.dal.dao.ArticleDao">
 
-    <resultMap id="ArticleResultMap" type="com.hepic.tucana.dal.entity.mysql.Article">
+    <resultMap id="ArticleResultMap" type="com.hepic.tucana.model.dal.Article">
         <result column="id" property="id"/>
         <result column="key" property="key"/>
         <result column="category" property="category"/>
@@ -33,7 +33,7 @@
     </resultMap>
     <sql id="Base_Column_List">
         id,key,category,title,url,content,img,code,director,mold,role,actor,series,publisher,author_id,author,remark,type,data_flag,vote,comment,read,rate,hot,top,publish_time,create_time    </sql>
-    <select id="selectArticleListByModel" parameterType="com.hepic.tucana.dal.entity.mysql.Article"
+    <select id="selectArticleListByModel" parameterType="com.hepic.tucana.model.dal.Article"
             resultMap="ArticleResultMap">
         SELECT
         <include refid="Base_Column_List"/>
@@ -76,7 +76,7 @@
         where id = #{id}
     </select>
 
-    <insert id="insertArticle" parameterType="com.hepic.tucana.dal.entity.mysql.Article" useGeneratedKeys="true" keyProperty="id"
+    <insert id="insertArticle" parameterType="com.hepic.tucana.model.dal.Article" useGeneratedKeys="true" keyProperty="id"
             keyColumn="id">
         INSERT INTO article
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -139,7 +139,7 @@
         </trim>
     </insert>
 
-    <update id="updateArticle" parameterType="com.hepic.tucana.dal.entity.mysql.Article">
+    <update id="updateArticle" parameterType="com.hepic.tucana.model.dal.Article">
         update article
         <set>
             <if test="id != null">id = #{id},</if>

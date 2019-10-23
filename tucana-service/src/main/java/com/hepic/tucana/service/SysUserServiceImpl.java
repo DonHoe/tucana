@@ -1,7 +1,7 @@
 package com.hepic.tucana.service;
 
-import com.hepic.tucana.dal.dao.mysql.SysUserDao;
-import com.hepic.tucana.dal.entity.authority.SysUser;
+import com.hepic.tucana.dal.dao.SysUserDao;
+import com.hepic.tucana.model.shiro.SysUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

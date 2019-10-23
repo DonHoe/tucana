@@ -1,9 +1,9 @@
 package com.hepic.tucana.web.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.hepic.tucana.dal.entity.authority.SysMenu;
-import com.hepic.tucana.dal.entity.authority.SysRole;
-import com.hepic.tucana.dal.entity.authority.SysUser;
+import com.hepic.tucana.model.shiro.SysMenu;
+import com.hepic.tucana.model.shiro.SysRole;
+import com.hepic.tucana.model.shiro.SysUser;
 import com.hepic.tucana.model.common.CommonResponse;
 import com.hepic.tucana.model.enums.ResponseEnum;
 import com.hepic.tucana.service.SystemService;

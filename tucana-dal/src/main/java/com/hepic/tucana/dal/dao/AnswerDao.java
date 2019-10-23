@@ -1,6 +1,6 @@
-package com.hepic.tucana.dal.dao.mysql;
+package com.hepic.tucana.dal.dao;
 
-import com.hepic.tucana.dal.entity.mysql.Answer;
+import com.hepic.tucana.model.dal.Answer;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;

@@ -1,7 +1,6 @@
 package com.hepic.tucana.service;
 
-import com.hepic.tucana.dal.entity.authority.SysUser;
-import com.hepic.tucana.model.shiro.User;
+import com.hepic.tucana.model.shiro.SysUser;
 
 /**
  * @author tucana
@@ -13,5 +12,4 @@ public interface LoginService {
 
     SysUser login(String name, String password);
 
-    User getUserInfo(Long id);
 }

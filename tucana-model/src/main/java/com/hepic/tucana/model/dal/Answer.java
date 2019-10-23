@@ -1,4 +1,4 @@
-package com.hepic.tucana.dal.entity.mysql;
+package com.hepic.tucana.model.dal;
 
 import java.math.BigDecimal;
 import java.util.Date;

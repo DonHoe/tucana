@@ -10,8 +10,6 @@ public class User {
 
     private String loginName;
 
-    private List<Role> roleList;
-
     public Long getId() {
         return id;
     }
@@ -34,13 +32,5 @@ public class User {
 
     public void setLoginName(String loginName) {
         this.loginName = loginName;
-    }
-
-    public List<Role> getRoleList() {
-        return roleList;
-    }
-
-    public void setRoleList(List<Role> roleList) {
-        this.roleList = roleList;
     }
 }

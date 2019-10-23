@@ -1,13 +1,12 @@
 package com.hepic.tucana.web.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.hepic.tucana.dal.entity.authority.SysUser;
+import com.hepic.tucana.model.shiro.SysUser;
 import com.hepic.tucana.model.common.CommonResponse;
 import com.hepic.tucana.model.enums.ResponseEnum;
 import com.hepic.tucana.service.SysUserService;
 import com.hepic.tucana.web.base.BaseController;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

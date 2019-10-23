@@ -1,8 +1,8 @@
 package com.hepic.tucana.service;
 
-import com.hepic.tucana.dal.dao.mysql.InformationSchemaDao;
-import com.hepic.tucana.dal.entity.mysql.Columns;
-import com.hepic.tucana.dal.entity.mysql.TableInfo;
+import com.hepic.tucana.dal.dao.InformationSchemaDao;
+import com.hepic.tucana.model.dal.Columns;
+import com.hepic.tucana.model.dal.TableInfo;
 import com.hepic.tucana.util.CommonUtil;
 import com.hepic.tucana.util.VelocityUtil;
 import com.hepic.tucana.util.constant.ConstantMap;
