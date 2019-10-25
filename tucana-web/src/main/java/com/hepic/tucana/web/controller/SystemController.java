@@ -9,6 +9,7 @@ import com.hepic.tucana.model.enums.ResponseEnum;
 import com.hepic.tucana.service.SystemService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -119,6 +120,7 @@ public class SystemController {
      * @param role
      * @return
      */
+    @RequiresPermissions("dispatch:shipBerth:view")
     @GetMapping(value = "getRoleList")
     public String getRoleList(Role role) {
         CommonResponse<List<Role>> response = new CommonResponse();

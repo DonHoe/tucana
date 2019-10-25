@@ -37,15 +37,11 @@ public class ShiroRealm extends AuthorizingRealm {
         UsernamePasswordToken userNameToken = (UsernamePasswordToken) token;
         String password = new String(userNameToken.getPassword());
         User user = systemService.selectSysUserByName(userNameToken.getUsername());
-        try {
-            if (user == null) {
-                throw new BaseException(ResponseEnum.Code_901);
-            }
-            if (!user.getPassword().equals(systemService.encryptPassword(user.getUserName(), password, user.getSalt()))) {
-                throw new BaseException(ResponseEnum.Code_902);
-            }
-        } catch (BaseException e) {
-            throw new AuthenticationException(e.getMessage(), e);
+        if (user == null) {
+            throw new UnknownAccountException();
+        }
+        if (!user.getPassword().equals(systemService.encryptPassword(user.getUserName(), password, user.getSalt()))) {
+            throw new IncorrectCredentialsException();
         }
         SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, password, getName());
         return info;

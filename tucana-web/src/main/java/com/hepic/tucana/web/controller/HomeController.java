@@ -48,6 +48,7 @@ public class HomeController extends BaseController {
             currentUser.login(token);
             Session session = currentUser.getSession();
             session.setAttribute("userName", userName);
+
         } catch (BaseException e) {
             responseDto.setCode(e.getCode());
             responseDto.setMessage(e.getMessage());
