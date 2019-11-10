@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+    <head th:fragment="common_head(title,links)">
+        <title th:replace="${title}">CSDN博客</title>
+        <link rel="stylesheet" th:href="@{/plugin/element/element-ui.css}"/>
+        <th:block th:replace="${links}" />
+    </head>
+    <body>
+        <div th:fragment="script">
+            <script type="text/javascript" th:src="@{/jquery.min.js}"></script>
+            <script type="text/javascript" th:src="@{/vue.min.js}"></script>
+            <script type="text/javascript" th:src="@{/plugin/element/element-ui.js}"></script>
+        </div>
+    </body>
+</html>

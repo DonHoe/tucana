@@ -1,0 +1,28 @@
+server:
+  port: 5566
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.0.106:3306/data?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=TRUE
+    username: root
+    password: 1q2w3e
+    type: com.alibaba.druid.pool.DruidDataSource
+  data:
+    mongodb:
+      uri: mongodb://127.0.0.1:27017/data
+  thymeleaf:
+    prefix: classpath:/templates/
+    check-template-location: true
+    suffix: .html
+    encoding: UTF-8
+    mode: HTML
+    cache: false
+mybatis:
+  type-aliases-package: com.hepic.tucana.dal
+  mapper-locations: classpath:mappers/*.xml
+download:
+  basePath: /home/pi/code/image/
+
+logging:
+  level:
+    com.hepic.tucana.dal: debug

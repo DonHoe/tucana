@@ -1,23 +1,22 @@
 package com.hepic.tucana.web.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.hepic.tucana.model.spider.MovieRate;
+import com.hepic.tucana.job.PageInfoSpider;
 import com.hepic.tucana.model.common.CommonResponse;
 import com.hepic.tucana.model.enums.ResponseEnum;
-import com.hepic.tucana.model.exception.BaseException;
-import com.hepic.tucana.web.base.BaseController;
+import com.hepic.tucana.util.exception.BaseException;
 import com.hepic.tucana.web.base.ValidateCode;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.session.Session;
-import org.apache.shiro.subject.Subject;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import us.codecraft.webmagic.Spider;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * @author tucana
@@ -26,33 +25,38 @@ import javax.servlet.http.HttpSession;
  * @date 2018/7/13.
  */
 @Slf4j
-@RestController
+@Controller
 @RequestMapping("/home")
-public class HomeController extends BaseController {
+public class HomeController {
+
+    @Autowired
+    PageInfoSpider pageInfoSpider;
+
+
+    @GetMapping()
+    public String index() {
+        return "home";
+    }
 
 
     @PostMapping("login")
-    public String login(String userName, String password, String code,
+    @ResponseBody
+    public String login(String user, String password, String code,
                         HttpServletRequest request,
                         HttpServletResponse response) {
         CommonResponse<String> responseDto = new CommonResponse<>();
-        responseDto.setResponseEnum(ResponseEnum.Code_1000);
         try {
-            //Object objCode = request.getSession().getAttribute("code");
-            //String _code = objCode.toString().toLowerCase();
-            //if (!code.equals(_code)) {
-            //    throw new BaseException(ResponseEnum.Code_900);
-            //}
-            Subject currentUser = SecurityUtils.getSubject();
-            UsernamePasswordToken token = new UsernamePasswordToken(userName, password);
-            currentUser.login(token);
-            Session session = currentUser.getSession();
-            session.setAttribute("userName", userName);
+
+            Object objCode = request.getSession().getAttribute("code");
+            String _code = objCode.toString().toLowerCase();
+            if (!code.equals(_code)) {
+                throw new BaseException(ResponseEnum.Code_1401.getCode(), ResponseEnum.Code_1401.getMessage());
+            }
         } catch (BaseException e) {
             responseDto.setCode(e.getCode());
             responseDto.setMessage(e.getMessage());
         }
-        return JSON.toJSONString(responseDto);
+        return JSON.toJSONString(response);
     }
 
 
@@ -64,6 +68,7 @@ public class HomeController extends BaseController {
      * @return
      */
     @RequestMapping("/getCode")
+    @ResponseBody
     public String getCode(HttpServletRequest request, HttpServletResponse response) {
         try {
             // 设置响应的类型格式为图片格式

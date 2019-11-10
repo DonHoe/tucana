@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hepic.tucana.dal.ArticleImgDao">
+
+    <resultMap id="ArticleImgResultMap" type="com.hepic.tucana.model.dal.ArticleImg">
+        <result column="id" property="id"/>
+        <result column="article_id" property="articleId"/>
+        <result column="img" property="img"/>
+        <result column="key" property="key"/>
+        <result column="path" property="path"/>
+        <result column="status" property="status"/>
+        <result column="exif" property="exif"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,article_id,img,`key`,path,status,exif
+    </sql>
+    <select id="selectArticleImgListByModel" parameterType="com.hepic.tucana.model.dal.ArticleImg"
+            resultMap="ArticleImgResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM article_img
+        <where>
+            <if test="id != null">AND id = #{id}</if>
+            <if test="articleId != null">AND article_id = #{articleId}</if>
+            <if test="img != null">AND img = #{img}</if>
+            <if test="key != null">AND `key` = #{key}</if>
+            <if test="path != null">AND path = #{path}</if>
+            <if test="status != null">AND status = #{status}</if>
+            <if test="exif != null">AND status = #{exif}</if>
+        </where>
+    </select>
+
+    <select id="selectArticleImgOneByModel" parameterType="com.hepic.tucana.model.dal.ArticleImg"
+            resultMap="ArticleImgResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM article_img
+        <where>
+            <if test="id != null">AND id = #{id}</if>
+            <if test="articleId != null">AND article_id = #{articleId}</if>
+            <if test="img != null">AND img = #{img}</if>
+            <if test="key != null">AND `key` = #{key}</if>
+            <if test="path != null">AND path = #{path}</if>
+            <if test="status != null">AND status = #{status}</if>
+            <if test="exif != null">AND exif = #{exif}</if>
+        </where>
+        order by id desc
+        limit 1
+    </select>
+
+    <select id="selectArticleImgNoExif" parameterType="com.hepic.tucana.model.dal.ArticleImg"
+            resultMap="ArticleImgResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM article_img
+        where status = 1
+        AND ifnull(exif,'') = ''
+        limit #{limit}
+    </select>
+
+    <select id="selectArticleImgById" parameterType="String" resultMap="ArticleImgResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM article_img
+        where id = #{id}
+    </select>
+
+    <insert id="insertArticleImg" parameterType="com.hepic.tucana.model.dal.ArticleImg" useGeneratedKeys="true"
+            keyProperty="id" keyColumn="id">
+        INSERT INTO article_img
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="articleId != null">article_id,</if>
+            <if test="img != null">img,</if>
+            <if test="key != null">`key`,</if>
+            <if test="path != null">path,</if>
+            <if test="status != null">status,</if>
+            <if test="exif != null">exif,</if>
+        </trim>
+        <trim prefix=" values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="articleId != null">#{articleId},</if>
+            <if test="img != null">#{img},</if>
+            <if test="key != null">#{key},</if>
+            <if test="path != null">#{path},</if>
+            <if test="status != null">#{status},</if>
+            <if test="exif != null">#{exif},</if>
+        </trim>
+    </insert>
+
+    <update id="updateArticleImg" parameterType="com.hepic.tucana.model.dal.ArticleImg">
+        update article_img
+        <set>
+            <if test="articleId != null">article_id = #{articleId},</if>
+            <if test="img != null">img = #{img},</if>
+            <if test="key != null">`key` = #{key},</if>
+            <if test="path != null">path = #{path},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="exif != null">exif = #{exif},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="Long">
+        delete from article_img where id = #{id}
+    </delete>
+
+    <select id="countStatus" parameterType="map" resultType="map">
+        SELECT CASE `status`
+            WHEN -1 THEN
+                '失败'
+            WHEN 0 THEN
+                '待取'
+            WHEN 1 THEN
+                '成功'
+            ELSE
+                ''END
+            as `name`
+            , COUNT(*) as `value`
+        FROM `article_img`
+        GROUP BY `status`
+    </select>
+</mapper>

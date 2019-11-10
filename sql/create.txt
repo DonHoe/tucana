@@ -149,8 +149,10 @@ CREATE TABLE `article_img` (
   `img` longtext DEFAULT NULL,
   `path` longtext DEFAULT NULL,
   `status` int(255) DEFAULT 0,
+  `exif` text DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `id_index` (`id`) USING BTREE,
   KEY `article_id_index` (`article_id`) USING BTREE,
   KEY `key_index` (`key`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
