@@ -26,18 +26,21 @@ import java.util.List;
  */
 @Slf4j
 @Controller
-@RequestMapping("/home")
 public class HomeController {
 
     @Autowired
     PageInfoSpider pageInfoSpider;
 
 
-    @GetMapping()
+    @GetMapping("/home")
     public String index() {
         return "home";
     }
 
+    @GetMapping("/login")
+    public String login(HttpServletRequest request, HttpServletResponse response) {
+        return "login";
+    }
 
     @PostMapping("login")
     @ResponseBody

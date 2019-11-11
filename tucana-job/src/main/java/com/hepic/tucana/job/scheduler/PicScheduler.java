@@ -27,7 +27,7 @@ public class PicScheduler {
     private ArticleImgDao articleImgDao;
 
     //每天3：05执行
-    @Scheduled(cron = "0/5 * * * * ? ")
+    //@Scheduled(cron = "0/5 * * * * ? ")
     public void downloadPic() {
         ArticleImg query = new ArticleImg();
         query.setStatus(0);
@@ -66,7 +66,7 @@ public class PicScheduler {
     }
 
     //每天3：05执行
-    @Scheduled(cron = "0/30 * * * * ? ")
+    //@Scheduled(cron = "0/30 * * * * ? ")
     public void getExif() {
         List<ArticleImg> list = articleImgDao.selectArticleImgNoExif(100);
         for (ArticleImg item : list) {
