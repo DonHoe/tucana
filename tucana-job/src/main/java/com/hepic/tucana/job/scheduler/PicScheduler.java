@@ -10,7 +10,9 @@ import com.hepic.tucana.model.dal.ArticleImg;
 import com.hepic.tucana.util.file.DownloadFileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.scheduling.annotation.SchedulingConfigurer;
+import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -18,16 +20,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class PicScheduler {
+@ConditionalOnProperty(prefix = "push.job", value = "open")
+public class PicScheduler implements SchedulingConfigurer {
 
     @Value(value = "${download.basePath}")
     private String basePath;
 
+    @Value(value = "${download.imageCron}")
+    private String imageCron;
+
+    @Value(value = "${download.exifCron}")
+    private String exifCron;
+
     @Autowired
     private ArticleImgDao articleImgDao;
 
-    //每天3：05执行
-    //@Scheduled(cron = "0/5 * * * * ? ")
+    @Override
+    public void configureTasks(ScheduledTaskRegistrar scheduledTaskRegistrar) {
+        scheduledTaskRegistrar.addCronTask(() -> downloadPic(), imageCron);
+        scheduledTaskRegistrar.addCronTask(() -> getExif(), exifCron);
+    }
+
     public void downloadPic() {
         ArticleImg query = new ArticleImg();
         query.setStatus(0);
@@ -65,8 +78,6 @@ public class PicScheduler {
         }
     }
 
-    //每天3：05执行
-    //@Scheduled(cron = "0/30 * * * * ? ")
     public void getExif() {
         List<ArticleImg> list = articleImgDao.selectArticleImgNoExif(100);
         for (ArticleImg item : list) {
