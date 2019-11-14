@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-@ConditionalOnProperty(prefix = "push.job", value = "open")
+@ConditionalOnProperty(prefix = "download", value = "open")
 public class PicScheduler implements SchedulingConfigurer {
 
     @Value(value = "${download.basePath}")
