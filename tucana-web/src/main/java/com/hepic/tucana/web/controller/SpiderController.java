@@ -1,6 +1,8 @@
 package com.hepic.tucana.web.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.hepic.tucana.dal.ArticleDao;
 import com.hepic.tucana.dal.ArticleImgDao;
 import com.hepic.tucana.job.PageInfoSpider;
@@ -56,8 +58,10 @@ public class SpiderController {
      */
     @GetMapping(value = "getData")
     @ResponseBody
-    public List<Article> getData(Article query) {
-        return articleDao.findArticleListByModel(query);
+    public PageInfo getData(Article query) {
+        PageHelper.startPage(1,50);
+        List<Article> list = articleDao.findArticleListByModel(query);
+        return new PageInfo(list);
     }
 
     /**
