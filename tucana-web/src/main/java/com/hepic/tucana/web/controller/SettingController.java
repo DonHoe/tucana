@@ -10,15 +10,17 @@ import com.hepic.tucana.model.exception.BaseException;
 import com.hepic.tucana.web.base.BaseController;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Slf4j
-@RestController
+@Controller
 @RequestMapping("/setting")
 public class SettingController extends BaseController {
 
@@ -28,13 +30,19 @@ public class SettingController extends BaseController {
     @Autowired
     private InformationSchemaService informationSchemaService;
 
+    @GetMapping("/code")
+    public String code() {
+        return "code";
+    }
+
     /**
      * 获取表集合
      *
      * @return
      */
     @GetMapping("getTableList")
-    public String getTableList() {
+    @ResponseBody
+    public CommonResponse<List<TableInfo>> getTableList() {
         CommonResponse<List<TableInfo>> response = new CommonResponse();
         try {
             response.setResponseEnum(ResponseEnum.Code_1000);
@@ -44,7 +52,7 @@ public class SettingController extends BaseController {
             response.setResponseEnum(ResponseEnum.Code_999);
             log.error("获取表集合异常", e);
         }
-        return JSON.toJSONStringWithDateFormat(response, "yyyy-MM-dd HH:mm:ss");
+        return response;
     }
 
     /**
@@ -54,7 +62,8 @@ public class SettingController extends BaseController {
      * @return
      */
     @GetMapping("getColumnsList")
-    public String getColumnsList(String table) {
+    @ResponseBody
+    public CommonResponse<List<Columns>> getColumnsList(String table) {
         CommonResponse<List<Columns>> response = new CommonResponse();
         try {
             response.setResponseEnum(ResponseEnum.Code_1000);
@@ -64,7 +73,7 @@ public class SettingController extends BaseController {
             response.setResponseEnum(ResponseEnum.Code_999);
             log.error("获取列集合异常", e);
         }
-        return JSON.toJSONString(response);
+        return response;
     }
 
     /**
@@ -74,7 +83,8 @@ public class SettingController extends BaseController {
      * @return
      */
     @GetMapping("getTableInfo")
-    public String getTableInfo(String table) {
+    @ResponseBody
+    public CommonResponse<TableInfo> getTableInfo(String table) {
         CommonResponse<TableInfo> response = new CommonResponse();
         try {
             response.setResponseEnum(ResponseEnum.Code_1000);
@@ -84,7 +94,7 @@ public class SettingController extends BaseController {
             response.setResponseEnum(ResponseEnum.Code_999);
             log.error("获取列集合异常", e);
         }
-        return JSON.toJSONString(response);
+        return response;
     }
 
     /**
@@ -93,6 +103,7 @@ public class SettingController extends BaseController {
      * @return
      */
     @RequestMapping("/codeCreate")
+    @ResponseBody
     public void codeCreate(HttpServletResponse response, String table) {
         CommonResponse<String> responseDto = new CommonResponse<>();
         try {
@@ -100,7 +111,7 @@ public class SettingController extends BaseController {
             response.reset();
             response.setHeader("Content-Disposition", "attachment; filename=\"code.zip\"");
             response.addHeader("Content-Length", "" + data.length);
-            response.addHeader("Access-Control-Allow-Origin","*");
+            response.addHeader("Access-Control-Allow-Origin", "*");
             response.setContentType("application/octet-stream; charset=UTF-8");
             response.getOutputStream().write(data);
         } catch (BaseException e) {

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,6 +43,7 @@ public class HomeController extends BaseController {
 
 
     @PostMapping("login")
+    @ResponseBody
     public String login(String userName, String password, String code,
                         HttpServletRequest request,
                         HttpServletResponse response) {
@@ -75,6 +77,7 @@ public class HomeController extends BaseController {
      * @return
      */
     @RequestMapping("/getCode")
+    @ResponseBody
     public String getCode(HttpServletRequest request, HttpServletResponse response) {
         try {
             // 设置响应的类型格式为图片格式

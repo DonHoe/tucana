@@ -24,3 +24,9 @@ mybatis:
 logging:
   level:
     com.hepic.tucana.dal.dao: debug
+
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
