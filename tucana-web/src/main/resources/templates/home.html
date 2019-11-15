@@ -7,7 +7,7 @@
 </head>
 
 <body>
-<div id="main">
+<div id="main" style="display: none;">
     <el-container>
         <el-aside width="200px">
             <el-menu @select="handleSelect" :default-active="activeMenu">
@@ -38,6 +38,11 @@
 <script type="text/javascript">
     var vm = new Vue({
         el: '#main',
+        beforeCreate:function(){
+        },
+        created:function(){
+            $("#main").show();
+        },
         data: {
             tabs: [{
                 name: "spider",
