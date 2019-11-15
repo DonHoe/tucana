@@ -12,6 +12,7 @@ import com.hepic.tucana.model.dal.ArticleImg;
 import com.hepic.tucana.model.enums.ResponseEnum;
 import com.hepic.tucana.util.datetime.DateUtil;
 import com.hepic.tucana.util.exception.BaseException;
+import com.hepic.tucana.web.base.BaseController;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -31,7 +32,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Controller
 @RequestMapping("/spider")
-public class SpiderController {
+public class SpiderController extends BaseController {
 
     @Value(value = "${download.basePath}")
     private String basePath;
@@ -59,7 +60,7 @@ public class SpiderController {
     @GetMapping(value = "getData")
     @ResponseBody
     public PageInfo getData(Article query) {
-        PageHelper.startPage(1,50);
+        startPage();
         List<Article> list = articleDao.findArticleListByModel(query);
         return new PageInfo(list);
     }
@@ -134,7 +135,12 @@ public class SpiderController {
         List<ArticleImg> list = articleImgDao.selectArticleImgListByModel(articleImg);
         List<String> images = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(list)) {
-            images = list.stream().map(p -> "/image/" + p.getPath().replace(basePath, StringUtils.EMPTY)).collect(Collectors.toList());
+            images = list.stream().map(p -> {
+                if (StringUtils.isBlank(p.getPath())) {
+                    return StringUtils.EMPTY;
+                }
+                return "/image/" + p.getPath().replace(basePath, StringUtils.EMPTY);
+            }).collect(Collectors.toList());
         }
         return JSON.toJSONString(images);
     }
