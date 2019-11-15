@@ -27,12 +27,12 @@ public class InformationSchemaService {
     private InformationSchemaDao informationSchemaDao;
 
     private Map<String, String> templateMap = new HashMap<String, String>() {{
-        put("templates/mapper.xml.vm", "resources/mapping/%sMapper.xml");
-        put("templates/dao.java.vm", "java/dao/%sDao.java");
-        put("templates/service.java.vm", "java/service/%sServiceImpl.java");
-        put("templates/interface.java.vm", "java/service/%sService.java");
-        put("templates/entity.java.vm", "java/entity/%s.java");
-        put("templates/controller.java.vm", "java/controller/%sController.java");
+        put("velocity/mapper.xml.vm", "resources/mapping/%sMapper.xml");
+        put("velocity/dao.java.vm", "java/dao/%sDao.java");
+        put("velocity/service.java.vm", "java/service/%sServiceImpl.java");
+        put("velocity/interface.java.vm", "java/service/%sService.java");
+        put("velocity/entity.java.vm", "java/entity/%s.java");
+        put("velocity/controller.java.vm", "java/controller/%sController.java");
     }};
 
     /**

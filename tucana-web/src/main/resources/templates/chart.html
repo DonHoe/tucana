@@ -1,0 +1,139 @@
+<!DOCTYPE HTML>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/front :: common_head(~{::title},~{::link})">
+    <title>报表</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+<div id="main">
+    <el-form :inline="true" :model="queryModel">
+        <el-form-item label="地址">
+            <el-input v-model="queryModel.url" placeholder="地址" style="width: 600px"></el-input>
+        </el-form-item>
+        <el-form-item>
+            <el-button type="primary" size="mini" @click="startSpider">开始</el-button>
+        </el-form-item>
+    </el-form>
+    <el-row>
+        <el-col :span="8">
+            <div id="pie" style="height: 300px;width: 400px"></div>
+        </el-col>
+    </el-row>
+    <el-row>
+        <el-col :span="24">
+            <div id="line" style="height: 400px;width: 100%"></div>
+        </el-col>
+    </el-row>
+</div>
+<div th:replace="layout/front::script">
+</div>
+<script type="text/javascript" th:src="@{/plugin/echarts.min.js}"></script>
+<script type="text/javascript" th:src="@{/plugin/moment.min.js}"></script>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: '#main',
+        data: {
+            queryModel: {
+                url: ""
+            }
+        },
+        methods: {
+            startSpider: function () {
+                var that = this;
+                $.ajax({
+                    url: "/spider/startSpider?url=" + that.queryModel.url,
+                    success: function (response) {
+                        that.$message({
+                            message: '成功',
+                            type: 'success'
+                        });
+                    }
+                });
+            }
+        }
+    });
+    var pieChart = echarts.init(document.getElementById('pie'));
+    var pieOption = {
+        title: {
+            text: '状态占比',
+            x: 'center'
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        series: [
+            {
+                name: '状态占比',
+                type: 'pie',
+                radius: '55%',
+                center: ['50%', '60%'],
+                data: [],
+                itemStyle: {
+                    emphasis: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    };
+
+    var lineChart = echarts.init(document.getElementById('line'));
+    var lineOption = {
+        xAxis: {
+            type: 'category',
+            data: []
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [{
+            data: [],
+            type: 'line',
+            smooth: true
+        }]
+    };
+
+    function getCountStatus() {
+        $.ajax({
+            url: "/spider/countStatus",
+            success: function (response) {
+                pieOption.series[0].data = response;
+                pieChart.setOption(pieOption);
+            }
+        });
+    }
+
+    function getLineData() {
+        $.ajax({
+            url: "/spider/getArticleCountByMin",
+            success: function (response) {
+                if (response && response.time) {
+                    lineOption.xAxis.data.push(response.time);
+                    if (lineOption.xAxis.data.length > 20) {
+                        lineOption.xAxis.data.shift();
+                    }
+                    lineOption.series[0].data.push(response.count);
+                    if (lineOption.series[0].data.length > 20) {
+                        lineOption.series[0].data.shift();
+                    }
+                    lineChart.setOption(lineOption);
+                }
+            }
+        });
+    }
+
+    getCountStatus();
+    setInterval(function () {
+        getCountStatus();
+    }, 1000 * 20);
+
+    getLineData();
+    setInterval(function () {
+        getLineData();
+    }, 1000 * 20);
+</script>
+</body>
+</html>

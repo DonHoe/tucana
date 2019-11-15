@@ -1,0 +1,59 @@
+package ${table.project}.controller;
+
+import com.alibaba.fastjson.JSON;
+import ${table.project}.service.${table.beanName}Service;
+import ${table.project}.entity.${table.beanName};
+import com.hepic.tucana.model.common.CommonResponse;
+import com.hepic.tucana.model.enums.ResponseEnum;
+import com.hepic.tucana.web.base.BaseController;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
+
+/**
+ *${table.tableComment}控制类
+ */
+@Slf4j
+@RestController
+@RequestMapping("/${table.attributeName}")
+public class ${table.beanName}Controller extends BaseController {
+
+    @Autowired
+    ${table.beanName}Service ${table.attributeName}Service;
+
+    @GetMapping("/select${table.beanName}ListByModel")
+    public String select${table.beanName}ListByModel() {
+        CommonResponse<List<${table.beanName}>> responseDto = new CommonResponse<>();
+        try {
+            responseDto.setResponseEnum(ResponseEnum.Code_1000);
+            ${table.beanName} model = new ${table.beanName}();
+            List<${table.beanName}> list = ${table.attributeName}Service.select${table.beanName}ListByModel(model);
+            responseDto.setResult(list);
+        } catch (Exception e) {
+            responseDto.setResponseEnum(ResponseEnum.Code_999);
+            log.error("请求异常", e);
+        }
+        return JSON.toJSONString(responseDto);
+    }
+
+    @PostMapping("/save")
+    @ResponseBody
+    public Result save(${table.beanName} ${table.attributeName}) {
+        CommonResponse<Integer> responseDto = new CommonResponse<>();
+        try {
+            responseDto.setResponseEnum(ResponseEnum.Code_1000);
+            Integer result = 0;
+            if (${table.attributeName}.getId() == null || ${table.attributeName}.getId() == 0){
+                result = ${table.attributeName}Service.insert${table.beanName}(${table.attributeName});
+            }else{
+                result = ${table.attributeName}Service.update${table.beanName}(${table.attributeName});
+            }
+            responseDto.setResult(result);
+        } catch (Exception e) {
+            responseDto.setResponseEnum(ResponseEnum.Code_999);
+            log.error("请求异常", e);
+        }
+        return JSON.toJSONString(responseDto);
+    }
+}

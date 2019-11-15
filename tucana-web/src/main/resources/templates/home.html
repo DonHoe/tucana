@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/front :: common_head(~{::title},~{::link})">
+    <title>主页</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="plugin/font-awesome/css/font-awesome.min.css">
+</head>
+
+<body>
+<div id="main">
+    <el-container>
+        <el-aside width="200px">
+            <el-menu @select="handleSelect" :default-active="activeMenu">
+                <el-menu-item index="1">
+                    <i class="fa fa-home"></i>
+                    <span slot="title">首页</span>
+                </el-menu-item>
+                <el-menu-item v-for="item in menus" :index="item.name">
+                    <i :class="item.icon"></i>
+                    <span slot="title">{{item.label}}</span>
+                </el-menu-item>
+            </el-menu>
+        </el-aside>
+        <el-main>
+            <el-tabs type="border-card" :value="activeTab" @tab-remove="removeTab">
+                <el-tab-pane v-for="(item, index) in tabs"
+                             :key="item.label"
+                             :label="item.label"
+                             :name="item.name" closable >
+                    <iframe :src="item.url" width="100%" style="min-height: 800px" frameborder="0"></iframe>
+                </el-tab-pane>
+            </el-tabs>
+        </el-main>
+    </el-container>
+</div>
+<div th:replace="layout/front::script">
+</div>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: '#main',
+        data: {
+            tabs: [{
+                name: "spider",
+                label: "数据",
+                url: "/spider"
+            }],
+            menus: [{
+                name: "spider",
+                label: "数据",
+                url: "/spider",
+                icon: "fa fa-bug",
+            }, {
+                name: "chart",
+                label: "报表",
+                url: "/chart",
+                icon: "fa fa-area-chart"
+            }
+            ],
+            activeTab: 'spider',
+            activeMenu: '2'
+        },
+        methods: {
+            handleSelect: function (key, path) {
+                var hasTab = this.tabs.find(function (value) {
+                    return value.name == key;
+                });
+                if (hasTab) {
+                    this.activeTab = key;
+                    return;
+                }
+                var hasMenu = this.menus.find(function (value) {
+                    return value.name == key;
+                });
+                if (hasMenu) {
+                    this.tabs.push(hasMenu);
+                    this.activeTab = key;
+                    return;
+                }
+            },
+            removeTab: function (name) {
+                var tabs = this.tabs;
+                var activeTab = this.activeTab;
+                this.tabs.forEach(function (value,index) {
+                    if (value.name === name) {
+                        var nextTab = tabs[index + 1] || tabs[index - 1];
+                        if (nextTab) {
+                            activeTab = nextTab.name;
+                        }
+                    }
+                });
+                this.tabs = this.tabs.filter(tab => tab.name !== name);
+                this.activeTab = activeTab;
+            }
+        }
+    });
+</script>
+</body>
+</html>

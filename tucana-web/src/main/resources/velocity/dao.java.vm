@@ -1,0 +1,19 @@
+package ${table.project}.dao;
+
+import java.util.List;
+import ${table.project}.entity.${table.beanName};
+
+/**
+ *${table.tableComment} 数据访问接口
+ */
+public interface ${table.beanName}Dao {
+
+    List<${table.beanName}> select${table.beanName}ListByModel(${table.beanName} model);
+
+    ${table.beanName} select${table.beanName}ById(Long id);
+
+    int insert${table.beanName}(${table.beanName} model);
+
+    int update${table.beanName}(${table.beanName} model);
+
+}
