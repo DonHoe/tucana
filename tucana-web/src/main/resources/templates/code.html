@@ -70,6 +70,7 @@
                     url: "/setting/getTableList",
                     success: function (response) {
                         console.log(response);
+                        that.common.f1();
                         that.tableList = response.result;
                     }
                 });
