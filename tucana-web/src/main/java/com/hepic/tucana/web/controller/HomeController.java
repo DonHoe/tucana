@@ -11,9 +11,10 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,9 +27,18 @@ import javax.servlet.http.HttpSession;
  * @date 2018/7/13.
  */
 @Slf4j
-@RestController
-@RequestMapping("/home")
+@Controller
 public class HomeController extends BaseController {
+
+    @GetMapping("/home")
+    public String index() {
+        return "home";
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
 
 
     @PostMapping("login")
