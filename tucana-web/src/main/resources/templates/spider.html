@@ -45,7 +45,21 @@
             <el-dialog title="图片" :visible.sync="dialogVisible">
                 <div class="lazy-image">
                     <div>{{content}}</div>
-                    <el-image v-for="url in images" :key="url" :src="url" lazy></el-image>
+                    <el-row v-for="item in images" :key="item.url" :src="item.url">
+                        <el-col :span="18">
+                            <el-image :src="item.url" lazy></el-image>
+                        </el-col>
+                        <el-col :span="6">
+                            <el-select>
+                                <el-option
+                                        v-for="itemExif in item.exif"
+                                        :key="itemExif"
+                                        :label="itemExif"
+                                        :value="itemExif">
+                                </el-option>
+                            </el-select>
+                        </el-col>
+                    </el-row>
                 </div>
             </el-dialog>
         </el-main>

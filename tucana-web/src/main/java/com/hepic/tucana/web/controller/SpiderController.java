@@ -133,13 +133,20 @@ public class SpiderController extends BaseController {
         articleImg.setArticleId(articleId);
         articleImg.setStatus(1);
         List<ArticleImg> list = articleImgDao.selectArticleImgListByModel(articleImg);
-        List<String> images = new ArrayList<>();
+        List<Map<String, Object>> images = new ArrayList<>();
         if (CollectionUtils.isNotEmpty(list)) {
             images = list.stream().map(p -> {
+                Map<String, Object> temp = new HashMap<>();
                 if (StringUtils.isBlank(p.getPath())) {
-                    return StringUtils.EMPTY;
+                    return temp;
                 }
-                return "/image/" + p.getPath().replace(basePath, StringUtils.EMPTY);
+                temp.put("url", "/image/" + p.getPath().replace(basePath, StringUtils.EMPTY));
+                List<String> exif = new ArrayList<>();
+                if (StringUtils.isNotBlank(p.getExif())) {
+                    exif = JSON.parseArray(p.getExif(), String.class);
+                }
+                temp.put("exif", exif);
+                return temp;
             }).collect(Collectors.toList());
         }
         return JSON.toJSONString(images);
