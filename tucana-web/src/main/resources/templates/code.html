@@ -23,7 +23,7 @@
         </el-header>
         <el-container>
             <el-main>
-                <el-table :data="tableList" stripe border size="small" style="width: 100%">
+                <el-table :data="tableList" stripe border size="mini" style="width: 100%">
                     <el-table-column prop="tableName" label="表名" width="180">
                     </el-table-column>
                     <el-table-column prop="tableComment" label="备注" width="180">
@@ -40,7 +40,7 @@
                     </el-table-column>
                 </el-table>
                 <el-dialog title="字段明细" :visible.sync="dialogTableVisible">
-                    <el-table :data="columnData" stripe border size="small">
+                    <el-table :data="columnData" stripe border size="mini">
                         <el-table-column property="ordinalPosition" label="序列" width="50"></el-table-column>
                         <el-table-column property="columnName" label="字段名" width="150"></el-table-column>
                         <el-table-column property="columnType" label="类型" width="100"></el-table-column>

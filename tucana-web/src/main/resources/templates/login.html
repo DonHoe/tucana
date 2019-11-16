@@ -29,8 +29,8 @@
         margin: 0px 0px 35px 0px;
     }
 </style>
-<body>
-<div id="main">
+<body style="height: 360px">
+<div id="main" style="display: none;">
     <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-position="left" label-width="0px"
              class="login-container">
         <h3 class="title">系统登录</h3>
@@ -51,6 +51,9 @@
 <script type="text/javascript">
     var vm = new Vue({
         el: '#main',
+        created: function () {
+            $("#main").show();
+        },
         data: {
             logining: false,
             ruleForm2: {
