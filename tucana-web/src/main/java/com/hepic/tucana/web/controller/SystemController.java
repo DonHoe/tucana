@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -18,12 +19,27 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
-@RestController
-@RequestMapping(value = "system")
+@Controller
+@RequestMapping(value = "/system")
 public class SystemController {
 
     @Autowired
     SystemService systemService;
+
+    @GetMapping("/menu")
+    public String code() {
+        return "system/menu";
+    }
+
+    @GetMapping("/role")
+    public String role() {
+        return "system/role";
+    }
+
+    @GetMapping("/user")
+    public String user() {
+        return "system/user";
+    }
 
     /**
      * 获取菜单列表
@@ -32,6 +48,7 @@ public class SystemController {
      * @return
      */
     @GetMapping(value = "getMenuList")
+    @ResponseBody
     public String getMenuList(Menu menu) {
         CommonResponse<List<Menu>> response = new CommonResponse();
         try {
@@ -52,6 +69,7 @@ public class SystemController {
      * @return
      */
     @GetMapping(value = "getMenuIdByRoleId")
+    @ResponseBody
     public String getMenuIdByRoleId(Long roleId) {
         CommonResponse<List<Long>> response = new CommonResponse();
         try {
@@ -76,6 +94,7 @@ public class SystemController {
      * @return
      */
     @PostMapping(value = "saveMenu")
+    @ResponseBody
     public String saveMenu(@RequestBody Menu menu) {
         CommonResponse<Integer> response = new CommonResponse();
         try {
@@ -101,6 +120,7 @@ public class SystemController {
      * @return
      */
     @PostMapping(value = "deleteMenu")
+    @ResponseBody
     public String deleteMenu(@RequestBody Menu menu) {
         CommonResponse<Integer> response = new CommonResponse();
         try {
@@ -122,6 +142,7 @@ public class SystemController {
      */
     @RequiresPermissions("dispatch:shipBerth:view")
     @GetMapping(value = "getRoleList")
+    @ResponseBody
     public String getRoleList(Role role) {
         CommonResponse<List<Role>> response = new CommonResponse();
         try {
@@ -142,6 +163,7 @@ public class SystemController {
      * @return
      */
     @PostMapping(value = "saveRole")
+    @ResponseBody
     public String saveRole(@RequestBody Role role) {
         CommonResponse<Integer> response = new CommonResponse();
         try {
@@ -167,6 +189,7 @@ public class SystemController {
      * @return
      */
     @PostMapping(value = "deleteRole")
+    @ResponseBody
     public String deleteRole(@RequestBody Role role) {
         CommonResponse<Integer> response = new CommonResponse();
         try {
@@ -187,6 +210,7 @@ public class SystemController {
      * @return
      */
     @GetMapping(value = "getUserList")
+    @ResponseBody
     public String getUserList(User user) {
         CommonResponse<List<User>> response = new CommonResponse();
         try {
@@ -207,6 +231,7 @@ public class SystemController {
      * @return
      */
     @GetMapping(value = "getRoleIdByUserId")
+    @ResponseBody
     public String getRoleIdByUserId(Long userId) {
         CommonResponse<List<Long>> response = new CommonResponse();
         try {
@@ -231,6 +256,7 @@ public class SystemController {
      * @return
      */
     @PostMapping(value = "saveUser")
+    @ResponseBody
     public String saveUser(@RequestBody User user) {
         CommonResponse<Integer> response = new CommonResponse();
         try {
@@ -256,6 +282,7 @@ public class SystemController {
      * @return
      */
     @PostMapping(value = "deleteUser")
+    @ResponseBody
     public String deleteUser(@RequestBody User user) {
         CommonResponse<Integer> response = new CommonResponse();
         try {

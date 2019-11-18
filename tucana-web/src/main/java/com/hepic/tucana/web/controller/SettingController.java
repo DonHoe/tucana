@@ -32,7 +32,7 @@ public class SettingController extends BaseController {
 
     @GetMapping("/code")
     public String code() {
-        return "code";
+        return "code/code";
     }
 
     /**
