@@ -1,6 +1,5 @@
 package com.hepic.tucana.web.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.hepic.tucana.model.shiro.Menu;
 import com.hepic.tucana.model.shiro.Role;
 import com.hepic.tucana.model.shiro.User;
@@ -49,7 +48,7 @@ public class SystemController {
      */
     @GetMapping(value = "getMenuList")
     @ResponseBody
-    public String getMenuList(Menu menu) {
+    public CommonResponse<List<Menu>> getMenuList(Menu menu) {
         CommonResponse<List<Menu>> response = new CommonResponse();
         try {
             response.setResponseEnum(ResponseEnum.Code_1000);
@@ -59,7 +58,7 @@ public class SystemController {
             response.setResponseEnum(ResponseEnum.Code_999);
             log.error("获取列集合异常", e);
         }
-        return JSON.toJSONString(response);
+        return response;
     }
 
     /**
@@ -70,7 +69,7 @@ public class SystemController {
      */
     @GetMapping(value = "getMenuIdByRoleId")
     @ResponseBody
-    public String getMenuIdByRoleId(Long roleId) {
+    public CommonResponse<List<Long>> getMenuIdByRoleId(Long roleId) {
         CommonResponse<List<Long>> response = new CommonResponse();
         try {
             List<Long> menuIds = new ArrayList<>();
@@ -84,7 +83,7 @@ public class SystemController {
             response.setResponseEnum(ResponseEnum.Code_999);
             log.error("获取列集合异常", e);
         }
-        return JSON.toJSONString(response);
+        return response;
     }
 
     /**
@@ -95,7 +94,7 @@ public class SystemController {
      */
     @PostMapping(value = "saveMenu")
     @ResponseBody
-    public String saveMenu(@RequestBody Menu menu) {
+    public CommonResponse<Integer> saveMenu(@RequestBody Menu menu) {
         CommonResponse<Integer> response = new CommonResponse();
         try {
             response.setResponseEnum(ResponseEnum.Code_1000);
@@ -110,7 +109,7 @@ public class SystemController {
             response.setResponseEnum(ResponseEnum.Code_999);
             log.error("保存菜单异常", e);
         }
-        return JSON.toJSONString(response);
+        return response;
     }
 
     /**
@@ -121,7 +120,7 @@ public class SystemController {
      */
     @PostMapping(value = "deleteMenu")
     @ResponseBody
-    public String deleteMenu(@RequestBody Menu menu) {
+    public CommonResponse<Integer> deleteMenu(@RequestBody Menu menu) {
         CommonResponse<Integer> response = new CommonResponse();
         try {
             response.setResponseEnum(ResponseEnum.Code_1000);
@@ -131,7 +130,7 @@ public class SystemController {
             response.setResponseEnum(ResponseEnum.Code_999);
             log.error("删除菜单异常", e);
         }
-        return JSON.toJSONString(response);
+        return response;
     }
 
     /**
@@ -143,7 +142,7 @@ public class SystemController {
     @RequiresPermissions("dispatch:shipBerth:view")
     @GetMapping(value = "getRoleList")
     @ResponseBody
-    public String getRoleList(Role role) {
+    public CommonResponse<List<Role>> getRoleList(Role role) {
         CommonResponse<List<Role>> response = new CommonResponse();
         try {
             response.setResponseEnum(ResponseEnum.Code_1000);
@@ -153,7 +152,7 @@ public class SystemController {
             response.setResponseEnum(ResponseEnum.Code_999);
             log.error("获取列集合异常", e);
         }
-        return JSON.toJSONString(response);
+        return response;
     }
 
     /**
@@ -164,7 +163,7 @@ public class SystemController {
      */
     @PostMapping(value = "saveRole")
     @ResponseBody
-    public String saveRole(@RequestBody Role role) {
+    public CommonResponse<Integer> saveRole(@RequestBody Role role) {
         CommonResponse<Integer> response = new CommonResponse();
         try {
             response.setResponseEnum(ResponseEnum.Code_1000);
@@ -179,7 +178,7 @@ public class SystemController {
             response.setResponseEnum(ResponseEnum.Code_999);
             log.error("保存角色异常", e);
         }
-        return JSON.toJSONString(response);
+        return response;
     }
 
     /**
@@ -190,7 +189,7 @@ public class SystemController {
      */
     @PostMapping(value = "deleteRole")
     @ResponseBody
-    public String deleteRole(@RequestBody Role role) {
+    public CommonResponse<Integer> deleteRole(@RequestBody Role role) {
         CommonResponse<Integer> response = new CommonResponse();
         try {
             response.setResponseEnum(ResponseEnum.Code_1000);
@@ -200,7 +199,7 @@ public class SystemController {
             response.setResponseEnum(ResponseEnum.Code_999);
             log.error("删除角色异常", e);
         }
-        return JSON.toJSONString(response);
+        return response;
     }
 
     /**
@@ -211,7 +210,7 @@ public class SystemController {
      */
     @GetMapping(value = "getUserList")
     @ResponseBody
-    public String getUserList(User user) {
+    public CommonResponse<List<User>> getUserList(User user) {
         CommonResponse<List<User>> response = new CommonResponse();
         try {
             response.setResponseEnum(ResponseEnum.Code_1000);
@@ -221,7 +220,7 @@ public class SystemController {
             response.setResponseEnum(ResponseEnum.Code_999);
             log.error("获取列集合异常", e);
         }
-        return JSON.toJSONString(response);
+        return response;
     }
 
     /**
@@ -232,7 +231,7 @@ public class SystemController {
      */
     @GetMapping(value = "getRoleIdByUserId")
     @ResponseBody
-    public String getRoleIdByUserId(Long userId) {
+    public CommonResponse<List<Long>> getRoleIdByUserId(Long userId) {
         CommonResponse<List<Long>> response = new CommonResponse();
         try {
             List<Long> roleIds = new ArrayList<>();
@@ -246,7 +245,7 @@ public class SystemController {
             response.setResponseEnum(ResponseEnum.Code_999);
             log.error("获取列集合异常", e);
         }
-        return JSON.toJSONString(response);
+        return response;
     }
 
     /**
@@ -257,7 +256,7 @@ public class SystemController {
      */
     @PostMapping(value = "saveUser")
     @ResponseBody
-    public String saveUser(@RequestBody User user) {
+    public CommonResponse<Integer> saveUser(@RequestBody User user) {
         CommonResponse<Integer> response = new CommonResponse();
         try {
             response.setResponseEnum(ResponseEnum.Code_1000);
@@ -272,7 +271,7 @@ public class SystemController {
             response.setResponseEnum(ResponseEnum.Code_999);
             log.error("保存用户异常", e);
         }
-        return JSON.toJSONString(response);
+        return response;
     }
 
     /**
@@ -283,7 +282,7 @@ public class SystemController {
      */
     @PostMapping(value = "deleteUser")
     @ResponseBody
-    public String deleteUser(@RequestBody User user) {
+    public CommonResponse<Integer> deleteUser(@RequestBody User user) {
         CommonResponse<Integer> response = new CommonResponse();
         try {
             response.setResponseEnum(ResponseEnum.Code_1000);
@@ -293,7 +292,7 @@ public class SystemController {
             response.setResponseEnum(ResponseEnum.Code_999);
             log.error("删除用户异常", e);
         }
-        return JSON.toJSONString(response);
+        return response;
     }
 
 

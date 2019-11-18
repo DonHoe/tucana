@@ -127,7 +127,7 @@
                 $.ajax({
                     url: "/system/getMenuList",
                     success: function (response) {
-                        that.menuList = response.data.result;
+                        that.menuList = response.result;
                     }
                 });
             },
@@ -149,9 +149,10 @@
                 $.ajax({
                     url: "/system/saveMenu",
                     type: "post",
-                    data: that.menuModel,
+                    contentType: "application/json;charset=UTF-8",
+                    data: JSON.stringify(that.menuModel),
                     success: function (response) {
-                        if (response.data.code == 1000) {
+                        if (response.code == 1000) {
                             that.$message({
                                 message: "保存成功",
                                 type: "success"
@@ -159,7 +160,7 @@
                             that.dialogTableVisible = false;
                             that.getMenuList();
                         } else {
-                            that.$alert(response.data.message);
+                            that.$alert(response.message);
                         }
                     }
                 });
@@ -179,9 +180,10 @@
                 $.ajax({
                     url: "/system/deleteMenu",
                     type: "post",
-                    data: row,
+                    contentType: "application/json;charset=UTF-8",
+                    data: JSON.stringify(row),
                     success: function (response) {
-                        if (response.data.code == 1000) {
+                        if (response.code == 1000) {
                             that.$message({
                                 message: "删除成功",
                                 type: "success"
@@ -189,7 +191,7 @@
                             that.dialogTableVisible = false;
                             that.getMenuList();
                         } else {
-                            that.$alert(response.data.message);
+                            that.$alert(response.message);
                         }
                     }
                 });
