@@ -10,7 +10,8 @@
 <div id="main" style="display: none;">
     <el-container>
         <el-header>
-            <el-form :inline="true" :model="searchModel" size="mini" label-width="100px">
+            <el-form :inline="true" :model="searchModel" size="mini" label-width="80px" label-position="left"
+                     label-suffix=":">
                 <el-form-item label="表名">
                     <el-input v-model="searchModel.callerClass" class="input"></el-input>
                 </el-form-item>
