@@ -19,7 +19,7 @@ spring:
     cache: false
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
-spring.jackson.timeZone: GMT+8
+    timeZone: GMT+8
 mybatis:
   mapper-locations: classpath:mappings/*.xml
   type-aliases-package: com.hepic.tucana.model
