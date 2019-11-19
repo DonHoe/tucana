@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="layout/front :: common_head(~{::title},~{::link})">
-    <title>代码生成</title>
+    <title>菜单</title>
     <link rel="stylesheet" th:href="@{/css/index.css}">
     <link rel="stylesheet" th:href="@{/plugin/font-awesome/css/font-awesome.min.css}"/>
 </head>
@@ -10,24 +10,18 @@
 <div id="main" style="display: none;">
     <el-container>
         <el-header height="">
-            <el-form :inline="true" :model="searchModel" size="mini" label-width="100px">
-                <el-row>
-                    <el-col :span="5">
-                        <el-form-item label="表名">
-                            <el-input v-model="searchModel.callerClass" class="input"></el-input>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="5">
-                        <el-form-item label="备注">
-                            <el-input v-model="searchModel.callerClass" class="input"></el-input>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="5">
-                        <el-form-item label="">
-                            <el-button @click="getMenuList()">查询</el-button>
-                        </el-form-item>
-                    </el-col>
-                </el-row>
+            <el-form :inline="true" :model="searchModel" size="mini" label-width="80px" label-position="left" label-suffix=":">
+                <el-form-item label="表名">
+                    <el-input v-model="searchModel.callerClass" class="input"></el-input>
+                </el-form-item>
+
+                <el-form-item label="备注">
+                    <el-input v-model="searchModel.callerClass" class="input"></el-input>
+                </el-form-item>
+
+                <el-form-item label="">
+                    <el-button @click="getMenuList()">查询</el-button>
+                </el-form-item>
             </el-form>
         </el-header>
         <el-container>

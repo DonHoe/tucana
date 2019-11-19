@@ -1,0 +1,193 @@
+<!DOCTYPE HTML>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/front :: common_head(~{::title},~{::link})">
+    <title>角色</title>
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+    <link rel="stylesheet" th:href="@{/plugin/font-awesome/css/font-awesome.min.css}"/>
+</head>
+
+<body>
+<div id="main" style="display: none;">
+    <el-container>
+        <el-header height="">
+            <el-form :inline="true" :model="searchModel" size="mini" label-width="80px" label-position="left"
+                     label-suffix=":">
+                <el-form-item label="角色">
+                    <el-input v-model="searchModel.roleName" class="query-width"></el-input>
+                </el-form-item>
+                <el-form-item label="备注">
+                    <el-input v-model="searchModel.roleKey" class="query-width"></el-input>
+                </el-form-item>
+                <el-form-item label="">
+                    <el-button size="mini" title="" icon="el-icon-search" @click="getRoleList()">查询</el-button>
+                    <el-button size="mini" title="" icon="el-icon-plus" @click="addRole()">新增</el-button>
+                </el-form-item>
+            </el-form>
+        </el-header>
+        <el-container>
+            <el-main>
+                <el-table :data="roleList" row-key="id" stripe border size="small" style="">
+                    <el-table-column prop="roleName" label="角色名" width="180">
+                    </el-table-column>
+                    <el-table-column prop="roleKey" label="角色键" width="180">
+                    </el-table-column>
+                    <el-table-column prop="columnComment" label="操作">
+                        <template slot-scope="scope">
+                            <el-button size="mini" title="编辑" icon="el-icon-edit-outline"
+                                       @click="editRole(scope.row)"></el-button>
+                            <el-button size="mini" type="danger" title="删除" icon="el-icon-delete"
+                                       @click="confirmDelete(scope.row)"></el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+                <el-dialog title="角色" :visible.sync="dialogTableVisible" width="40%" :close-on-click-modal="false">
+                    <el-form ref="roleModel" :model="roleModel" label-width="80px" size="small">
+                        <input type="hidden" v-model="roleModel.id"/>
+                        <el-form-item label="角色名称">
+                            <el-input v-model="roleModel.roleName"></el-input>
+                        </el-form-item>
+                        <el-form-item label="角色键">
+                            <el-input v-model="roleModel.roleKey"></el-input>
+                        </el-form-item>
+                        <el-form-item>
+                            <el-tree ref="tree" :data="menuTreeData" show-checkbox node-key="id"
+                                     :props="{children: 'children',label: 'menuName'}">
+                            </el-tree>
+                        </el-form-item>
+                        <el-form-item>
+                            <el-button type="primary" @click="saveRole()">保存</el-button>
+                        </el-form-item>
+                    </el-form>
+                </el-dialog>
+            </el-main>
+        </el-container>
+    </el-container>
+</div>
+<div th:replace="layout/front::script">
+</div>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: '#main',
+        data: {
+            roleList: [],
+            roleModel: {},
+            emptyRole: {
+                id: 0,
+                roleName: "",
+                roleKey: ""
+            },
+            menuData: [],
+            menuTreeData: [],
+            searchModel: {},
+            dialogTableVisible: false
+        },
+        created: function () {
+            $("#main").show();
+            this.getRoleList();
+            this.getMenuList();
+        },
+        methods: {
+            getRoleList: function () {
+                var that = this;
+                $.ajax({
+                    url: "/system/getRoleList",
+                    success: function (response) {
+                        that.roleList = response.result;
+                    }
+                });
+            },
+            getMenuList: function () {
+                var that = this;
+                $.ajax({
+                    url: "/system/getMenuList",
+                    success: function (response) {
+                        that.menuData = response.result;
+                        that.menuTreeData = [].concat(that.menuData);
+                    }
+                });
+            },
+            getMenuIdByRoleId: function (roleId) {
+                var that = this;
+                $.ajax({
+                    url: "/system/getMenuIdByRoleId?roleId=" + roleId,
+                    success: function (response) {
+                        that.$refs.tree.setCheckedKeys(response.result);
+                    }
+                });
+            },
+            addRole: function () {
+                var that = this;
+                that.menuTreeData = [].concat(that.menuData);
+                that.roleModel = Object.assign({}, that.emptyRole);
+                that.dialogTableVisible = true;
+                this.$nextTick(function () {
+                    that.$refs.tree.setCheckedKeys([]);
+                });
+            },
+            editRole: function (row) {
+                var that = this;
+                that.menuTreeData = [].concat(that.menuData);
+                that.roleModel = Object.assign({}, row);
+                that.dialogTableVisible = true;
+                that.getMenuIdByRoleId(row.id);
+            },
+            saveRole: function () {
+                var that = this;
+                var requestData = Object.assign({}, that.roleModel);
+                requestData.menuIds = that.$refs.tree.getCheckedKeys();
+                $.ajax({
+                    url: "/system/saveRole",
+                    type: "post",
+                    contentType: "application/json;charset=UTF-8",
+                    data: JSON.stringify(requestData),
+                    success: function (response) {
+                        if (response.code == 1000) {
+                            that.$message({
+                                message: "保存成功",
+                                type: "success"
+                            });
+                            that.dialogTableVisible = false;
+                            that.getRoleList();
+                        } else {
+                            that.$alert(response.message);
+                        }
+                    }
+                });
+            },
+            confirmDelete: function (row) {
+                var that = this;
+                this.$confirm("确认删除?", "提示", {
+                    confirmButtonText: "确定",
+                    cancelButtonText: "取消",
+                    type: "warning"
+                }).then(function () {
+                    that.deleteRole(row);
+                })
+
+            },
+            deleteRole: function (row) {
+                var that = this;
+                $.ajax({
+                    url: "/system/deleteRole",
+                    type: "post",
+                    contentType: "application/json;charset=UTF-8",
+                    data: JSON.stringify(requestData),
+                    success: function (response) {
+                        if (response.code == 1000) {
+                            that.$message({
+                                message: "删除成功",
+                                type: "success"
+                            });
+                            that.dialogTableVisible = false;
+                            that.getMenuList();
+                        } else {
+                            that.$alert(response.data.message);
+                        }
+                    }
+                });
+            }
+        }
+    });
+</script>
+</body>
+</html>

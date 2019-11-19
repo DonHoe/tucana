@@ -1,16 +1,10 @@
 var common = function () {
     return {
-        f1: function () {
-            console.log("this is common f1().");
-        },
-        f2: function () {
-            console.log(" out vist f222222().");
-        },
-        // 小写转大写
-        toUppercase: function (o, parName) {
-            if (o && o[parName]) {
-                o[parName] = o[parName].toUpperCase();
+        dateFormatter: function (row, column, cellValue, index) {
+            if (cellValue) {
+                return moment(cellValue).format("YYYY-MM-DD HH:mm:ss");
             }
+            return '';
         }
     }
 }();

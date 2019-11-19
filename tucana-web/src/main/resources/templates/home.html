@@ -5,7 +5,12 @@
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="plugin/font-awesome/css/font-awesome.min.css">
 </head>
-
+<style type="text/css">
+    .el-menu-item i {
+        font-size: 16px;
+        width: 22px;
+    }
+</style>
 <body>
 <div id="main" style="display: none;">
     <el-container>
@@ -26,7 +31,7 @@
                 <el-tab-pane v-for="(item, index) in tabs"
                              :key="item.label"
                              :label="item.label"
-                             :name="item.name" closable >
+                             :name="item.name" closable>
                     <iframe :src="item.url" width="100%" style="min-height: 800px" frameborder="0"></iframe>
                 </el-tab-pane>
             </el-tabs>
@@ -38,9 +43,9 @@
 <script type="text/javascript">
     var vm = new Vue({
         el: '#main',
-        beforeCreate:function(){
+        beforeCreate: function () {
         },
-        created:function(){
+        created: function () {
             $("#main").show();
         },
         data: {
@@ -59,11 +64,21 @@
                 label: "报表",
                 url: "/chart",
                 icon: "fa fa-area-chart"
-            },{
+            }, {
                 name: "menu",
-                label: "报表",
+                label: "菜单",
                 url: "/system/menu",
                 icon: "fa fa-reorder"
+            }, {
+                name: "role",
+                label: "角色",
+                url: "/system/role",
+                icon: "fa fa-users"
+            }, {
+                name: "user",
+                label: "用户",
+                url: "/system/user",
+                icon: "fa fa-user-o"
             }
             ],
             activeTab: 'code',
@@ -90,7 +105,7 @@
             removeTab: function (name) {
                 var tabs = this.tabs;
                 var activeTab = this.activeTab;
-                this.tabs.forEach(function (value,index) {
+                this.tabs.forEach(function (value, index) {
                     if (value.name === name) {
                         var nextTab = tabs[index + 1] || tabs[index - 1];
                         if (nextTab) {
@@ -98,7 +113,9 @@
                         }
                     }
                 });
-                this.tabs = this.tabs.filter(tab => tab.name !== name);
+                this.tabs = this.tabs.filter(function (tab) {
+                    return tab.name !== name;
+                });
                 this.activeTab = activeTab;
             }
         }

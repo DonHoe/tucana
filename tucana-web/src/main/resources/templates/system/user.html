@@ -1,0 +1,208 @@
+<!DOCTYPE HTML>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/front :: common_head(~{::title},~{::link})">
+    <title>角色</title>
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+    <link rel="stylesheet" th:href="@{/plugin/font-awesome/css/font-awesome.min.css}"/>
+</head>
+
+<body>
+<div id="main" style="display: none;">
+    <el-container>
+        <el-header height="">
+            <el-form :inline="true" :model="searchModel" size="mini" label-width="80px" label-position="left"
+                     label-suffix=":">
+                <el-form-item label="用户名">
+                    <el-input v-model="searchModel.userName" class="query-width"></el-input>
+                </el-form-item>
+                <el-form-item label="登录名">
+                    <el-input v-model="searchModel.loginName" class="query-width"></el-input>
+                </el-form-item>
+                <el-form-item label="">
+                    <el-button size="mini" title="" icon="el-icon-search" @click="getUserList()">查询</el-button>
+                    <el-button size="mini" title="" icon="el-icon-plus" @click="addUser()">新增</el-button>
+                </el-form-item>
+            </el-form>
+        </el-header>
+        <el-container>
+            <el-main>
+                <el-table :data="userList" row-key="id" stripe border size="small" style="">
+                    <el-table-column prop="userName" label="用户名" width="100">
+                    </el-table-column>
+                    <el-table-column prop="loginName" label="登录名" width="120">
+                    </el-table-column>
+                    <el-table-column prop="phone" label="手机号码" width="150">
+                    </el-table-column>
+                    <el-table-column prop="status" label="状态" width="60">
+                    </el-table-column>
+                    <el-table-column prop="createTime" label="创建时间" :formatter="common.dateFormatter" width="135">
+                    </el-table-column>
+                    <el-table-column prop="updateTime" label="更新时间" :formatter="common.dateFormatter" width="135">
+                    </el-table-column>
+                    <el-table-column prop="columnComment" label="操作">
+                        <template slot-scope="scope">
+                            <el-button size="mini" title="编辑" icon="el-icon-edit-outline"
+                                       @click="editUser(scope.row)"></el-button>
+                            <el-button size="mini" type="danger" title="删除" icon="el-icon-delete"
+                                       @click="confirmDelete(scope.row)"></el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+                <el-dialog title="用户" :visible.sync="dialogTableVisible" width="40%" :close-on-click-modal="false">
+                    <el-form ref="userModel" :model="userModel" label-width="80px" size="small">
+                        <input type="hidden" v-model="userModel.id"/>
+                        <el-form-item label="用户名">
+                            <el-input v-model="userModel.userName"></el-input>
+                        </el-form-item>
+                        <el-form-item label="登录名">
+                            <el-input v-model="userModel.loginName"></el-input>
+                        </el-form-item>
+                        <el-form-item label="手机号码">
+                            <el-input v-model="userModel.phone"></el-input>
+                        </el-form-item>
+                        <el-form-item label="状态">
+                            <el-input v-model="userModel.status"></el-input>
+                        </el-form-item>
+                        <el-form-item label="角色">
+                            <el-tree ref="tree" :data="roleTreeData" show-checkbox node-key="id"
+                                     :props="{children: 'children',label: 'roleName'}">
+                            </el-tree>
+                        </el-form-item>
+                        <el-form-item>
+                            <el-button type="primary" @click="saveUser()">保存</el-button>
+                        </el-form-item>
+                    </el-form>
+                </el-dialog>
+            </el-main>
+        </el-container>
+    </el-container>
+</div>
+<div th:replace="layout/front::script">
+</div>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: '#main',
+        data: {
+            userList: [],
+            userModel: {},
+            emptyUser: {
+                id: 0,
+                userName: "",
+                loginName: "",
+                phone: "",
+                status: 0
+            },
+            roleData: [],
+            roleTreeData: [],
+            searchModel: {},
+            dialogTableVisible: false
+        },
+        created: function () {
+            $("#main").show();
+            this.getUserList();
+            this.getRoleList();
+        },
+        methods: {
+            getUserList: function () {
+                var that = this;
+                $.ajax({
+                    url: "/system/getUserList",
+                    success: function (response) {
+                        that.userList = response.result;
+                    }
+                });
+            },
+            getRoleList: function () {
+                var that = this;
+                $.ajax({
+                    url: "/system/getRoleList",
+                    success: function (response) {
+                        that.roleData = response.result;
+                        that.roleTreeData = [].concat(that.roleData);
+                    }
+                });
+            },
+            getRoleIdByUserId: function (userId) {
+                var that = this;
+                $.ajax({
+                    url: "/system/getRoleIdByUserId?userId=" + userId,
+                    success: function (response) {
+                        that.$refs.tree.setCheckedKeys(response.result);
+                    }
+                });
+            },
+            addUser: function () {
+                var that = this;
+                that.roleTreeData = [].concat(that.roleData);
+                that.userModel = Object.assign({}, that.emptyUser);
+                that.dialogTableVisible = true;
+                this.$nextTick(function () {
+                    that.$refs.tree.setCheckedKeys([]);
+                });
+            },
+            editUser: function (row) {
+                var that = this;
+                that.roleTreeData = [].concat(that.roleData);
+                that.userModel = Object.assign({}, row);
+                that.dialogTableVisible = true;
+                that.getRoleIdByUserId(row.id);
+            },
+            saveUser: function () {
+                var that = this;
+                var requestData = Object.assign({}, that.userModel);
+                requestData.roleIds = that.$refs.tree.getCheckedKeys();
+                $.ajax({
+                    url: "/system/saveUser",
+                    type: "post",
+                    contentType: "application/json;charset=UTF-8",
+                    data: JSON.stringify(requestData),
+                    success: function (response) {
+                        if (response.code == 1000) {
+                            that.$message({
+                                message: "保存成功",
+                                type: "success"
+                            });
+                            that.dialogTableVisible = false;
+                            that.getUserList();
+                        } else {
+                            that.$alert(response.message);
+                        }
+                    }
+                });
+            },
+            confirmDelete: function (row) {
+                var that = this;
+                this.$confirm("确认删除?", "提示", {
+                    confirmButtonText: "确定",
+                    cancelButtonText: "取消",
+                    type: "warning"
+                }).then(function () {
+                    that.deleteUser(row);
+                });
+            },
+            deleteUser: function (row) {
+                var that = this;
+                $.ajax({
+                    url: "/system/deleteUser",
+                    type: "post",
+                    contentType: "application/json;charset=UTF-8",
+                    data: JSON.stringify(row),
+                    success: function (response) {
+                        if (response.code == 1000) {
+                            that.$message({
+                                message: "删除成功",
+                                type: "success"
+                            });
+                            that.dialogTableVisible = false;
+                            that.getUserList();
+                        } else {
+                            that.$alert(response.message);
+                        }
+                    }
+                });
+            }
+        }
+    });
+</script>
+</body>
+</html>
