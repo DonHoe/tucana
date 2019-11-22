@@ -36,6 +36,11 @@ public class HomeController extends BaseController {
         return "home";
     }
 
+    @GetMapping("/dashboard")
+    public String dashboard() {
+        return "dashboard";
+    }
+
     @GetMapping("/login")
     public String login() {
         return "login";
