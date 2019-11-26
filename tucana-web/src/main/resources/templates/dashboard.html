@@ -9,13 +9,29 @@
 <body>
 <div id="main" style="display: none;">
     <el-container>
-        <el-header></el-header>
-        <el-main></el-main>
+        <el-header>
+
+        </el-header>
+        <el-main>
+
+        </el-main>
     </el-container>
 </div>
 <div th:replace="layout/front::script">
 </div>
 <script type="text/javascript">
+    var vm = new Vue({
+        el: '#main',
+        data: {
+
+        },
+        created: function () {
+            $("#main").show();
+        },
+        methods: {
+
+        }
+    });
 </script>
 </body>
 </html>

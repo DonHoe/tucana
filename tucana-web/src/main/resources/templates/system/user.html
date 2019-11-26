@@ -49,7 +49,7 @@
                     </el-table-column>
                 </el-table>
                 <el-dialog title="用户" :visible.sync="dialogTableVisible" width="40%" :close-on-click-modal="false">
-                    <el-form ref="userModel" :model="userModel" label-width="80px" size="small">
+                    <el-form ref="userModel" :model="userModel" label-width="80px" size="small" label-suffix=":">
                         <input type="hidden" v-model="userModel.id"/>
                         <el-form-item label="用户名">
                             <el-input v-model="userModel.userName"></el-input>

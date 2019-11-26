@@ -41,7 +41,7 @@
                     </el-table-column>
                 </el-table>
                 <el-dialog title="角色" :visible.sync="dialogTableVisible" width="40%" :close-on-click-modal="false">
-                    <el-form ref="roleModel" :model="roleModel" label-width="80px" size="small">
+                    <el-form ref="roleModel" :model="roleModel" label-width="80px" size="small" label-suffix=":">
                         <input type="hidden" v-model="roleModel.id"/>
                         <el-form-item label="角色名称">
                             <el-input v-model="roleModel.roleName"></el-input>

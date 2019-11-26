@@ -25,7 +25,6 @@
                 </el-form-item>
             </el-form>
         </el-header>
-        <el-container>
             <el-main>
                 <el-table :data="menuList" row-key="id" :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
                           stripe border size="small" style="width: 100%">
@@ -59,7 +58,7 @@
                     </el-table-column>
                 </el-table>
                 <el-dialog title="菜单" :visible.sync="dialogTableVisible" width="30%" :close-on-click-modal="false">
-                    <el-form ref="menuModel" :model="menuModel" label-width="80px" size="small">
+                    <el-form ref="menuModel" :model="menuModel" label-width="80px" size="small" label-suffix=":">
                         <input type="hidden" v-model="menuModel.id"/>
                         <input type="hidden" v-model="menuModel.parentId"/>
                         <el-form-item label="菜单名称">
@@ -88,7 +87,6 @@
                     </el-form>
                 </el-dialog>
             </el-main>
-        </el-container>
     </el-container>
 </div>
 <div th:replace="layout/front::script">
