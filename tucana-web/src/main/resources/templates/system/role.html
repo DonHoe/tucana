@@ -24,43 +24,41 @@
                 </el-form-item>
             </el-form>
         </el-header>
-        <el-container>
-            <el-main>
-                <el-table :data="roleList" row-key="id" stripe border size="small" style="">
-                    <el-table-column prop="roleName" label="角色名" width="180">
-                    </el-table-column>
-                    <el-table-column prop="roleKey" label="角色键" width="180">
-                    </el-table-column>
-                    <el-table-column prop="columnComment" label="操作">
-                        <template slot-scope="scope">
-                            <el-button size="mini" title="编辑" icon="el-icon-edit-outline"
-                                       @click="editRole(scope.row)"></el-button>
-                            <el-button size="mini" type="danger" title="删除" icon="el-icon-delete"
-                                       @click="confirmDelete(scope.row)"></el-button>
-                        </template>
-                    </el-table-column>
-                </el-table>
-                <el-dialog title="角色" :visible.sync="dialogTableVisible" width="40%" :close-on-click-modal="false">
-                    <el-form ref="roleModel" :model="roleModel" label-width="80px" size="small" label-suffix=":">
-                        <input type="hidden" v-model="roleModel.id"/>
-                        <el-form-item label="角色名称">
-                            <el-input v-model="roleModel.roleName"></el-input>
-                        </el-form-item>
-                        <el-form-item label="角色键">
-                            <el-input v-model="roleModel.roleKey"></el-input>
-                        </el-form-item>
-                        <el-form-item>
-                            <el-tree ref="tree" :data="menuTreeData" show-checkbox node-key="id"
-                                     :props="{children: 'children',label: 'menuName'}">
-                            </el-tree>
-                        </el-form-item>
-                        <el-form-item>
-                            <el-button type="primary" @click="saveRole()">保存</el-button>
-                        </el-form-item>
-                    </el-form>
-                </el-dialog>
-            </el-main>
-        </el-container>
+        <el-main>
+            <el-table :data="roleList" row-key="id" stripe border size="small" style="">
+                <el-table-column prop="roleName" label="角色名" width="180">
+                </el-table-column>
+                <el-table-column prop="roleKey" label="角色键" width="180">
+                </el-table-column>
+                <el-table-column prop="columnComment" label="操作">
+                    <template slot-scope="scope">
+                        <el-button size="mini" title="编辑" icon="el-icon-edit-outline"
+                                   @click="editRole(scope.row)"></el-button>
+                        <el-button size="mini" type="danger" title="删除" icon="el-icon-delete"
+                                   @click="confirmDelete(scope.row)"></el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+            <el-dialog title="角色" :visible.sync="dialogTableVisible" width="40%" :close-on-click-modal="false">
+                <el-form ref="roleModel" :model="roleModel" label-width="80px" size="small" label-suffix=":">
+                    <input type="hidden" v-model="roleModel.id"/>
+                    <el-form-item label="角色名称">
+                        <el-input v-model="roleModel.roleName"></el-input>
+                    </el-form-item>
+                    <el-form-item label="角色键">
+                        <el-input v-model="roleModel.roleKey"></el-input>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-tree ref="tree" :data="menuTreeData" show-checkbox node-key="id"
+                                 :props="{children: 'children',label: 'menuName'}">
+                        </el-tree>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button type="primary" @click="saveRole()">保存</el-button>
+                    </el-form-item>
+                </el-form>
+            </el-dialog>
+        </el-main>
     </el-container>
 </div>
 <div th:replace="layout/front::script">
