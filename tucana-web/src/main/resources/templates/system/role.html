@@ -87,31 +87,39 @@
         methods: {
             getRoleList: function () {
                 var that = this;
-                $.ajax({
-                    url: "/system/getRoleList",
-                    success: function (response) {
-                        that.roleList = response.result;
-                    }
-                });
+                this.$ajax
+                    .get(this.$baseUrl + "/system/getRoleList")
+                    .then(function (response) {
+                        that.roleList = response.data.result;
+                    })
+                    .catch(function (err) {
+                        window.console.log(err);
+                    });
             },
             getMenuList: function () {
                 var that = this;
-                $.ajax({
-                    url: "/system/getMenuList",
-                    success: function (response) {
-                        that.menuData = response.result;
+                this.$ajax
+                    .get(this.$baseUrl + "/system/getMenuList")
+                    .then(function (response) {
+                        that.menuData = response.data.result;
                         that.menuTreeData = [].concat(that.menuData);
-                    }
-                });
+                    })
+                    .catch(function (err) {
+                        window.console.log(err);
+                    });
             },
             getMenuIdByRoleId: function (roleId) {
                 var that = this;
-                $.ajax({
-                    url: "/system/getMenuIdByRoleId?roleId=" + roleId,
-                    success: function (response) {
-                        that.$refs.tree.setCheckedKeys(response.result);
-                    }
-                });
+                this.$ajax
+                    .get(
+                        this.$baseUrl + "/system/getMenuIdByRoleId?roleId=" + roleId
+                    )
+                    .then(function (response) {
+                        that.$refs.tree.setCheckedKeys(response.data.result);
+                    })
+                    .catch(function (err) {
+                        window.console.log(err);
+                    });
             },
             addRole: function () {
                 var that = this;
@@ -133,13 +141,10 @@
                 var that = this;
                 var requestData = Object.assign({}, that.roleModel);
                 requestData.menuIds = that.$refs.tree.getCheckedKeys();
-                $.ajax({
-                    url: "/system/saveRole",
-                    type: "post",
-                    contentType: "application/json;charset=UTF-8",
-                    data: JSON.stringify(requestData),
-                    success: function (response) {
-                        if (response.code == 1000) {
+                this.$ajax
+                    .post(this.$baseUrl + "/system/saveRole", requestData)
+                    .then(function (response) {
+                        if (response.data.code == 1000) {
                             that.$message({
                                 message: "保存成功",
                                 type: "success"
@@ -147,10 +152,12 @@
                             that.dialogTableVisible = false;
                             that.getRoleList();
                         } else {
-                            that.$alert(response.message);
+                            that.$alert(response.data.message);
                         }
-                    }
-                });
+                    })
+                    .catch(function (err) {
+                        window.console.log(err);
+                    });
             },
             confirmDelete: function (row) {
                 var that = this;
@@ -165,13 +172,10 @@
             },
             deleteRole: function (row) {
                 var that = this;
-                $.ajax({
-                    url: "/system/deleteRole",
-                    type: "post",
-                    contentType: "application/json;charset=UTF-8",
-                    data: JSON.stringify(requestData),
-                    success: function (response) {
-                        if (response.code == 1000) {
+                this.$ajax
+                    .post(this.$baseUrl + "/system/deleteRole", row)
+                    .then(function (response) {
+                        if (response.data.code == 1000) {
                             that.$message({
                                 message: "删除成功",
                                 type: "success"
@@ -181,8 +185,10 @@
                         } else {
                             that.$alert(response.data.message);
                         }
-                    }
-                });
+                    })
+                    .catch(function (err) {
+                        window.console.log(err);
+                    });
             }
         }
     });

@@ -103,31 +103,39 @@
         methods: {
             getUserList: function () {
                 var that = this;
-                $.ajax({
-                    url: "/system/getUserList",
-                    success: function (response) {
-                        that.userList = response.result;
-                    }
-                });
+                this.$ajax
+                    .get(this.$baseUrl + "/system/getUserList")
+                    .then(function (response) {
+                        that.userList = response.data.result;
+                    })
+                    .catch(function (err) {
+                        window.console.log(err);
+                    });
             },
             getRoleList: function () {
                 var that = this;
-                $.ajax({
-                    url: "/system/getRoleList",
-                    success: function (response) {
-                        that.roleData = response.result;
+                this.$ajax
+                    .get(this.$baseUrl + "/system/getRoleList")
+                    .then(function (response) {
+                        that.roleData = response.data.result;
                         that.roleTreeData = [].concat(that.roleData);
-                    }
-                });
+                    })
+                    .catch(function (err) {
+                        window.console.log(err);
+                    });
             },
             getRoleIdByUserId: function (userId) {
                 var that = this;
-                $.ajax({
-                    url: "/system/getRoleIdByUserId?userId=" + userId,
-                    success: function (response) {
-                        that.$refs.tree.setCheckedKeys(response.result);
-                    }
-                });
+                this.$ajax
+                    .get(
+                        this.$baseUrl + "/system/getRoleIdByUserId?userId=" + userId
+                    )
+                    .then(function (response) {
+                        that.$refs.tree.setCheckedKeys(response.data.result);
+                    })
+                    .catch(function (err) {
+                        window.console.log(err);
+                    });
             },
             addUser: function () {
                 var that = this;
@@ -149,13 +157,10 @@
                 var that = this;
                 var requestData = Object.assign({}, that.userModel);
                 requestData.roleIds = that.$refs.tree.getCheckedKeys();
-                $.ajax({
-                    url: "/system/saveUser",
-                    type: "post",
-                    contentType: "application/json;charset=UTF-8",
-                    data: JSON.stringify(requestData),
-                    success: function (response) {
-                        if (response.code == 1000) {
+                this.$ajax
+                    .post(this.$baseUrl + "/system/saveUser", requestData)
+                    .then(function (response) {
+                        if (response.data.code == 1000) {
                             that.$message({
                                 message: "保存成功",
                                 type: "success"
@@ -163,10 +168,12 @@
                             that.dialogTableVisible = false;
                             that.getUserList();
                         } else {
-                            that.$alert(response.message);
+                            that.$alert(response.data.message);
                         }
-                    }
-                });
+                    })
+                    .catch(function (err) {
+                        window.console.log(err);
+                    });
             },
             confirmDelete: function (row) {
                 var that = this;
@@ -180,24 +187,23 @@
             },
             deleteUser: function (row) {
                 var that = this;
-                $.ajax({
-                    url: "/system/deleteUser",
-                    type: "post",
-                    contentType: "application/json;charset=UTF-8",
-                    data: JSON.stringify(row),
-                    success: function (response) {
-                        if (response.code == 1000) {
+                this.$ajax
+                    .post(this.$baseUrl + "/system/deleteUser", row)
+                    .then(function (response) {
+                        if (response.data.code == 1000) {
                             that.$message({
                                 message: "删除成功",
                                 type: "success"
                             });
                             that.dialogTableVisible = false;
-                            that.getUserList();
+                            that.getMenuList();
                         } else {
-                            that.$alert(response.message);
+                            that.$alert(response.data.message);
                         }
-                    }
-                });
+                    })
+                    .catch(function (err) {
+                        window.console.log(err);
+                    });
             }
         }
     });

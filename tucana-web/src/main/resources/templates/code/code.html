@@ -73,27 +73,33 @@
         methods: {
             getTableList: function () {
                 var that = this;
-                $.ajax({
-                    url: "/setting/getTableList",
-                    success: function (response) {
-                        console.log(response);
-                        //that.common.f1();
-                        that.tableList = response.result;
-                    }
-                });
+                this.$ajax
+                    .get(this.$baseUrl + "/setting/getTableList")
+                    .then(function (response) {
+                        that.tableList = response.data.result;
+                    })
+                    .catch(function (err) {
+                        window.console.log(err);
+                    });
             },
             codeCreate: function (row) {
-                window.location.href = "/setting/codeCreate?table=" + row.tableName;
+                window.location.href = this.$baseUrl + "/setting/codeCreate?table=" + row.tableName;
             },
             showColumns: function (row) {
                 var that = this;
-                $.ajax({
-                    url: "/setting/getColumnsList?table=" + row.tableName,
-                    success: function (response) {
+                this.$ajax
+                    .get(
+                        this.$baseUrl +
+                        "/setting/getColumnsList?table=" +
+                        row.tableName
+                    )
+                    .then(function (response) {
                         that.dialogTableVisible = true;
-                        that.columnData = response.result;
-                    }
-                });
+                        that.columnData = response.data.result;
+                    })
+                    .catch(function (err) {
+                        window.console.log(err);
+                    });
             }
         }
     });
