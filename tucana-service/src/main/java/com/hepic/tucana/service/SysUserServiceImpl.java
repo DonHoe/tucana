@@ -2,7 +2,7 @@ package com.hepic.tucana.service;
 
 import com.hepic.tucana.dal.dao.SysUserDao;
 import com.hepic.tucana.model.shiro.User;
-import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * 用户服务实现类
  */
-@Slf4j
+
 @Service
 public class SysUserServiceImpl implements SysUserService {
 

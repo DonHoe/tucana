@@ -6,7 +6,9 @@ import ${table.project}.entity.${table.beanName};
 import com.hepic.tucana.model.common.CommonResponse;
 import com.hepic.tucana.model.enums.ResponseEnum;
 import com.hepic.tucana.web.base.BaseController;
-import lombok.extern.slf4j.Slf4j;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -14,10 +16,12 @@ import java.util.List;
 /**
  *${table.tableComment}控制类
  */
-@Slf4j
+
 @RestController
 @RequestMapping("/${table.attributeName}")
 public class ${table.beanName}Controller extends BaseController {
+
+    private static final Logger log = LoggerFactory.getLogger(${table.beanName}Controller.class);
 
     @Autowired
     ${table.beanName}Service ${table.attributeName}Service;

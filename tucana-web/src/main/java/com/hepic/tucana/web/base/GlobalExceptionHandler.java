@@ -3,7 +3,9 @@ package com.hepic.tucana.web.base;
 import com.alibaba.fastjson.JSON;
 import com.hepic.tucana.model.common.CommonResponse;
 import com.hepic.tucana.model.enums.ResponseEnum;
-import lombok.extern.slf4j.Slf4j;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,9 +20,11 @@ import javax.servlet.http.HttpServletRequest;
  * @Description:
  * @date 2018/6/14.
  */
-@Slf4j
+
 @ControllerAdvice
 public class GlobalExceptionHandler {
+
+    private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     /**
      * 默认异常处理

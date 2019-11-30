@@ -1,6 +1,5 @@
 package com.hepic.tucana.web.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.hepic.tucana.model.dal.Columns;
 import com.hepic.tucana.model.dal.TableInfo;
 import com.hepic.tucana.model.common.CommonResponse;
@@ -8,21 +7,24 @@ import com.hepic.tucana.model.enums.ResponseEnum;
 import com.hepic.tucana.service.InformationSchemaService;
 import com.hepic.tucana.model.exception.BaseException;
 import com.hepic.tucana.web.base.BaseController;
-import lombok.extern.slf4j.Slf4j;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-@Slf4j
+
 @Controller
 @RequestMapping("/setting")
 public class SettingController extends BaseController {
+
+    private static final Logger log = LoggerFactory.getLogger(SettingController.class);
 
     /**
      * 数据库架构服务类

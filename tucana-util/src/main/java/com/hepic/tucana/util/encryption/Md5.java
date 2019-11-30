@@ -1,6 +1,8 @@
 package com.hepic.tucana.util.encryption;
 
-import lombok.extern.slf4j.Slf4j;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import sun.misc.BASE64Encoder;
 
 import java.io.UnsupportedEncodingException;
@@ -13,8 +15,10 @@ import java.security.NoSuchAlgorithmException;
  * @Description:
  * @date 2018/7/12.
  */
-@Slf4j
+
 public class Md5 {
+
+    private static final Logger log = LoggerFactory.getLogger(Md5.class);
 
     /**
      * 密码加密扩展字段

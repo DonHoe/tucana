@@ -6,7 +6,7 @@ import com.hepic.tucana.model.enums.ResponseEnum;
 import com.hepic.tucana.model.exception.BaseException;
 import com.hepic.tucana.web.base.BaseController;
 import com.hepic.tucana.web.base.ValidateCode;
-import lombok.extern.slf4j.Slf4j;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
@@ -27,7 +27,7 @@ import javax.servlet.http.HttpSession;
  * @Description:
  * @date 2018/7/13.
  */
-@Slf4j
+
 @Controller
 public class HomeController extends BaseController {
 

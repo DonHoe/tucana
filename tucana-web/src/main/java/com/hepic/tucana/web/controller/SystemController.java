@@ -6,9 +6,11 @@ import com.hepic.tucana.model.shiro.User;
 import com.hepic.tucana.model.common.CommonResponse;
 import com.hepic.tucana.model.enums.ResponseEnum;
 import com.hepic.tucana.service.SystemService;
-import lombok.extern.slf4j.Slf4j;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -17,10 +19,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Slf4j
+
 @Controller
 @RequestMapping(value = "/system")
 public class SystemController {
+
+    private static final Logger log = LoggerFactory.getLogger(SystemController.class);
 
     @Autowired
     SystemService systemService;
