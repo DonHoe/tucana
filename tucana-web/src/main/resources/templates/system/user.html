@@ -33,6 +33,10 @@
                 <el-table-column prop="phone" label="手机号码" width="150">
                 </el-table-column>
                 <el-table-column prop="status" label="状态" width="60">
+                    <template slot-scope="scope">
+                        <el-tag v-if="scope.row.status == 1" effect="dark" type="success">在用</el-tag>
+                        <el-tag v-if="scope.row.status == 0" effect="dark" type="info">停用</el-tag>
+                    </template>
                 </el-table-column>
                 <el-table-column prop="createTime" label="创建时间" :formatter="common.dateFormatter" width="135">
                 </el-table-column>
@@ -60,7 +64,8 @@
                         <el-input v-model="userModel.phone"></el-input>
                     </el-form-item>
                     <el-form-item label="状态">
-                        <el-input v-model="userModel.status"></el-input>
+                        <el-switch v-model="userModel.status" :active-value=1 :inactive-value=0>
+                        </el-switch>
                     </el-form-item>
                     <el-form-item label="角色">
                         <el-tree ref="tree" :data="roleTreeData" show-checkbox node-key="id"
