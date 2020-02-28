@@ -1,4 +1,4 @@
-package com.hepic.tucana.service;
+package com.hepic.tucana.service.impl;
 
 import com.hepic.tucana.dal.dao.InformationSchemaDao;
 import com.hepic.tucana.model.dal.Columns;

@@ -1,8 +1,9 @@
-package com.hepic.tucana.service;
+package com.hepic.tucana.service.impl;
 
 import com.hepic.tucana.dal.dao.SysUserDao;
 import com.hepic.tucana.model.shiro.User;
 
+import com.hepic.tucana.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

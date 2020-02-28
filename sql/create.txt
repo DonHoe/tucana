@@ -154,3 +154,19 @@ CREATE TABLE `article_img` (
   KEY `article_id_index` (`article_id`) USING BTREE,
   KEY `key_index` (`key`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `torrent_info` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`hash` VARCHAR(200) NOT NULL DEFAULT '',
+	`dn` TEXT NOT NULL DEFAULT '',
+	`kt` TEXT NOT NULL DEFAULT '',
+	`mt` TEXT NOT NULL DEFAULT '',
+	`title` TEXT NOT NULL DEFAULT '',
+	`code` VARCHAR(200) NOT NULL DEFAULT '',
+	`extra` TEXT NOT NULL DEFAULT '',
+	`key` TEXT NOT NULL DEFAULT '',
+	`remark` TEXT NOT NULL DEFAULT '',
+	PRIMARY KEY (`id`)
+)
+COLLATE='utf8mb4_general_ci'
+;

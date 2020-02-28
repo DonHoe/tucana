@@ -1,7 +1,8 @@
-package com.hepic.tucana.service;
+package com.hepic.tucana.service.impl;
 
 import com.hepic.tucana.dal.dao.AnswerDao;
 import com.hepic.tucana.model.dal.Answer;
+import com.hepic.tucana.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

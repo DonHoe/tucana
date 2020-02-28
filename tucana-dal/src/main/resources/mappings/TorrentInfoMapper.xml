@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hepic.tucana.dal.dao.TorrentInfoDao">
+    <resultMap id="TorrentInfoResultMap" type="com.hepic.tucana.model.dal.TorrentInfo">
+        <result column="id" property="id"/>
+        <result column="hash" property="hash"/>
+        <result column="dn" property="dn"/>
+        <result column="kt" property="kt"/>
+        <result column="mt" property="mt"/>
+        <result column="title" property="title"/>
+        <result column="code" property="code"/>
+        <result column="extra" property="extra"/>
+        <result column="key" property="key"/>
+        <result column="remark" property="remark"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,hash,dn,kt,mt,title,code,extra,key,remark    </sql>
+    <select id="selectTorrentInfoListByModel" parameterType="com.hepic.tucana.model.dal.TorrentInfo"
+            resultMap="TorrentInfoResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM torrent_info
+        <where>
+            <if test="id != null">AND id = #{id}</if>
+            <if test="hash != null">AND hash = #{hash}</if>
+            <if test="dn != null">AND dn = #{dn}</if>
+            <if test="kt != null">AND kt = #{kt}</if>
+            <if test="mt != null">AND mt = #{mt}</if>
+            <if test="title != null">AND title = #{title}</if>
+            <if test="code != null">AND code = #{code}</if>
+            <if test="extra != null">AND extra = #{extra}</if>
+            <if test="key != null">AND key = #{key}</if>
+            <if test="remark != null">AND remark = #{remark}</if>
+        </where>
+    </select>
+
+    <select id="selectTorrentInfoById" parameterType="String" resultMap="TorrentInfoResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM torrent_info
+        where id = #{id}
+    </select>
+
+    <insert id="insertTorrentInfo" parameterType="com.hepic.tucana.model.dal.TorrentInfo" useGeneratedKeys="true"
+            keyProperty="id" keyColumn="id">
+        INSERT INTO torrent_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="hash != null">hash,</if>
+            <if test="dn != null">dn,</if>
+            <if test="kt != null">kt,</if>
+            <if test="mt != null">mt,</if>
+            <if test="title != null">title,</if>
+            <if test="code != null">code,</if>
+            <if test="extra != null">extra,</if>
+            <if test="key != null">key,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix=" values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="hash != null">#{hash},</if>
+            <if test="dn != null">#{dn},</if>
+            <if test="kt != null">#{kt},</if>
+            <if test="mt != null">#{mt},</if>
+            <if test="title != null">#{title},</if>
+            <if test="code != null">#{code},</if>
+            <if test="extra != null">#{extra},</if>
+            <if test="key != null">#{key},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateTorrentInfo" parameterType="com.hepic.tucana.model.dal.TorrentInfo">
+        update torrent_info
+        <set>
+            <if test="id != null">id = #{id},</if>
+            <if test="hash != null">hash = #{hash},</if>
+            <if test="dn != null">dn = #{dn},</if>
+            <if test="kt != null">kt = #{kt},</if>
+            <if test="mt != null">mt = #{mt},</if>
+            <if test="title != null">title = #{title},</if>
+            <if test="code != null">code = #{code},</if>
+            <if test="extra != null">extra = #{extra},</if>
+            <if test="key != null">key = #{key},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="Long">
+        delete from torrent_info where id = #{id}
+    </delete>
+</mapper>

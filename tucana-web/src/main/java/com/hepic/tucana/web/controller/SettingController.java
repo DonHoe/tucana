@@ -4,7 +4,7 @@ import com.hepic.tucana.model.dal.Columns;
 import com.hepic.tucana.model.dal.TableInfo;
 import com.hepic.tucana.model.common.CommonResponse;
 import com.hepic.tucana.model.enums.ResponseEnum;
-import com.hepic.tucana.service.InformationSchemaService;
+import com.hepic.tucana.service.impl.InformationSchemaService;
 import com.hepic.tucana.model.exception.BaseException;
 import com.hepic.tucana.web.base.BaseController;
 

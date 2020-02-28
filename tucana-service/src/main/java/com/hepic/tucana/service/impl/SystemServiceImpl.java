@@ -1,4 +1,4 @@
-package com.hepic.tucana.service;
+package com.hepic.tucana.service.impl;
 
 import com.hepic.tucana.dal.dao.SysMenuDao;
 import com.hepic.tucana.dal.dao.SysRoleDao;
@@ -6,6 +6,7 @@ import com.hepic.tucana.dal.dao.SysUserDao;
 import com.hepic.tucana.model.shiro.Menu;
 import com.hepic.tucana.model.shiro.Role;
 import com.hepic.tucana.model.shiro.User;
+import com.hepic.tucana.service.SystemService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
