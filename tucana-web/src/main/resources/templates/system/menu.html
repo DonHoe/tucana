@@ -29,11 +29,11 @@
         <el-main>
             <el-table :data="menuList" row-key="id" :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
                       stripe border size="mini" style="width: 100%">
-                <el-table-column prop="menuName" label="菜单名" width="180">
+                <el-table-column prop="menuName" label="菜单名">
                 </el-table-column>
-                <el-table-column prop="url" label="地址" width="180">
+                <el-table-column prop="url" label="地址">
                 </el-table-column>
-                <el-table-column prop="permit" label="权限" width="150">
+                <el-table-column prop="permit" label="权限">
                 </el-table-column>
                 <el-table-column prop="menuType" label="类型" align="center" width="80">
                     <template slot-scope="scope">
@@ -47,7 +47,7 @@
                         <el-tag v-if="scope.row.visible == 1" effect="dark" type="info">隐藏</el-tag>
                     </template>
                 </el-table-column>
-                <el-table-column prop="columnComment" label="操作" width="250">
+                <el-table-column prop="columnComment" label="操作" width="210">
                     <template slot-scope="scope">
                         <el-button size="mini" title="编辑" icon="el-icon-edit-outline"
                                    @click="editMenu(scope.row)"></el-button>
