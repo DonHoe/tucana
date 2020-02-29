@@ -3,6 +3,8 @@
     <head th:fragment="common_head(title,links)">
         <title th:replace="${title}">后台</title>
         <link rel="stylesheet" th:href="@{/plugin/element/element-ui.css}"/>
+        <link rel="stylesheet" th:href="@{/css/index.css}">
+        <link rel="stylesheet" th:href="@{/plugin/font-awesome/css/font-awesome.min.css}"/>
         <th:block th:replace="${links}"/>
     </head>
     <body>
