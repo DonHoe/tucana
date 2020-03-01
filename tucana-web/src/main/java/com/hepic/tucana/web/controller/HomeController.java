@@ -11,16 +11,15 @@ import com.hepic.tucana.web.base.ValidateCode;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.eclipse.bittorrent.internal.encode.BEncodedDictionary;
 import org.eclipse.bittorrent.internal.encode.Decode;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,7 +40,7 @@ import java.util.List;
 @Controller
 public class HomeController extends BaseController {
 
-    @GetMapping(path = "/")
+    @GetMapping(path = "/home")
     public String index() {
         return "home";
     }
@@ -57,11 +56,9 @@ public class HomeController extends BaseController {
     }
 
 
-    @PostMapping("login")
+    @PostMapping("doLogin")
     @ResponseBody
-    public String login(String userName, String password, String code,
-                        HttpServletRequest request,
-                        HttpServletResponse response) {
+    public String doLogin(String userName, String password) {
         CommonResponse<String> responseDto = new CommonResponse<>();
         responseDto.setResponseEnum(ResponseEnum.Code_1000);
         try {
@@ -75,10 +72,15 @@ public class HomeController extends BaseController {
             currentUser.login(token);
             Session session = currentUser.getSession();
             session.setAttribute("userName", userName);
-
         } catch (BaseException e) {
             responseDto.setCode(e.getCode());
             responseDto.setMessage(e.getMessage());
+        } catch (UnknownAccountException e) {
+            responseDto.setResponseEnum(ResponseEnum.Code_901);
+        } catch (IncorrectCredentialsException e) {
+            responseDto.setResponseEnum(ResponseEnum.Code_902);
+        } catch (Exception e){
+            responseDto.setResponseEnum(ResponseEnum.Code_999);
         }
         return JSON.toJSONString(responseDto);
     }

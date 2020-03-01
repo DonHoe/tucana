@@ -146,7 +146,7 @@ public class User {
      */
     public void randomSalt() {
         SecureRandomNumberGenerator secureRandom = new SecureRandomNumberGenerator();
-        String hex = secureRandom.nextBytes(5).toHex();
+        String hex = secureRandom.nextBytes().toHex().toUpperCase();
         setSalt(hex);
     }
 }

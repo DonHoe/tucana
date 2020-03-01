@@ -2,6 +2,8 @@ package com.hepic.tucana.util;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.UUID;
+
 /**
  * 通用工具类
  */
@@ -65,5 +67,14 @@ public class CommonUtil {
             return word;
         }
         return word.substring(0, 1).toUpperCase() + word.substring(1);
+    }
+
+    /**
+     * 生成UUID
+     *
+     * @return
+     */
+    public static String createUUID() {
+        return UUID.randomUUID().toString().replaceAll("-", "");
     }
 }

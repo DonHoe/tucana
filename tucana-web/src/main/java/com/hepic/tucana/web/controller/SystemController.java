@@ -7,6 +7,7 @@ import com.hepic.tucana.model.common.CommonResponse;
 import com.hepic.tucana.model.enums.ResponseEnum;
 import com.hepic.tucana.service.SystemService;
 
+import com.hepic.tucana.util.CommonUtil;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
@@ -265,6 +266,8 @@ public class SystemController {
         try {
             response.setResponseEnum(ResponseEnum.Code_1000);
             Integer result = 0;
+            user.randomSalt();
+            user.setPassword(systemService.encryptPassword(user.getUserName(), user.getPassword(), user.getSalt()));
             if (user.getId() == null || user.getId().intValue() == 0) {
                 result = systemService.addUser(user);
             } else {

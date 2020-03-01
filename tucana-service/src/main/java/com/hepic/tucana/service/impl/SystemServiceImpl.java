@@ -178,7 +178,6 @@ public class SystemServiceImpl implements SystemService {
      */
     @Override
     public int addUser(User user) {
-        user.randomSalt();
         int result = sysUserDao.insertSysUser(user);
         buildUserRole(user.getId(), user.getRoleIds());
         return result;

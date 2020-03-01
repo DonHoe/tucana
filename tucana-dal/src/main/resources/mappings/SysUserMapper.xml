@@ -22,7 +22,7 @@
     <select id="selectSysUserListByModel" parameterType="com.hepic.tucana.model.shiro.User"
             resultMap="SysUserResultMap">
         SELECT
-        <include refid="Query_Column_List"/>
+        id,user_name,login_name,phone,salt,status,create_time,update_time
         FROM sys_user
         <where>
             <if test="id != null">AND id = #{id}</if>
@@ -47,7 +47,7 @@
         SELECT
         <include refid="Base_Column_List"/>
         FROM sys_user
-        where user_name = #{userName}
+        where login_name = #{userName}
     </select>
 
     <select id="findRoleKeyByUserId" parameterType="long" resultType="String">
