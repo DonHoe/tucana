@@ -41,7 +41,7 @@ import java.util.List;
 @Controller
 public class HomeController extends BaseController {
 
-    @GetMapping("/home")
+    @GetMapping(path = "/")
     public String index() {
         return "home";
     }
