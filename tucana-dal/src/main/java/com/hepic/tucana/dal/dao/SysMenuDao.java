@@ -3,11 +3,13 @@ package com.hepic.tucana.dal.dao;
 import java.util.List;
 
 import com.hepic.tucana.model.shiro.Menu;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 /**
  * 数据访问接口
  */
+@Mapper
 public interface SysMenuDao {
 
     List<Menu> selectSysMenuListByModel(Menu model);

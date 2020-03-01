@@ -1,6 +1,7 @@
 package com.hepic.tucana.dal.dao;
 
 import com.hepic.tucana.model.dal.Answer;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
@@ -9,10 +10,9 @@ import java.util.List;
 
 /**
  * @author tucana
- * @Title:
- * @Description:
  * @date 2018/6/5.
  */
+@Mapper
 public interface AnswerDao {
 
     @Select(" SELECT * " +
