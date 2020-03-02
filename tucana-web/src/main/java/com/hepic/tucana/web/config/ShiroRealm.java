@@ -40,7 +40,7 @@ public class ShiroRealm extends AuthorizingRealm {
         if (user == null) {
             throw new UnknownAccountException();
         }
-        if (!user.getPassword().equals(systemService.encryptPassword(user.getUserName(), password, user.getSalt()))) {
+        if (user.getPassword() == null || !user.getPassword().equals(systemService.encryptPassword(user.getUserName(), password, user.getSalt()))) {
             throw new IncorrectCredentialsException();
         }
         SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, password, getName());

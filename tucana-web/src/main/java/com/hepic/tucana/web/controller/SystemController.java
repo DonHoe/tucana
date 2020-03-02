@@ -8,6 +8,7 @@ import com.hepic.tucana.model.enums.ResponseEnum;
 import com.hepic.tucana.service.SystemService;
 
 import com.hepic.tucana.util.CommonUtil;
+import com.hepic.tucana.web.base.BaseController;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,7 +26,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping(value = "/system")
-public class SystemController {
+public class SystemController extends BaseController {
 
     private static final Logger log = LoggerFactory.getLogger(SystemController.class);
 
@@ -265,12 +267,12 @@ public class SystemController {
      */
     @PostMapping(value = "saveUser")
     @ResponseBody
-    public CommonResponse<Integer> saveUser(@RequestBody User user) {
+    public CommonResponse<Integer> saveUser(@Valid @RequestBody User user) {
         CommonResponse<Integer> response = new CommonResponse();
         try {
             response.setResponseEnum(ResponseEnum.Code_1000);
 
-            //ValidatorUtils
+            User current = getCurrentUser();
 
             Integer result = 0;
             if (user.getId() == null || user.getId().intValue() == 0) {

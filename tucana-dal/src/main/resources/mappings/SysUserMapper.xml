@@ -14,7 +14,7 @@
         <result column="update_time" property="updateTime"/>
     </resultMap>
     <sql id="Base_Column_List">
-        id,user_name,login_name,phone,salt,status,create_time,update_time
+        id,user_name,login_name,password,phone,salt,status,create_time,update_time
     </sql>
     <sql id="Query_Column_List">
         id,user_name,login_name,phone,status,create_time,update_time
@@ -38,7 +38,7 @@
 
     <select id="selectSysUserById" parameterType="long" resultMap="SysUserResultMap">
         SELECT
-        <include refid="Base_Column_List"/>
+        <include refid="Query_Column_List"/>
         FROM sys_user
         where id = #{id}
     </select>

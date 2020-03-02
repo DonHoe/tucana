@@ -19,13 +19,13 @@ public class User {
     /**
      * 用户名
      */
-    @NotBlank
+    @NotBlank(message = "用户名不能为空")
     private String userName;
 
     /**
      * 登录名
      */
-    @NotBlank
+    @NotBlank(message = "登录名不能为空")
     private String loginName;
 
     /**
