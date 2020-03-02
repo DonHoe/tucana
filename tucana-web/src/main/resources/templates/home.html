@@ -12,31 +12,34 @@
 <body>
 <div id="main" style="display: none;">
     <el-container>
-        <el-aside width="200px">
-            <el-menu @select="handleSelect" :default-active="activeMenu">
-                <el-menu-item index="dashboard">
-                    <i class="fa fa-home"></i>
-                    <span slot="title">首页</span>
-                </el-menu-item>
-                <el-menu-item v-for="item in menus" :index="item.name">
-                    <i :class="item.icon"></i>
-                    <span slot="title">{{item.label}}</span>
-                </el-menu-item>
-            </el-menu>
-        </el-aside>
-        <el-main>
-            <el-tabs type="border-card" :value="activeTab" @tab-remove="removeTab">
-                <el-tab-pane key="首页" label="首页" name="dashboard">
-                    <iframe src="/dashboard" width="100%" style="height: 800px" frameborder="0"></iframe>
-                </el-tab-pane>
-                <el-tab-pane v-for="(item, index) in tabs"
-                             :key="item.name"
-                             :label="item.label"
-                             :name="item.name" closable>
-                    <iframe :src="item.url" width="100%" style="height: 800px" frameborder="0"></iframe>
-                </el-tab-pane>
-            </el-tabs>
-        </el-main>
+        <el-header>Header</el-header>
+        <el-container>
+            <el-aside width="200px">
+                <el-menu @select="handleSelect" :default-active="activeMenu">
+                    <el-menu-item index="dashboard">
+                        <i class="fa fa-home"></i>
+                        <span slot="title">首页</span>
+                    </el-menu-item>
+                    <el-menu-item v-for="item in menus" :index="item.name">
+                        <i :class="item.icon"></i>
+                        <span slot="title">{{item.label}}</span>
+                    </el-menu-item>
+                </el-menu>
+            </el-aside>
+            <el-main style="padding: 5px;">
+                <el-tabs type="border-card" :value="activeTab" @tab-remove="removeTab">
+                    <el-tab-pane key="首页" label="首页" name="dashboard">
+                        <iframe src="/dashboard" width="100%" style="height: 800px" frameborder="0"></iframe>
+                    </el-tab-pane>
+                    <el-tab-pane v-for="(item, index) in tabs"
+                                 :key="item.name"
+                                 :label="item.label"
+                                 :name="item.name" closable>
+                        <iframe :src="item.url" width="100%" style="height: 800px" frameborder="0"></iframe>
+                    </el-tab-pane>
+                </el-tabs>
+            </el-main>
+        </el-container>
     </el-container>
 </div>
 <div th:replace="layout/front::script">
