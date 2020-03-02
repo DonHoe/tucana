@@ -13,6 +13,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +27,9 @@ import java.util.stream.Collectors;
 public class SystemController {
 
     private static final Logger log = LoggerFactory.getLogger(SystemController.class);
+
+    @Value("login.default-password")
+    String defaultPassword;
 
     @Autowired
     SystemService systemService;
@@ -265,18 +269,41 @@ public class SystemController {
         CommonResponse<Integer> response = new CommonResponse();
         try {
             response.setResponseEnum(ResponseEnum.Code_1000);
+
+            //ValidatorUtils
+
             Integer result = 0;
-            user.randomSalt();
-            user.setPassword(systemService.encryptPassword(user.getUserName(), user.getPassword(), user.getSalt()));
             if (user.getId() == null || user.getId().intValue() == 0) {
+                user.setPassword(defaultPassword);
+                user.randomSalt();
+                user.setPassword(systemService.encryptPassword(user.getUserName(), user.getPassword(), user.getSalt()));
                 result = systemService.addUser(user);
             } else {
+                user.setPassword(null);
                 result = systemService.editUser(user);
             }
             response.setResult(result);
         } catch (Exception e) {
             response.setResponseEnum(ResponseEnum.Code_999);
             log.error("保存用户异常", e);
+        }
+        return response;
+    }
+
+    /**
+     * 修改密码
+     *
+     * @param user
+     * @return
+     */
+    @PostMapping(value = "changePassword")
+    @ResponseBody
+    public CommonResponse<Integer> changePassword(@RequestBody User user) {
+        CommonResponse<Integer> response = new CommonResponse();
+        try {
+
+        } catch (Exception e) {
+
         }
         return response;
     }

@@ -23,6 +23,8 @@ spring:
 mybatis:
   mapper-locations: classpath:mappings/*.xml
   type-aliases-package: com.hepic.tucana.model
+login:
+  defalut-password: 123456
 logging:
   level:
     com.hepic.tucana.dal.dao: debug

@@ -79,12 +79,30 @@ public class HomeController extends BaseController {
             responseDto.setResponseEnum(ResponseEnum.Code_901);
         } catch (IncorrectCredentialsException e) {
             responseDto.setResponseEnum(ResponseEnum.Code_902);
-        } catch (Exception e){
+        } catch (Exception e) {
             responseDto.setResponseEnum(ResponseEnum.Code_999);
         }
         return JSON.toJSONString(responseDto);
     }
 
+    /**
+     * 登出
+     *
+     * @return
+     */
+    @PostMapping("loginOut")
+    @ResponseBody
+    public String loginOut() {
+        CommonResponse<String> responseDto = new CommonResponse<>();
+        responseDto.setResponseEnum(ResponseEnum.Code_1000);
+        try {
+            Subject currentUser = SecurityUtils.getSubject();
+            currentUser.logout();
+        } catch (Exception e) {
+            responseDto.setResponseEnum(ResponseEnum.Code_999);
+        }
+        return JSON.toJSONString(responseDto);
+    }
 
     /**
      * 获取随机验证码

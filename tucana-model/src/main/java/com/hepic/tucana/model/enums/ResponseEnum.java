@@ -8,12 +8,17 @@ package com.hepic.tucana.model.enums;
  */
 public enum ResponseEnum {
 
+    //正常返回值
+    Code_1000(1000, "Success"),
+
+    Code_2000(2000, "缺少参数"),
+
     //Login
     Code_900(900, "验证码错误"),
     Code_901(901, "用户不存在"),
     Code_902(902, "密码不正确"),
 
-    Code_1000(1000, "Success"),
+    //保底异常
     Code_999(999, "Error");
 
     /**

@@ -2,6 +2,7 @@ package com.hepic.tucana.model.shiro;
 
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 import java.util.List;
 
@@ -18,11 +19,13 @@ public class User {
     /**
      * 用户名
      */
+    @NotBlank
     private String userName;
 
     /**
      * 登录名
      */
+    @NotBlank
     private String loginName;
 
     /**
