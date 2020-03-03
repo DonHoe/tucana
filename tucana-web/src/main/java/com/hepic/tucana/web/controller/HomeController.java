@@ -19,6 +19,7 @@ import org.apache.shiro.subject.Subject;
 import org.eclipse.bittorrent.internal.encode.BEncodedDictionary;
 import org.eclipse.bittorrent.internal.encode.Decode;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,7 +42,8 @@ import java.util.List;
 public class HomeController extends BaseController {
 
     @GetMapping(path = "/home")
-    public String index() {
+    public String index(ModelMap model) {
+        model.addAttribute("user", getCurrentUser());
         return "home";
     }
 
@@ -90,9 +92,9 @@ public class HomeController extends BaseController {
      *
      * @return
      */
-    @PostMapping("loginOut")
+    @PostMapping("logout")
     @ResponseBody
-    public String loginOut() {
+    public String logout() {
         CommonResponse<String> responseDto = new CommonResponse<>();
         responseDto.setResponseEnum(ResponseEnum.Code_1000);
         try {
