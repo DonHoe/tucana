@@ -5,7 +5,6 @@ import com.hepic.tucana.model.shiro.User;
 import com.hepic.tucana.util.CommonUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
-import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
