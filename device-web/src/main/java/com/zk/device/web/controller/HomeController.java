@@ -1,9 +1,11 @@
 package com.zk.device.web.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 import com.zk.device.model.common.CommonResponse;
 import com.zk.device.model.enums.ResponseEnum;
 import com.zk.device.model.exception.BaseException;
+import com.zk.device.util.constant.ConstantString;
 import com.zk.device.web.base.BaseController;
 import com.zk.device.web.base.ValidateCode;
 
@@ -50,7 +52,7 @@ public class HomeController extends BaseController {
 
     @PostMapping("doLogin")
     @ResponseBody
-    public String doLogin(String userName, String password) {
+    public String doLogin(String userName, String password, String remember) {
         CommonResponse<String> responseDto = new CommonResponse<>();
         responseDto.setResponseEnum(ResponseEnum.Code_1000);
         try {
@@ -61,6 +63,9 @@ public class HomeController extends BaseController {
             //}
             Subject currentUser = SecurityUtils.getSubject();
             UsernamePasswordToken token = new UsernamePasswordToken(userName, password);
+            if (ConstantString.STRING_1.equals(remember)) {
+                token.setRememberMe(true);
+            }
             currentUser.login(token);
             Session session = currentUser.getSession();
             session.setAttribute("userName", userName);

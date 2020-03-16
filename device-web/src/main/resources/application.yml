@@ -27,7 +27,7 @@ login:
   defalut-password: 123456
 logging:
   level:
-    com.zk.device.dal.dao: debug
+    com.zk.device.dal: debug
 
 pagehelper:
   helper-dialect: mysql
