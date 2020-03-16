@@ -1,4 +1,4 @@
-修改
+新建数据库data 导入 /sql/login.sql
 sys_user 表中新增记录   
 登录名:admin  
 密码:825166da5db085b589fee43c7d668ca8 

@@ -6,7 +6,7 @@ spring:
     username: root
     password: 1q2w3e
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://192.168.0.105:3306/data?serverTimezone=UTC
+    url: jdbc:mysql://127.0.0.1:3306/data?serverTimezone=UTC
   data:
     mongodb:
       uri: mongodb://127.0.0.1:27017/data

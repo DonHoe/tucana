@@ -52,7 +52,7 @@ public class HomeController extends BaseController {
 
     @PostMapping("doLogin")
     @ResponseBody
-    public String doLogin(String userName, String password, String remember) {
+    public String doLogin(String userName, String password, String remember, String code, HttpServletRequest request) {
         CommonResponse<String> responseDto = new CommonResponse<>();
         responseDto.setResponseEnum(ResponseEnum.Code_1000);
         try {
