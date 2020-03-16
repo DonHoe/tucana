@@ -34,11 +34,11 @@ public class ShiroRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         UsernamePasswordToken userNameToken = (UsernamePasswordToken) token;
         String password = new String(userNameToken.getPassword());
-        User user = systemService.selectSysUserByName(userNameToken.getUsername());
+        User user = systemService.selectSysUserByLoginName(userNameToken.getUsername());
         if (user == null) {
             throw new UnknownAccountException();
         }
-        if (user.getPassword() == null || !user.getPassword().equals(systemService.encryptPassword(user.getUserName(), password, user.getSalt()))) {
+        if (user.getPassword() == null || !user.getPassword().equals(systemService.encryptPassword(user.getLoginName(), password, user.getSalt()))) {
             throw new IncorrectCredentialsException();
         }
         SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, password, getName());

@@ -142,7 +142,7 @@ public interface SystemService {
      * @param userName
      * @return
      */
-    User selectSysUserByName(String userName);
+    User selectSysUserByLoginName(String userName);
 
     /**
      * 加密密码

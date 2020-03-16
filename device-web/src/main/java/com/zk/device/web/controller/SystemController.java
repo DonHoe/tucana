@@ -149,7 +149,6 @@ public class SystemController extends BaseController {
      * @param role
      * @return
      */
-    @RequiresPermissions("dispatch:shipBerth:view")
     @GetMapping(value = "getRoleList")
     @ResponseBody
     public CommonResponse<List<Role>> getRoleList(Role role) {
@@ -277,7 +276,7 @@ public class SystemController extends BaseController {
             if (user.getId() == null || user.getId().intValue() == 0) {
                 user.setPassword(defaultPassword);
                 user.randomSalt();
-                user.setPassword(systemService.encryptPassword(user.getUserName(), user.getPassword(), user.getSalt()));
+                user.setPassword(systemService.encryptPassword(user.getLoginName(), user.getPassword(), user.getSalt()));
                 result = systemService.addUser(user);
             } else {
                 user.setPassword(null);

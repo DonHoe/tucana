@@ -43,7 +43,7 @@
         where id = #{id}
     </select>
 
-    <select id="selectSysUserByName" parameterType="String" resultMap="SysUserResultMap">
+    <select id="selectSysUserByLoginName" parameterType="String" resultMap="SysUserResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM sys_user

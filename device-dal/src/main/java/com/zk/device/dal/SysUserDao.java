@@ -19,7 +19,7 @@ public interface SysUserDao {
 
     List<String> findPermitByUserId(Long userId);
 
-    User selectSysUserByName(String userName);
+    User selectSysUserByLoginName(String userName);
 
     int insertSysUser(User model);
 

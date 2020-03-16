@@ -247,8 +247,8 @@ public class SystemServiceImpl implements SystemService {
      * @return
      */
     @Override
-    public User selectSysUserByName(String userName) {
-        return sysUserDao.selectSysUserByName(userName);
+    public User selectSysUserByLoginName(String userName) {
+        return sysUserDao.selectSysUserByLoginName(userName);
     }
 
     /**
