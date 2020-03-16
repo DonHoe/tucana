@@ -1,0 +1,36 @@
+server:
+  port: 5566
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: 1q2w3e
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://192.168.0.105:3306/data?serverTimezone=UTC
+  data:
+    mongodb:
+      uri: mongodb://127.0.0.1:27017/data
+  thymeleaf:
+    prefix: classpath:/templates/
+    check-template-location: true
+    suffix: .html
+    encoding: UTF-8
+    mode: HTML
+    cache: false
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    timeZone: GMT+8
+mybatis:
+  mapper-locations: classpath:mappings/*.xml
+  type-aliases-package: com.zk.device.model
+login:
+  defalut-password: 123456
+logging:
+  level:
+    com.zk.device.dal.dao: debug
+
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql

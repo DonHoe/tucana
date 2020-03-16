@@ -1,0 +1,124 @@
+package com.zk.device.web.controller;
+
+import com.zk.device.model.dal.Columns;
+import com.zk.device.model.dal.TableInfo;
+import com.zk.device.model.common.CommonResponse;
+import com.zk.device.model.enums.ResponseEnum;
+import com.zk.device.service.impl.InformationSchemaService;
+import com.zk.device.model.exception.BaseException;
+import com.zk.device.web.base.BaseController;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+
+
+@Controller
+@RequestMapping("/setting")
+public class SettingController extends BaseController {
+
+    private static final Logger log = LoggerFactory.getLogger(SettingController.class);
+
+    /**
+     * 数据库架构服务类
+     */
+    @Autowired
+    private InformationSchemaService informationSchemaService;
+
+    @GetMapping("/code")
+    public String code() {
+        return "code/code";
+    }
+
+    /**
+     * 获取表集合
+     *
+     * @return
+     */
+    @GetMapping("getTableList")
+    @ResponseBody
+    public CommonResponse<List<TableInfo>> getTableList() {
+        CommonResponse<List<TableInfo>> response = new CommonResponse();
+        try {
+            response.setResponseEnum(ResponseEnum.Code_1000);
+            List<TableInfo> result = informationSchemaService.getTableList();
+            response.setResult(result);
+        } catch (Exception e) {
+            response.setResponseEnum(ResponseEnum.Code_999);
+            log.error("获取表集合异常", e);
+        }
+        return response;
+    }
+
+    /**
+     * 获取列集合
+     *
+     * @param tableName
+     * @return
+     */
+    @GetMapping("getColumnsList")
+    @ResponseBody
+    public CommonResponse<List<Columns>> getColumnsList(String table) {
+        CommonResponse<List<Columns>> response = new CommonResponse();
+        try {
+            response.setResponseEnum(ResponseEnum.Code_1000);
+            List<Columns> result = informationSchemaService.getColumnsList(table);
+            response.setResult(result);
+        } catch (Exception e) {
+            response.setResponseEnum(ResponseEnum.Code_999);
+            log.error("获取列集合异常", e);
+        }
+        return response;
+    }
+
+    /**
+     * 获取列集合
+     *
+     * @param tableName
+     * @return
+     */
+    @GetMapping("getTableInfo")
+    @ResponseBody
+    public CommonResponse<TableInfo> getTableInfo(String table) {
+        CommonResponse<TableInfo> response = new CommonResponse();
+        try {
+            response.setResponseEnum(ResponseEnum.Code_1000);
+            TableInfo result = informationSchemaService.generateTableInfo(table);
+            response.setResult(result);
+        } catch (Exception e) {
+            response.setResponseEnum(ResponseEnum.Code_999);
+            log.error("获取列集合异常", e);
+        }
+        return response;
+    }
+
+    /**
+     * 代码构建
+     *
+     * @return
+     */
+    @RequestMapping("/codeCreate")
+    @ResponseBody
+    public void codeCreate(HttpServletResponse response, String table) {
+        CommonResponse<String> responseDto = new CommonResponse<>();
+        try {
+            byte[] data = informationSchemaService.codeCreate(table);
+            response.reset();
+            response.setHeader("Content-Disposition", "attachment; filename=\"code.zip\"");
+            response.addHeader("Content-Length", "" + data.length);
+            response.addHeader("Access-Control-Allow-Origin", "*");
+            response.setContentType("application/octet-stream; charset=UTF-8");
+            response.getOutputStream().write(data);
+        } catch (BaseException e) {
+        } catch (Exception e) {
+            log.error("", e);
+        }
+    }
+}

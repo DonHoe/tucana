@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>./log/logback.log</file>
+        <append>true</append>
+
+        <!-- 以日期+文件大小切割 方式-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>./log/logback_%d{yyyy-MM-dd}_%i.log
+            </fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS,GMT+8} [%t] %p %m%n</pattern>
+            <charset class="java.nio.charset.Charset">UTF-8</charset>
+        </encoder>
+    </appender>
+    <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>256</queueSize>
+        <appender-ref ref="FILE"/>
+    </appender>
+    <!--<appender name="DB"  class="ch.qos.logback.classic.db.DBAppender">-->
+        <!--<connectionSource-->
+                <!--class="ch.qos.logback.core.db.DriverManagerConnectionSource">-->
+            <!--<driverClass>com.mysql.jdbc.Driver</driverClass>-->
+            <!--<url>jdbc:mysql://127.0.0.1:3306/data?serverTimezone=UTC</url>-->
+            <!--<user>root</user>-->
+            <!--<password>123456</password>-->
+        <!--</connectionSource>-->
+    <!--</appender>-->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{20} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <logger name="com.zk.device" level="INFO" additivity="false">
+        <!--<appender-ref ref="DB"/>-->
+        <appender-ref ref="STDOUT" />
+    </logger>
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILE" />
+    </root>
+</configuration>

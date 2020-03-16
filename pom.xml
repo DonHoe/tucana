@@ -3,12 +3,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.hepic</groupId>
-    <artifactId>tucana</artifactId>
+    <groupId>com.zk</groupId>
+    <artifactId>device</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
 
-    <name>tucana</name>
+    <name>device</name>
     <description></description>
 
     <parent>
@@ -99,12 +99,11 @@
     </dependencies>
 
     <modules>
-        <module>tucana-web</module>
-        <module>tucana-dal</module>
-        <module>tucana-service</module>
-        <module>tucana-util</module>
-        <module>tucana-model</module>
-        <module>tucana-job</module>
+        <module>device-web</module>
+        <module>device-dal</module>
+        <module>device-service</module>
+        <module>device-util</module>
+        <module>device-model</module>
     </modules>
 
 </project>
