@@ -1,5 +1,6 @@
 package com.hepic.tucana.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.hepic.tucana.dal.dao.SysMenuDao;
 import com.hepic.tucana.dal.dao.SysRoleDao;
 import com.hepic.tucana.dal.dao.SysUserDao;
@@ -7,6 +8,8 @@ import com.hepic.tucana.model.shiro.Menu;
 import com.hepic.tucana.model.shiro.Role;
 import com.hepic.tucana.model.shiro.User;
 import com.hepic.tucana.service.SystemService;
+import com.hepic.tucana.util.HttpClientUtil;
+import com.hepic.tucana.util.model.HttpClientResult;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -261,6 +264,19 @@ public class SystemServiceImpl implements SystemService {
      */
     public String encryptPassword(String userName, String password, String salt) {
         return new Md5Hash(userName + password + salt).toHex();
+    }
+
+    public User validateToken(String token) {
+        User user = null;
+        try {
+            HttpClientResult httpClientResult = HttpClientUtil.get("http://a.device.com:5566/validateToken?token=" + token);
+            if (httpClientResult != null && httpClientResult.getCode() == 200) {
+                user = JSON.parseObject(httpClientResult.getContent(), User.class);
+            }
+        } catch (Exception e) {
+
+        }
+        return user;
     }
 
     /**

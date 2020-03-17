@@ -32,6 +32,8 @@ public interface SystemService {
      */
     int editMenu(Menu menu);
 
+    public User validateToken(String token);
+
     /**
      * 删除菜单
      *
