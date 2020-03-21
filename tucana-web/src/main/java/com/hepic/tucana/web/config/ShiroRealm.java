@@ -47,7 +47,7 @@ public class ShiroRealm extends AuthorizingRealm {
         if (user.getPassword() == null || !user.getPassword().equals(encodePassword)) {
             throw new IncorrectCredentialsException();
         }
-        SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, StringUtils.EMPTY, getName());
+        SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, password, getName());
         return info;
     }
 }
