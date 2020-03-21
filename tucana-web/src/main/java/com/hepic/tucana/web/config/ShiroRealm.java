@@ -37,17 +37,12 @@ public class ShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         UsernamePasswordToken userNameToken = (UsernamePasswordToken) token;
-        //String password = new String(userNameToken.getPassword());
-        //User user = systemService.selectSysUserByName(userNameToken.getUsername());
-        //if (user == null) {
-        //    throw new UnknownAccountException();
-        //}
-        //if (user.getPassword() == null || !user.getPassword().equals(systemService.encryptPassword(user.getUserName(), password, user.getSalt()))) {
-        //    throw new IncorrectCredentialsException();
-        //}
-        String username = userNameToken.getUsername();
-        User user = systemService.validateToken(username);
-        if (user == null){
+        String password = new String(userNameToken.getPassword());
+        User user = systemService.selectSysUserByName(userNameToken.getUsername());
+        if (user == null) {
+            throw new UnknownAccountException();
+        }
+        if (user.getPassword() == null || !user.getPassword().equals(systemService.encryptPassword(user.getUserName(), password, user.getSalt()))) {
             throw new IncorrectCredentialsException();
         }
         SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, StringUtils.EMPTY, getName());

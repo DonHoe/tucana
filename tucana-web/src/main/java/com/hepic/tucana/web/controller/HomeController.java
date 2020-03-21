@@ -4,20 +4,15 @@ import com.alibaba.fastjson.JSON;
 import com.hepic.tucana.model.common.CommonResponse;
 import com.hepic.tucana.model.enums.ResponseEnum;
 import com.hepic.tucana.model.exception.BaseException;
-import com.hepic.tucana.util.TorrentUtil;
 import com.hepic.tucana.web.base.BaseController;
 import com.hepic.tucana.web.base.ValidateCode;
 
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
-import org.eclipse.bittorrent.internal.encode.BEncodedDictionary;
-import org.eclipse.bittorrent.internal.encode.Decode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -25,11 +20,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * @author tucana
@@ -64,11 +54,6 @@ public class HomeController extends BaseController {
         CommonResponse<String> responseDto = new CommonResponse<>();
         responseDto.setResponseEnum(ResponseEnum.Code_1000);
         try {
-            //Object objCode = request.getSession().getAttribute("code");
-            //String _code = objCode.toString().toLowerCase();
-            //if (!code.equals(_code)) {
-            //    throw new BaseException(ResponseEnum.Code_900);
-            //}
             Subject currentUser = SecurityUtils.getSubject();
             UsernamePasswordToken token = new UsernamePasswordToken(userName, password);
             currentUser.login(token);

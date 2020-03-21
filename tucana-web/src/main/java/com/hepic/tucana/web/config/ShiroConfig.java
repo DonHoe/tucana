@@ -4,7 +4,6 @@ import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSource
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.mgt.SecurityManager;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -12,7 +11,7 @@ import javax.servlet.Filter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-@Configuration
+//@Configuration
 public class ShiroConfig {
 
 
@@ -21,7 +20,6 @@ public class ShiroConfig {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         Map<String, Filter> filters = new LinkedHashMap<>();
-        filters.put("authc", sSOFilter());
 
         shiroFilterFactoryBean.setFilters(filters);
         //拦截器.
@@ -34,19 +32,12 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/**", "authc");
         //authc:所有url必须通过认证才能访问，anon:所有url都可以匿名访问
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
-        //shiroFilterFactoryBean.setLoginUrl("/login");
+        shiroFilterFactoryBean.setLoginUrl("/login");
         //shiroFilterFactoryBean.setUnauthorizedUrl("/unauthc");
-        //shiroFilterFactoryBean.setSuccessUrl("/home");
-
+        shiroFilterFactoryBean.setSuccessUrl("/home");
 
 
         return shiroFilterFactoryBean;
-    }
-
-    @Bean
-    public SSOFilter sSOFilter() {
-        SSOFilter sSOFilter = new SSOFilter();
-        return sSOFilter;
     }
 
     @Bean
