@@ -4,6 +4,7 @@ import com.hepic.tucana.model.shiro.User;
 import com.hepic.tucana.service.SystemService;
 import com.hepic.tucana.model.enums.ResponseEnum;
 import com.hepic.tucana.model.exception.BaseException;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -42,7 +43,8 @@ public class ShiroRealm extends AuthorizingRealm {
         if (user == null) {
             throw new UnknownAccountException();
         }
-        if (user.getPassword() == null || !user.getPassword().equals(systemService.encryptPassword(user.getUserName(), password, user.getSalt()))) {
+        String encodePassword = DigestUtils.md5Hex(password);
+        if (user.getPassword() == null || !user.getPassword().equals(encodePassword)) {
             throw new IncorrectCredentialsException();
         }
         SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, StringUtils.EMPTY, getName());

@@ -9,7 +9,9 @@ import com.hepic.tucana.service.SystemService;
 
 import com.hepic.tucana.util.CommonUtil;
 import com.hepic.tucana.web.base.BaseController;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -278,7 +280,7 @@ public class SystemController extends BaseController {
             if (user.getId() == null || user.getId().intValue() == 0) {
                 user.setPassword(defaultPassword);
                 user.randomSalt();
-                user.setPassword(systemService.encryptPassword(user.getUserName(), user.getPassword(), user.getSalt()));
+                user.setPassword(DigestUtils.md5Hex(user.getPassword()));
                 result = systemService.addUser(user);
             } else {
                 user.setPassword(null);
@@ -303,9 +305,13 @@ public class SystemController extends BaseController {
     public CommonResponse<Integer> changePassword(@RequestBody User user) {
         CommonResponse<Integer> response = new CommonResponse();
         try {
-
+            if (user == null || user.getId() == null || StringUtils.isBlank(user.getPassword())) {
+                response.setResponseEnum(ResponseEnum.Code_2000);
+                return response;
+            }
         } catch (Exception e) {
-
+            response.setResponseEnum(ResponseEnum.Code_999);
+            log.error("修改密码异常", e);
         }
         return response;
     }
