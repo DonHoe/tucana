@@ -51,14 +51,14 @@
             <el-main style="padding: 5px;">
                 <el-tabs type="border-card" :value="activeTab" @tab-remove="removeTab">
                     <el-tab-pane key="首页" label="首页" name="dashboard">
-                        <iframe src="/dashboard" width="100%" style="height: calc(100% - 100px)"
+                        <iframe src="/dashboard" width="100%" onload="this.height = (document.body.scrollHeight + 230)"
                                 frameborder="0"></iframe>
                     </el-tab-pane>
                     <el-tab-pane v-for="(item, index) in tabs"
                                  :key="item.name"
                                  :label="item.label"
                                  :name="item.name" closable>
-                        <iframe :src="item.url" width="100%" style="height: calc(100% - 100px)"
+                        <iframe :src="item.url" width="100%" onload="this.height = (document.body.scrollHeight + 230)"
                                 frameborder="0"></iframe>
                     </el-tab-pane>
                 </el-tabs>
